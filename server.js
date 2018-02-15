@@ -4,28 +4,55 @@
  * Module dependencies.
  */
 
-var app = require('./app');
-var debug = require('debug')('estimation:server');
-var http = require('http');
+const config = require('./config');
+const restify = require('restify');
+const restifyPlugins = require('restify-plugins');
+//const app = require('./app');
+const debug = require('debug')('estimation:server');
+const mysql = require('mysql');
 
 /**
  * Get port from environment and store in Express.
  */
 
-var port = normalizePort(process.env.PORT || '3001');
-app.set('port', port);
+const port = normalizePort(config.port);
+//app.set('port', port);
 
 /**
- * Create HTTP server.
+ * Create REST server.
  */
 
-var server = http.createServer(app);
+const server = restify.createServer({
+  name: config.name,
+  version: config.version,
+});
+
+/**
+ * Middleware
+ */
+server.use(restifyPlugins.jsonBodyParser({ mapParams: true }));
+server.use(restifyPlugins.acceptParser(server.acceptable));
+server.use(restifyPlugins.queryParser({ mapParams: true }));
+server.use(restifyPlugins.fullResponse());
 
 /**
  * Listen on provided port, on all network interfaces.
  */
 
-server.listen(port);
+server.listen(port, function () {
+
+  const db = mysql.createConnection(config.db.uri);
+
+  db.connect(function(err) {
+    if (err) throw err;
+    console.log("MySQL Connected!");
+    require('./routes')(server);
+    console.log('Server listening at %s', port);
+  });
+
+
+});
+
 server.on('error', onError);
 server.on('listening', onListening);
 
