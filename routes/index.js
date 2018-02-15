@@ -1,9 +1,15 @@
-var express = require('express');
-var router = express.Router();
+/**
+ * Module Dependencies
+ */
+const errors = require('restify-errors');
 
-/* GET home page. */
-router.get('/', function(req, res, next) {
-  res.render('index', { title: 'Express' });
-});
+module.exports = function(server) {
 
-module.exports = router;
+  /**
+   * GET
+   */
+  server.get('/', (req, res, next) => {
+      res.send("Hello World");
+      next();
+    });
+}
