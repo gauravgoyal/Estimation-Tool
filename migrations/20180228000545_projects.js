@@ -5,7 +5,9 @@ exports.up = function(knex, Promise) {
       table.increments('pid').primary();
       table.string('title');
       table.text('description', 'longtext');
-      table.timestamps();
+      table.integer('created');
+      table.integer('updated');
+      table.integer('deleted');
     }),
 
     knex.schema.createTable('rates', function(table) {
