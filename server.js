@@ -34,6 +34,8 @@ server.use(restifyPlugins.jsonBodyParser({ mapParams: true }));
 server.use(restifyPlugins.acceptParser(server.acceptable));
 server.use(restifyPlugins.queryParser({ mapParams: true }));
 server.use(restifyPlugins.fullResponse());
+server.use(restifyPlugins.bodyParser());
+
 
 /**
  * Listen on provided port, on all network interfaces.
@@ -46,7 +48,7 @@ server.listen(port, function () {
   db.connect(function(err) {
     if (err) throw err;
     console.log("MySQL Connected!");
-    require('./routes')(server);
+    require('./routes')(server, db);
     console.log('Server listening at %s', port);
   });
 
