@@ -4,12 +4,12 @@
  * Module dependencies.
  */
 
-const config = require('./config');
 const restify = require('restify');
 const restifyPlugins = require('restify-plugins');
 //const app = require('./app');
 const debug = require('debug')('estimation:server');
 const mysql = require('mysql');
+var db  = require('./db');
 
 /**
  * Get port from environment and store in Express.
@@ -40,17 +40,7 @@ server.use(restifyPlugins.fullResponse());
  */
 
 server.listen(port, function () {
-
-  const db = mysql.createConnection(config.db.uri);
-
-  db.connect(function(err) {
-    if (err) throw err;
-    console.log("MySQL Connected!");
-    require('./routes')(server);
-    console.log('Server listening at %s', port);
-  });
-
-
+  console.log('server started');
 });
 
 server.on('error', onError);
