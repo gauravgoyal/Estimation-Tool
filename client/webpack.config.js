@@ -26,10 +26,16 @@ module.exports = (env = {}) => {
     devtool: env.prod ? 'source-map' : 'cheap-module-eval-source-map',
     devServer: {
       contentBase: BUILD_DIR,
-      //   port: 9001,
+      port: 3000,
       compress: true,
       hot: true,
-      open: true
+      open: true,
+      proxy: {
+        "/api": {
+          target: "http://localhost:3001",
+          pathRewrite: {"^/api" : ""}
+        }
+      }
     },
     module: {
       rules: [
