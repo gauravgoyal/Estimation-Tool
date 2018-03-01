@@ -8,6 +8,15 @@ export default {
         variant: 'info',
         text: 'NEW'
       }
+    },
+    {
+      name: 'Rates',
+      url: '/rates',
+      icon: 'icon-speedometer',
+      badge: {
+        variant: 'info',
+        text: 'NEW'
+      }
     }
   ]
 };
