@@ -10,6 +10,15 @@ export default {
       }
     },
     {
+      name: 'Rates',
+      url: '/rates',
+      icon: 'icon-speedometer',
+      badge: {
+        variant: 'info',
+        text: 'NEW'
+      }
+    },
+    {
       name: 'Add Project',
       url: '/project/add',
       icon: 'icon-speedometer',
@@ -17,7 +26,6 @@ export default {
         variant: 'info',
         text: 'NEW'
       }
-    },
-
+    }
   ]
 };
