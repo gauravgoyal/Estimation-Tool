@@ -12,6 +12,7 @@ import {
   Label,
   Input
 } from 'reactstrap';
+import ProjectList from '../../project/components/ProjectList';
 
 class Rates extends Component {
 
@@ -45,6 +46,7 @@ class Rates extends Component {
                   <small>Global</small>
                 </CardHeader>
                 <CardBody>
+                  <ProjectList />
                   <FormGroup>
                     <Label htmlFor="category">Category</Label>
                     <Input onChange={this.updateValue.bind(this, 'category')} type="text" id="category" placeholder="Enter Category (E.g. Uncertainty buffer)"/>

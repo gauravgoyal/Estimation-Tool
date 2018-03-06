@@ -70,6 +70,38 @@ module.exports = function (server, knex) {
     })
   });
 
+  /**
+   * Get role rates defined in a project.
+   */
+  server.get('/rates/:pid', (req, res, next) => {
+    knex('rates').where('pid', req.params.pid).then(function(results) {
+      res.end(JSON.stringify(results));
+    })
+    .catch(function(error) {
+      throw error;
+    })
+  });
+
+  /**
+   * Save rates for a project.
+   */
+  server.post('/rates', function (req, res) {
+    var postData  = req.body;
+    knex('rates').insert({
+      category: req.body.category || '',
+      role: req.body.role,
+      rate: req.body.rate,
+      pid: req.body.pid,
+    }).then(function(results) {
+      res.end(JSON.stringify(results));
+    })
+    .catch(function(error) {
+       throw error;
+    })
+  });
+
+
+
 // //rest api to delete record from mysql database
 //   server.delete('/project/:id', function (req, res) {
 //     db.query('DELETE FROM `project` WHERE `pid`=?', [req.params.id], function (error, results, fields) {
