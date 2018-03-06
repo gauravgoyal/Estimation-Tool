@@ -85,7 +85,7 @@ module.exports = function (server, knex) {
   /**
    * Save rates for a project.
    */
-  server.post('/rates', function (req, res, next) {
+  server.post('/rates', function (req, res) {
     knex('rates').insert({
       category: req.body.category || '',
       role: req.body.role,
@@ -96,6 +96,26 @@ module.exports = function (server, knex) {
     })
     .catch(function(error) {
        throw error;
+    })
+  });
+
+  /**
+   * Updates rates for a project.
+   */
+  server.post('/rates/update/:rid', function (req, res, next) {
+    let now = Math.floor(Date.now() / 1000);
+    knex('rates').where({
+      rid: req.params.rid,
+      pid: req.body.pid
+    })
+    .update({
+      category: req.body.category,
+      role: req.body.role,
+      rate: req.body.rate
+    }).then(function(results) {
+      res.end(JSON.stringify(results));
+    }).catch(function(error) {
+      throw error;
     })
   });
 
