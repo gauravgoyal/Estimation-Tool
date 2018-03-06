@@ -1,0 +1,6 @@
+{
+  "name": "ProjectAdd",
+  "version": "0.0.0",
+  "private": true,
+  "main": "./ProjectAdd.js"
+}

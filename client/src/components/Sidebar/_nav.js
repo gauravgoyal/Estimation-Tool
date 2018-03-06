@@ -26,6 +26,15 @@ export default {
         variant: 'info',
         text: 'NEW'
       }
+    },
+    {
+      name: 'Project',
+      url: '/project/:pid',
+      icon: 'icon-speedometer',
+      badge: {
+        variant: 'info',
+        text: 'NEW'
+      }
     }
   ]
 };

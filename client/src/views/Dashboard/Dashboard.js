@@ -1,6 +1,6 @@
 import React, {Component} from 'react';
 import {Bar, Doughnut, Line, Pie, Polar, Radar} from 'react-chartjs-2';
-import {CardColumns, Col, Card, CardHeader, CardBody} from 'reactstrap';
+import {CardColumns, CardText, CardLink, Col, Card, CardHeader, CardBody} from 'reactstrap';
 
 class Dashboard extends Component {
 
@@ -30,10 +30,9 @@ class Dashboard extends Component {
                 </CardHeader>
                 <CardBody>
                   <div className="chart-wrapper">
-                    <p className="card-text"> Hello </p>
-                    <a className="card-link" href={`/project/${project.pid}`}>View</a>
-                    <a className="card-link"
-                       href={`/project/${project.pid}/edit`}>Edit</a>
+                    <CardText> Hello </CardText>
+                    <CardLink href={`#/project/${project.pid}`}>View</CardLink>
+                    <CardLink href={`#/project/${project.pid}/edit`}>Edit</CardLink>
                   </div>
                 </CardBody>
               </Card>

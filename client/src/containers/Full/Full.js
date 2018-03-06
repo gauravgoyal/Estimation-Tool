@@ -8,6 +8,8 @@ import Aside from '../../components/Aside/';
 import Footer from '../../components/Footer/';
 
 import Dashboard from '../../views/Dashboard/';
+import ProjectAdd from '../../views/ProjectAdd/';
+import Project from '../../views/Project/';
 import Rates from '../../views/Rates/';
 
 class Full extends Component {
@@ -23,6 +25,8 @@ class Full extends Component {
               <Switch>
                 <Route path="/dashboard" name="Dashboard" component={Dashboard}/>
                 <Route path="/rates" name="Rates" component={Rates}/>
+                <Route path="/project/add" name="ProjectAdd" component={ProjectAdd}/>
+                <Route path="/project/:pid" name="Project" component={Project}/>
                 <Redirect from="/" to="/dashboard"/>
               </Switch>
             </Container>
