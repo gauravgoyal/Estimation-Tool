@@ -73,7 +73,7 @@ module.exports = function (server, knex) {
   /**
    * Get role rates defined in a project.
    */
-  server.get('/rates/:pid', (req, res, next) => {
+  server.get('/rates/:pid', (req, res) => {
     knex('rates').where('pid', req.params.pid).then(function(results) {
       res.end(JSON.stringify(results));
     })
@@ -85,13 +85,12 @@ module.exports = function (server, knex) {
   /**
    * Save rates for a project.
    */
-  server.post('/rates', function (req, res) {
-    var postData  = req.body;
+  server.post('/rates', function (req, res, next) {
     knex('rates').insert({
       category: req.body.category || '',
       role: req.body.role,
       rate: req.body.rate,
-      pid: req.body.pid,
+      pid: req.body.pid
     }).then(function(results) {
       res.end(JSON.stringify(results));
     })

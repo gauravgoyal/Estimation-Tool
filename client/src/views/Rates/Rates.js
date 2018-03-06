@@ -19,11 +19,24 @@ class Rates extends Component {
   state = {
     category: '',
     role: '',
-    rate: ''
+    rate: '',
+    pid: ''
   };
 
-  onSubmitForm = () => {
+  onSubmitForm = (e) => {
+    var formData = new URLSearchParams();
+    for (let key in this.state) {
+      formData.append(key, this.state[key]);
+    }
+
     // Call API to save Data.
+    fetch("/api/rates", {
+      method: "POST",
+      headers: {
+        'Content-Type': 'application/x-www-form-urlencoded;charset=UTF-8',
+      },
+      body: formData
+    })
   };
 
   updateValue = (field, e) => {
@@ -46,7 +59,7 @@ class Rates extends Component {
                   <small>Global</small>
                 </CardHeader>
                 <CardBody>
-                  <ProjectList />
+                  <ProjectList onChange={this.updateValue.bind(this, 'pid')}/>
                   <FormGroup>
                     <Label htmlFor="category">Category</Label>
                     <Input onChange={this.updateValue.bind(this, 'category')} type="text" id="category" placeholder="Enter Category (E.g. Uncertainty buffer)"/>

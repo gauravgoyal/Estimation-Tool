@@ -18,7 +18,8 @@ class ProjectList extends Component {
     return (
       <FormGroup>
         <Label for="projectList">Select Project</Label>
-        <Input type="select" name="projectList" id="projectList">
+        <Input type="select" name="projectList" id="projectList" onChange= { this.props.onChange }>
+          <option key='select-project' value=''>Select Project</option>
           {projects.map((project) => {
             return <option key={ project.pid } value={ project.pid }>{ project.title }</option>
           })}
