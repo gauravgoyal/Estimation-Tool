@@ -1,0 +1,6 @@
+{
+  "name": "ProjectRates",
+  "version": "0.0.0",
+  "private": true,
+  "main": "./ProjectRates.js"
+}

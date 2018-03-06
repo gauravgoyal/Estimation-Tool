@@ -13,6 +13,7 @@ import {
   Input
 } from 'reactstrap';
 import ProjectList from '../../project/components/ProjectList';
+import ProjectRates from '../../project/components/ProjectRates';
 
 class Rates extends Component {
 
@@ -83,6 +84,11 @@ class Rates extends Component {
                   <Button type="submit" size="sm" color="primary"><i className="fa fa-dot-circle-o"></i> Submit</Button>
                 </CardFooter>
               </Form>
+            </Card>
+          </Col>
+          <Col xs="12" sm="6">
+            <Card>
+              <ProjectRates pid={ this.state.pid }/>
             </Card>
           </Col>
         </Row>
