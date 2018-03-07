@@ -104,7 +104,7 @@ class ProjectRates extends Component {
 
       );
     }
-    return <div>Loading...</div>;
+    return <div className="m-3 p-3"><h3>Please select a project to view rates!</h3></div>;
   }
 }
 
