@@ -28,7 +28,7 @@ class ProjectRates extends Component {
     .then(res => res.json())
     .then(
       (result) => {
-        if (result) {
+        if (result.status == 200) {
           let rates = this.state.rates;
           rates[index] = item;
           this.setState({

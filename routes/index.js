@@ -103,7 +103,6 @@ module.exports = function (server, knex) {
    * Updates rates for a project.
    */
   server.post('/rates/update/:rid', function (req, res, next) {
-    let now = Math.floor(Date.now() / 1000);
     knex('rates').where({
       rid: req.params.rid,
       pid: req.body.pid
@@ -113,9 +112,17 @@ module.exports = function (server, knex) {
       role: req.body.role,
       rate: req.body.rate
     }).then(function(results) {
-      res.end(JSON.stringify(results));
+      var response = {
+        result: results,
+        status: 200
+      };
+      res.end(JSON.stringify(response));
     }).catch(function(error) {
-      throw error;
+       var response = {
+        error: error,
+        status: 503
+      };
+      res.end(JSON.stringify(response));
     })
   });
 

@@ -63,19 +63,19 @@ class Rates extends Component {
                   <ProjectList onChange={this.updateValue.bind(this, 'pid')}/>
                   <FormGroup>
                     <Label htmlFor="category">Category</Label>
-                    <Input onChange={this.updateValue.bind(this, 'category')} type="text" id="category" placeholder="Enter Category (E.g. Uncertainty buffer)"/>
+                    <Input required onChange={this.updateValue.bind(this, 'category')} type="text" id="category" placeholder="Enter Category (E.g. Uncertainty buffer)"/>
                   </FormGroup>
                   <FormGroup row>
                     <Col xs="6">
                       <FormGroup>
                         <Label htmlFor="role">Role</Label>
-                        <Input onChange={this.updateValue.bind(this, 'role')} type="text" id="role" placeholder="Enter Role (E.g. Developer)"/>
+                        <Input required onChange={this.updateValue.bind(this, 'role')} type="text" id="role" placeholder="Enter Role (E.g. Developer)"/>
                       </FormGroup>
                     </Col>
                     <Col xs="6">
                       <FormGroup>
                         <Label htmlFor="rate">Rate: (in USD)</Label>
-                        <Input onChange={this.updateValue.bind(this, 'rate')} type="text" id="rate" placeholder="Enter Rate (E.g. 20)"/>
+                        <Input required onChange={this.updateValue.bind(this, 'rate')} type="text" id="rate" placeholder="Enter Rate (E.g. 20)"/>
                       </FormGroup>
                     </Col>
                   </FormGroup>
