@@ -8,6 +8,7 @@ import {
   TabContent,
   TabPane
 } from 'reactstrap';
+import classnames from 'classnames';
 
 import Rates from '../../../views/Rates/';
 import UncertainityFactors from '../../../views/UncertainityFactors/';
@@ -48,10 +49,20 @@ class ProjectTabs extends Component {
       <div>
         <Nav tabs>
           <NavItem>
-            <NavLink href="#" onClick={ this.toggleTab.bind(this, 'rates') }>Rates</NavLink>
+            <NavLink
+              className={classnames({ active: this.state.activeTab === 'rates' })}
+              href="#"
+              onClick={ this.toggleTab.bind(this, 'rates') }>
+              Rates
+            </NavLink>
           </NavItem>
           <NavItem>
-            <NavLink href="#" onClick={ this.toggleTab.bind(this, 'uncertainity_factors') }>Uncertainity Factors</NavLink>
+            <NavLink
+              className={classnames({ active: this.state.activeTab === 'uncertainity_factors' })}
+              href="#"
+              onClick={ this.toggleTab.bind(this, 'uncertainity_factors') }>
+              Uncertainity Factors
+            </NavLink>
           </NavItem>
         </Nav>
         <TabContent activeTab={this.state.activeTab}>

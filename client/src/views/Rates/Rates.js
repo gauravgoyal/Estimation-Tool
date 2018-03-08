@@ -10,7 +10,11 @@ import {
   Form,
   FormGroup,
   Label,
-  Input
+  Input,
+  Modal,
+  ModalHeader,
+  ModalBody,
+  ModalFooter
 } from 'reactstrap';
 import ProjectList from '../../project/components/ProjectList';
 import ProjectRates from '../../project/components/ProjectRates';
@@ -20,7 +24,8 @@ class Rates extends Component {
   state = {
     category: '',
     role: '',
-    rate: ''
+    rate: '',
+    modal: false
   };
 
   onSubmitForm = (e) => {
@@ -38,6 +43,7 @@ class Rates extends Component {
       },
       body: formData
     })
+    window.location.reload();
   };
 
   updateValue = (field, e) => {
@@ -47,6 +53,11 @@ class Rates extends Component {
       this.setState(data);
     }
   }
+  toggle = () => {
+    this.setState({
+      modal: !this.state.modal
+    });
+  }
 
   render() {
     return (
@@ -54,40 +65,71 @@ class Rates extends Component {
         <Row>
           <Col xs="12">
             <Card>
-              <Form onSubmit={this.onSubmitForm}>
-                <CardHeader>
-                  <strong>Rates</strong>
-                  <small>Global</small>
-                </CardHeader>
-                <CardBody>
-                  <FormGroup>
-                    <Label htmlFor="category">Category</Label>
-                    <Input required onChange={this.updateValue.bind(this, 'category')} type="text" id="category" placeholder="Enter Category (E.g. Uncertainty buffer)"/>
-                  </FormGroup>
-                  <FormGroup row>
-                    <Col xs="6">
-                      <FormGroup>
-                        <Label htmlFor="role">Role</Label>
-                        <Input required onChange={this.updateValue.bind(this, 'role')} type="text" id="role" placeholder="Enter Role (E.g. Developer)"/>
-                      </FormGroup>
-                    </Col>
-                    <Col xs="6">
-                      <FormGroup>
-                        <Label htmlFor="rate">Rate: (in USD)</Label>
-                        <Input required onChange={this.updateValue.bind(this, 'rate')} type="text" id="rate" placeholder="Enter Rate (E.g. 20)"/>
-                      </FormGroup>
-                    </Col>
-                  </FormGroup>
-                </CardBody>
-                <CardFooter>
-                  <Button type="submit" size="sm" color="primary"><i className="fa fa-dot-circle-o"></i> Submit</Button>
-                </CardFooter>
-              </Form>
-            </Card>
-          </Col>
-          <Col xs="12">
-            <Card>
+              <CardHeader>
+                <strong>Rates</strong>
+              </CardHeader>
               <ProjectRates pid={ this.props.pid }/>
+              <CardFooter>
+                <Button
+                  onClick={this.toggle.bind(this)}
+                  size="sm" color="primary">
+                  <i className="p-1 fa fa-dot-circle-o"></i> Add Rate
+                </Button>
+              </CardFooter>
+              <Modal isOpen={this.state.modal} toggle={this.toggle.bind(this)}>
+                <ModalHeader toggle={this.toggle.bind(this)}>Add Rate</ModalHeader>
+                <ModalBody>
+                  <Form onSubmit={this.onSubmitForm}>
+                    <FormGroup>
+                      <Label htmlFor="category">Category</Label>
+                      <Input
+                        required
+                        onChange={this.updateValue.bind(this, 'category')}
+                        type="text" id="category"
+                        placeholder="Enter Category (E.g. Uncertainty buffer)" />
+                    </FormGroup>
+                    <FormGroup row>
+                      <Col xs="6">
+                        <FormGroup>
+                          <Label htmlFor="role">Role</Label>
+                          <Input
+                            required
+                            onChange={this.updateValue.bind(this, 'role')}
+                            type="text"
+                            id="role"
+                            placeholder="Enter Role (E.g. Developer)" />
+                        </FormGroup>
+                      </Col>
+                      <Col xs="6">
+                        <FormGroup>
+                          <Label htmlFor="rate">Rate: (in USD)</Label>
+                          <Input
+                            required
+                            onChange={this.updateValue.bind(this, 'rate')}
+                            type="text"
+                            id="rate"
+                            placeholder="Enter Rate (E.g. 20)" />
+                        </FormGroup>
+                      </Col>
+                    </FormGroup>
+                  </Form>
+                </ModalBody>
+                <ModalFooter>
+                  <Button
+                    onClick={this.onSubmitForm}
+                    type="submit"
+                    size="sm"
+                    color="primary">
+                    <i className="fa fa-dot-circle-o"></i> Submit
+                  </Button>
+                  <Button
+                    onClick={this.toggle.bind(this)}
+                    size="sm"
+                    color="secondary">
+                    <i className="fa fa-dot-circle-o"></i> Cancel
+                  </Button>
+                </ModalFooter>
+              </Modal>
             </Card>
           </Col>
         </Row>
