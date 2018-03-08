@@ -16,6 +16,7 @@ class ProjectTabs extends Component {
 
   state = {
     activeTab: 'rates',
+    pid: ''
   };
 
   toggleTab = (tab) => {
@@ -23,6 +24,22 @@ class ProjectTabs extends Component {
       this.setState({
         activeTab: tab
       });
+    }
+  }
+
+  componentWillReceiveProps = (nextProps) => {
+    if (nextProps.pid != this.props.pid) {
+      this.setState({
+        pid: nextProps.pid
+      })
+    }
+  }
+
+  componentDidMount = () => {
+    if (this.state.pid == '') {
+      this.setState({
+        pid: this.props.pid
+      })
     }
   }
 
@@ -39,10 +56,10 @@ class ProjectTabs extends Component {
         </Nav>
         <TabContent activeTab={this.state.activeTab}>
           <TabPane tabId="rates">
-            <Rates pid={this.props.pid}  />
+            <Rates pid={this.state.pid}  />
           </TabPane>
           <TabPane tabId="uncertainity_factors">
-            <UncertainityFactors pid={this.props.pid} />
+            <UncertainityFactors pid={this.state.pid} />
           </TabPane>
         </TabContent>
       </div>

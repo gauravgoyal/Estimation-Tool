@@ -143,7 +143,7 @@ class Sidebar extends Component {
       if (project !== undefined) {
         let item = {
           name: project.title,
-          url: '/projects/' + project.pid,
+          url: '/project/' + project.pid,
           icon: 'icon-speedometer'
         };
         let oldItem = nav.items[nav.items.length - 1];

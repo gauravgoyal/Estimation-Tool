@@ -6,7 +6,8 @@ class ProjectRates extends Component {
 
   state = {
     rates: [],
-    loading: true
+    loading: true,
+    pid: ''
   }
 
   handleChange = (index, field, newState) => {
@@ -39,13 +40,23 @@ class ProjectRates extends Component {
     )
   }
 
-  componentDidMount = () => {
-    fetch('/api/rates/' + this.props.pid)
-    .then(res => res.json())
-    .then(rates => this.setState({
-      rates: rates,
-      loading: false
-    }));
+  componentWillReceiveProps = (nextProps) => {
+    if (nextProps.pid != this.props.pid) {
+      this.setState({
+        pid: nextProps.pid
+      })
+    }
+  }
+
+  componentDidUpdate = (prevProps, prevState) => {
+    if (prevState.pid != this.state.pid) {
+      fetch('/api/rates/' + this.state.pid)
+      .then(res => res.json())
+      .then(rates => this.setState({
+        rates: rates,
+        loading: false
+      }));
+    }
   }
 
   render = () => {
