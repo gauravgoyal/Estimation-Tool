@@ -43,7 +43,6 @@ class Sidebar extends Component {
 
 
   render() {
-
     const props = this.props;
 
     // badge addon to NavItem
@@ -139,10 +138,29 @@ class Sidebar extends Component {
       return items.map( (item, index) => navType(item, index) );
     };
 
+    const createProjectItems = (projects) => {
+      let project = projects[projects.length - 1];
+      if (project !== undefined) {
+        let item = {
+          name: project.title,
+          url: '/projects/' + project.pid,
+          icon: 'icon-speedometer'
+        };
+        let oldItem = nav.items[nav.items.length - 1];
+        if (oldItem.url !== item.url) {
+          nav.items.push(item);
+        }
+      }
+    }
+
     const isExternal = (url) => {
       const link = url ? url.substring(0, 4) : '';
       return link === 'http';
     };
+
+    if (this.props.projects) {
+      createProjectItems(this.props.projects);
+    }
 
     // sidebar-nav root
     return (

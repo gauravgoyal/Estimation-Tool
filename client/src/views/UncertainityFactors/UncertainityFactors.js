@@ -12,32 +12,23 @@ import {
   Label,
   Input
 } from 'reactstrap';
-import ProjectList from '../../project/components/ProjectList';
-import ProjectRates from '../../project/components/ProjectRates';
 
-class Rates extends Component {
-
-  state = {
-    category: '',
-    role: '',
-    rate: ''
-  };
+class UncertainityFactors extends Component {
 
   onSubmitForm = (e) => {
     var formData = new URLSearchParams();
-    formData.append('pid', this.props.pid);
     for (let key in this.state) {
       formData.append(key, this.state[key]);
     }
 
     // Call API to save Data.
-    fetch("/api/rates", {
-      method: "POST",
-      headers: {
-        'Content-Type': 'application/x-www-form-urlencoded;charset=UTF-8',
-      },
-      body: formData
-    })
+    // fetch("/api/rates", {
+    //   method: "POST",
+    //   headers: {
+    //     'Content-Type': 'application/x-www-form-urlencoded;charset=UTF-8',
+    //   },
+    //   body: formData
+    // })
   };
 
   updateValue = (field, e) => {
@@ -52,29 +43,29 @@ class Rates extends Component {
     return (
       <div className="animated fadeIn">
         <Row>
-          <Col xs="12">
+          <Col xs="12" sm="6">
             <Card>
               <Form onSubmit={this.onSubmitForm}>
                 <CardHeader>
-                  <strong>Rates</strong>
+                  <strong>Uncertainity Factors</strong>
                   <small>Global</small>
                 </CardHeader>
                 <CardBody>
                   <FormGroup>
-                    <Label htmlFor="category">Category</Label>
-                    <Input required onChange={this.updateValue.bind(this, 'category')} type="text" id="category" placeholder="Enter Category (E.g. Uncertainty buffer)"/>
+                    <Label htmlFor="title">Factor Title</Label>
+                    <Input required onChange={this.updateValue.bind(this, 'title')} type="text" id="title" placeholder="Enter Factor Title (E.g. Scope is vague)"/>
                   </FormGroup>
                   <FormGroup row>
                     <Col xs="6">
                       <FormGroup>
-                        <Label htmlFor="role">Role</Label>
-                        <Input required onChange={this.updateValue.bind(this, 'role')} type="text" id="role" placeholder="Enter Role (E.g. Developer)"/>
+                        <Label htmlFor="points">Factor Points</Label>
+                        <Input required onChange={this.updateValue.bind(this, 'points')} type="text" id="points" placeholder="Enter Factor Points (E.g. 1 or 4)"/>
                       </FormGroup>
                     </Col>
                     <Col xs="6">
                       <FormGroup>
-                        <Label htmlFor="rate">Rate: (in USD)</Label>
-                        <Input required onChange={this.updateValue.bind(this, 'rate')} type="text" id="rate" placeholder="Enter Rate (E.g. 20)"/>
+                        <Label htmlFor="lower_multiplier">Lower Multiplier: (in USD)</Label>
+                        <Input required onChange={this.updateValue.bind(this, 'lower_multiplier')} type="text" id="lower_multiplier" placeholder="Enter Lower estimate multiplier (E.g. 1 or 1.3)"/>
                       </FormGroup>
                     </Col>
                   </FormGroup>
@@ -85,9 +76,9 @@ class Rates extends Component {
               </Form>
             </Card>
           </Col>
-          <Col xs="12">
+          <Col xs="12" sm="6">
             <Card>
-              <ProjectRates pid={ this.props.pid }/>
+              <h3>Uncertainity Factors will come here</h3>
             </Card>
           </Col>
         </Row>
@@ -96,4 +87,4 @@ class Rates extends Component {
   }
 }
 
-export default Rates;
+export default UncertainityFactors;

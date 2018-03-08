@@ -23,7 +23,7 @@ class Dashboard extends Component {
                 <CardHeader>
                   {project.title}
                   <div className="card-actions">
-                    <a href={`/project/${project.pid}`}>
+                    <a onClick={this.props.addProject.bind(this, project)} href={`#/project/${project.pid}`}>
                       <small className="text-muted">View</small>
                     </a>
                   </div>
@@ -31,8 +31,8 @@ class Dashboard extends Component {
                 <CardBody>
                   <div className="chart-wrapper">
                     <CardText> Hello </CardText>
-                    <CardLink href={`#/project/${project.pid}`}>View</CardLink>
-                    <CardLink href={`#/project/${project.pid}/edit`}>Edit</CardLink>
+                    <CardLink onClick={this.props.addProject.bind(this, project)} href={`#/project/${project.pid}`}>View</CardLink>
+                    <CardLink onClick={this.props.addProject.bind(this, project)} href={`#/project/${project.pid}/edit`}>Edit</CardLink>
                   </div>
                 </CardBody>
               </Card>

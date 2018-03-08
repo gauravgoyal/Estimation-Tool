@@ -1,13 +1,12 @@
 import React, {Component} from 'react';
+import ProjectTabs from '../../project/components/ProjectTabs/';
 
 class Project extends Component {
 
   render() {
-    console.log(this.props);
     return (
       <div className="animated fadeIn">
-
-        Project id {this.props.match.params.pid}
+        <ProjectTabs pid={ this.props.match.params.pid } />
       </div>
     )
   }

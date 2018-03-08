@@ -39,15 +39,13 @@ class ProjectRates extends Component {
     )
   }
 
-  componentDidUpdate = (prevProps, prevState) => {
-    if (this.props.pid != prevProps.pid) {
-      fetch('/api/rates/' + this.props.pid)
-      .then(res => res.json())
-      .then(rates => this.setState({
-        rates: rates,
-        loading: false
-      }));
-    }
+  componentDidMount = () => {
+    fetch('/api/rates/' + this.props.pid)
+    .then(res => res.json())
+    .then(rates => this.setState({
+      rates: rates,
+      loading: false
+    }));
   }
 
   render = () => {
@@ -101,7 +99,6 @@ class ProjectRates extends Component {
             }
           </tbody>
         </Table>
-
       );
     }
     return <div className="m-3 p-3"><h3>Please select a project to view rates!</h3></div>;

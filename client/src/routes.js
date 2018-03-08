@@ -3,6 +3,7 @@ const routes = {
   '/dashboard': 'Dashboard',
   '/project/add': 'ProjectAdd',
   '/project/:pid': 'Project',
-  '/rates': 'Rates'
+  '/rates': 'Rates',
+  '/uncertainity-factors': 'Uncertainity Factors'
 };
 export default routes;

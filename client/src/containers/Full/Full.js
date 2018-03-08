@@ -10,21 +10,31 @@ import Footer from '../../components/Footer/';
 import Dashboard from '../../views/Dashboard/';
 import ProjectAdd from '../../views/ProjectAdd/';
 import Project from '../../views/Project/';
-import Rates from '../../views/Rates/';
 
 class Full extends Component {
+  state = {
+    projects: []
+  }
+
+  pushProject = (project, e) => {
+    let projects = this.state.projects;
+    projects.push(project);
+    this.setState({
+      projects : projects
+    })
+  }
+
   render() {
     return (
       <div className="app">
         <Header />
         <div className="app-body">
-          <Sidebar {...this.props}/>
+          <Sidebar {...this.props} projects={this.state.projects}/>
           <main className="main">
             <Breadcrumb />
             <Container fluid>
               <Switch>
-                <Route path="/dashboard" name="Dashboard" component={Dashboard}/>
-                <Route path="/rates" name="Rates" component={Rates}/>
+                <Route path="/dashboard" name="Dashboard" render={(props) => ( <Dashboard addProject={this.pushProject.bind(this)} />)}/>
                 <Route path="/project/add" name="ProjectAdd" component={ProjectAdd}/>
                 <Route path="/project/:pid" name="Project" component={Project}/>
                 <Redirect from="/" to="/dashboard"/>
