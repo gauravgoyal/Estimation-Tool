@@ -18,11 +18,18 @@ class ProjectAdd extends Component {
   state = {};
 
   onSubmitForm = () => {
-    console.log(this.state);
+    var formData = new URLSearchParams();
+    for (let key in this.state) {
+      formData.append(key, this.state[key]);
+    }
+
     // Call API to save Data.
     fetch("/api/project", {
       method: "POST",
-      body: this.state  //just pass the instance
+      headers: {
+        'Content-Type': 'application/x-www-form-urlencoded;charset=UTF-8',
+      },
+      body: formData
     })
   };
 
