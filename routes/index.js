@@ -27,11 +27,20 @@ module.exports = function (server, knex) {
   });
 
   server.get('/projects/:id', function (req, res) {
-    knex('projects').where('pid', req.params.id).then(function(results) {
-      res.end(JSON.stringify(results));
+    knex('projects').where('pid', req.params.id)
+    .then(function(results) {
+      var response = {
+        result: results,
+        status: 200
+      };
+      res.end(JSON.stringify(response));
     })
     .catch(function(error) {
-      throw error;
+       var response = {
+        error: error,
+        status: 503
+      };
+      res.end(JSON.stringify(response));
     })
   });
 
@@ -67,19 +76,32 @@ module.exports = function (server, knex) {
   });
 
 //rest api to update record into mysql database
-  server.put('/project', function (req, res) {
+  server.post('/project/update/:pid', function (req, res) {
     let now = Math.floor(Date.now() / 1000);
-    knex('projects').where('pid', req.body.pid)
+    knex('projects').where('pid', req.params.pid)
     .update({
-      title: req.body.title || '',
-      created: now,
-      updated: now,
-      deleted: 0,
-      description: req.body.description || ''
+      title: req.body.title,
+      description: req.body.description,
+      creator: req.body.creator,
+      owner: req.body.owner,
+      reviewer: req.body.reviewer,
+      signer: req.body.signer,
+      mlid: req.body.mlid,
+      type: req.body.type,
+      updated: now
     }).then(function(results) {
-      res.end(JSON.stringify(results));
-    }).catch(function(error) {
-      throw error;
+      var response = {
+        result: results,
+        status: 200
+      };
+      res.end(JSON.stringify(response));
+    })
+    .catch(function(error) {
+       var response = {
+        error: error,
+        status: 503
+      };
+      res.end(JSON.stringify(response));
     })
   });
 
