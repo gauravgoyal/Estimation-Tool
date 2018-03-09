@@ -31,6 +31,13 @@ class ProjectAdd extends Component {
       },
       body: formData
     })
+    .then((res) => res.json())
+    .then((result) => {
+      if (result.status === 200) {
+        window.location.href = '#/project/' + result.result.pop();
+      }
+    })
+
   };
 
   updateValue = (field, e) => {

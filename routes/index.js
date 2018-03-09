@@ -37,7 +37,6 @@ module.exports = function (server, knex) {
 
   //rest api to create a new record into mysql database
   server.post('/project', function (req, res) {
-    console.log(req.body);
     let now = Math.floor(Date.now() / 1000);
     knex('projects').insert({
       title: req.body.title || '',
@@ -52,10 +51,18 @@ module.exports = function (server, knex) {
       updated: now,
       deleted: 0
     }).then(function(results) {
-      res.end(JSON.stringify(results));
+      var response = {
+        result: results,
+        status: 200
+      };
+      res.end(JSON.stringify(response));
     })
     .catch(function(error) {
-       throw error;
+       var response = {
+        error: error,
+        status: 503
+      };
+      res.end(JSON.stringify(response));
     })
   });
 
