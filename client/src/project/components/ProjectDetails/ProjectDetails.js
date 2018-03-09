@@ -66,83 +66,81 @@ class ProjectDetails extends Component {
     }
     else {
       return (
-        <Col>
-          <div className="project-details" sm="6">
-            <Table>
-              <tbody>
-                <tr>
-                  <th scope="row">Title</th>
-                  <td>
-                    <RIEInput
-                      value={this.state.project.title}
-                      change={this.handleChange.bind(this, 'title')}
-                      propName='title'>
-                    </RIEInput>
-                  </td>
-                </tr>
-                <tr>
-                  <th scope="row">Description</th>
-                  <td>
-                    <RIEInput
-                      value={this.state.project.description}
-                      change={this.handleChange.bind(this, 'description')}
-                      propName='description'>
-                    </RIEInput>
-                  </td>
-                </tr>
-                <tr>
-                  <th scope="row">Creator</th>
-                  <td>
-                    <RIEInput
-                      value={this.state.project.creator}
-                      change={this.handleChange.bind(this, 'creator')}
-                      propName='creator'>
-                    </RIEInput>
-                  </td>
-                </tr>
-                <tr>
-                  <th scope="row">Owner</th>
-                  <td>
-                    <RIEInput
-                      value={this.state.project.owner}
-                      change={this.handleChange.bind(this, 'owner')}
-                      propName='owner'>
-                    </RIEInput>
-                  </td>
-                </tr>
-                <tr>
-                  <th scope="row">Reviewer</th>
-                  <td>
-                    <RIEInput
-                      value={this.state.project.reviewer}
-                      change={this.handleChange.bind(this, 'reviewer')}
-                      propName='reviewer'>
-                    </RIEInput>
-                  </td>
-                </tr>
-                <tr>
-                  <th scope="row">Signed By</th>
-                  <td>
-                    <RIEInput
-                      value={this.state.project.signer}
-                      change={this.handleChange.bind(this, 'signer')}
-                      propName='signer'>
-                    </RIEInput>
-                  </td>
-                </tr>
-                <tr>
-                  <th scope="row">MavenkLink ID</th>
-                  <td>
-                    <RIEInput
-                      value={this.state.project.mlid}
-                      change={this.handleChange.bind(this, 'mlid')}
-                      propName='mlid'>
-                    </RIEInput>
-                  </td>
-                </tr>
-              </tbody>
-            </Table>
-          </div>
+        <Col xs="12" sm="6" md="4">
+          <Table bordered>
+            <tbody>
+              <tr>
+                <th scope="row">Title</th>
+                <td>
+                  <RIEInput
+                    value={this.state.project.title}
+                    change={this.handleChange.bind(this, 'title')}
+                    propName='title'>
+                  </RIEInput>
+                </td>
+              </tr>
+              <tr>
+                <th scope="row">Description</th>
+                <td>
+                  <RIEInput
+                    value={this.state.project.description}
+                    change={this.handleChange.bind(this, 'description')}
+                    propName='description'>
+                  </RIEInput>
+                </td>
+              </tr>
+              <tr>
+                <th scope="row">Creator</th>
+                <td>
+                  <RIEInput
+                    value={this.state.project.creator}
+                    change={this.handleChange.bind(this, 'creator')}
+                    propName='creator'>
+                  </RIEInput>
+                </td>
+              </tr>
+              <tr>
+                <th scope="row">Owner</th>
+                <td>
+                  <RIEInput
+                    value={this.state.project.owner}
+                    change={this.handleChange.bind(this, 'owner')}
+                    propName='owner'>
+                  </RIEInput>
+                </td>
+              </tr>
+              <tr>
+                <th scope="row">Reviewer</th>
+                <td>
+                  <RIEInput
+                    value={this.state.project.reviewer}
+                    change={this.handleChange.bind(this, 'reviewer')}
+                    propName='reviewer'>
+                  </RIEInput>
+                </td>
+              </tr>
+              <tr>
+                <th scope="row">Signed By</th>
+                <td>
+                  <RIEInput
+                    value={this.state.project.signer}
+                    change={this.handleChange.bind(this, 'signer')}
+                    propName='signer'>
+                  </RIEInput>
+                </td>
+              </tr>
+              <tr>
+                <th scope="row">MavenkLink ID</th>
+                <td>
+                  <RIEInput
+                    value={this.state.project.mlid}
+                    change={this.handleChange.bind(this, 'mlid')}
+                    propName='mlid'>
+                  </RIEInput>
+                </td>
+              </tr>
+            </tbody>
+          </Table>
         </Col>
       )
     }
