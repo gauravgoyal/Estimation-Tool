@@ -81,8 +81,6 @@ class ProjectTabs extends Component {
           <TabPane tabId="uncertainity_factors">
             <UncertainityFactors pid={this.state.pid} />
           </TabPane>
-        </TabContent>
-        <TabContent activeTab={this.state.activeTab}>
           <TabPane tabId="project_details">
             <ProjectDetails pid={this.state.pid}  />
           </TabPane>
