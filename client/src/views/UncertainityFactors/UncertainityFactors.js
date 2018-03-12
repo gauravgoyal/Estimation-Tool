@@ -10,10 +10,24 @@ import {
   Form,
   FormGroup,
   Label,
-  Input
+  Input,
+  Modal,
+  ModalHeader,
+  ModalBody,
+  ModalFooter
 } from 'reactstrap';
 
 class UncertainityFactors extends Component {
+
+  state = {
+    modal: false
+  };
+
+  toggle = () => {
+    this.setState({
+      modal: !this.state.modal
+    });
+  }
 
   onSubmitForm = (e) => {
     var formData = new URLSearchParams();
@@ -43,14 +57,21 @@ class UncertainityFactors extends Component {
     return (
       <div className="animated fadeIn">
         <Row>
-          <Col xs="12" sm="6">
+          <Col xs="12">
             <Card>
-              <Form onSubmit={this.onSubmitForm}>
                 <CardHeader>
                   <strong>Uncertainity Factors</strong>
-                  <small>Global</small>
                 </CardHeader>
-                <CardBody>
+                <CardFooter>
+                  <Button
+                    onClick={this.toggle.bind(this)}
+                    size="sm" color="primary">
+                    <i className="p-1 fa fa-dot-circle-o"></i> Add Uncertainity Factor
+                  </Button>
+              </CardFooter>
+              <Modal isOpen={this.state.modal} toggle={this.toggle.bind(this)}>
+                <ModalHeader toggle={this.toggle.bind(this)}>Uncertainity Factors</ModalHeader>
+                <ModalBody>
                   <FormGroup>
                     <Label htmlFor="title">Factor Title</Label>
                     <Input required onChange={this.updateValue.bind(this, 'title')} type="text" id="title" placeholder="Enter Factor Title (E.g. Scope is vague)"/>
@@ -69,16 +90,11 @@ class UncertainityFactors extends Component {
                       </FormGroup>
                     </Col>
                   </FormGroup>
-                </CardBody>
-                <CardFooter>
+                </ModalBody>
+                <ModalFooter>
                   <Button type="submit" size="sm" color="primary"><i className="fa fa-dot-circle-o"></i> Submit</Button>
-                </CardFooter>
-              </Form>
-            </Card>
-          </Col>
-          <Col xs="12" sm="6">
-            <Card>
-              <h3>Uncertainity Factors will come here</h3>
+                </ModalFooter>
+              </Modal>
             </Card>
           </Col>
         </Row>

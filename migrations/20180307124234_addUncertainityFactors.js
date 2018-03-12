@@ -3,6 +3,7 @@ exports.up = function(knex, Promise) {
   return Promise.all([
     knex.schema.createTable('uncertainity_factors', function(table) {
       table.increments('ufid').primary();
+      table.integer('pid').unsigned().notNullable().references('pid').inTable('projects').onDelete('CASCADE').index();
       table.string('title');
       table.integer('points');
       table.decimal('lower_multiplier');
