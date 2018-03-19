@@ -161,6 +161,64 @@ module.exports = function (server, knex) {
     })
   });
 
+  /**
+   * Save uncertainity factors for a project.
+   */
+  server.post('/factors', function (req, res) {
+    knex('uncertainity_factors').insert({
+      title: req.body.title || '',
+      points: req.body.points,
+      lower_multiplier: req.body.lower_multiplier,
+      pid: req.body.pid,
+      heigher_multiplier: req.body.heigher_multiplier,
+    }).then(function(results) {
+      res.end(JSON.stringify(results));
+    })
+    .catch(function(error) {
+       throw error;
+    })
+  });
+
+  /**
+   * Updates uncertainity factors for a project.
+   */
+  server.post('/factors/update/:ufid', function (req, res, next) {
+    knex('uncertainity_factors').where({
+      ufid: req.params.ufid,
+      pid: req.body.pid
+    })
+    .update({
+      title: req.body.title || '',
+      points: req.body.points,
+      lower_multiplier: req.body.lower_multiplier,
+      heigher_multiplier: req.body.heigher_multiplier,
+    }).then(function(results) {
+      var response = {
+        result: results,
+        status: 200
+      };
+      res.end(JSON.stringify(response));
+    }).catch(function(error) {
+       var response = {
+        error: error,
+        status: 503
+      };
+      res.end(JSON.stringify(response));
+    })
+  });
+
+  /**
+   * Get uncertainity factors defined in a project.
+   */
+  server.get('/factors/:pid', (req, res) => {
+    knex('uncertainity_factors').where('pid', req.params.pid).then(function(results) {
+      res.end(JSON.stringify(results));
+    })
+    .catch(function(error) {
+      throw error;
+    })
+  });
+
 
 
 // //rest api to delete record from mysql database

@@ -43,7 +43,7 @@ class Rates extends Component {
       },
       body: formData
     })
-    window.location.reload();
+    this.toggle();
   };
 
   updateValue = (field, e) => {
@@ -68,7 +68,7 @@ class Rates extends Component {
               <CardHeader>
                 <strong>Rates</strong>
               </CardHeader>
-              <ProjectRates pid={ this.props.pid }/>
+              <ProjectRates refresh={this.state.modal} pid={ this.props.pid }/>
               <CardFooter>
                 <Button
                   onClick={this.toggle.bind(this)}

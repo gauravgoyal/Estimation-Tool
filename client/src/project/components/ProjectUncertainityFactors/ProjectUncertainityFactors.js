@@ -2,25 +2,25 @@ import React, {Component} from 'react';
 import { Table } from 'reactstrap';
 import {RIEInput} from 'riek';
 
-class ProjectRates extends Component {
+class ProjectUncertainityFactors extends Component {
 
   state = {
-    rates: [],
+    factors: [],
     loading: true,
     pid: '',
     refresh: false,
   }
 
   handleChange = (index, field, newState) => {
-    let item = this.state.rates[index];
+    let item = this.state.factors[index];
     item[field] = newState[field];
 
-    // Update rates.
+    // Update factors.
     var formData = new URLSearchParams();
     for (let key in item) {
       formData.append(key, item[key]);
     }
-    fetch('/api/rates/update/' + item.rid, {
+    fetch('/api/factors/update/' + item.ufid, {
       method: "POST",
       headers: {
         'Content-Type': 'application/x-www-form-urlencoded;charset=UTF-8',
@@ -31,10 +31,10 @@ class ProjectRates extends Component {
     .then(
       (result) => {
         if (result.status == 200) {
-          let rates = this.state.rates;
-          rates[index] = item;
+          let factors = this.state.factors;
+          factors[index] = item;
           this.setState({
-            rates: rates
+            factors: factors
           })
         }
       }
@@ -57,57 +57,66 @@ class ProjectRates extends Component {
 
   componentDidUpdate = (prevProps, prevState) => {
     if ((prevState.pid != this.state.pid) || (prevState.refresh !== this.state.refresh)) {
-      fetch('/api/rates/' + this.state.pid)
+      fetch('/api/factors/' + this.state.pid)
       .then(res => res.json())
-      .then(rates => this.setState({
-        rates: rates,
+      .then(factors => this.setState({
+        factors: factors,
         loading: false
       }));
     }
   }
 
   render = () => {
-    const {rates, loading} = this.state;
+    const {factors, loading} = this.state;
     if (!loading) {
       return (
         <Table>
           <thead>
             <tr>
               <th>#</th>
-              <th>Category</th>
-              <th>Role</th>
-              <th>Rate</th>
+              <th>Confidence Factor</th>
+              <th>Factor Points</th>
+              <th>Lower Multiplier</th>
+              <th>Heigher Multiplier</th>
             </tr>
           </thead>
           <tbody>
             {
-              rates.map((rate, index) => {
+              factors.map((factor, index) => {
                 let key = index + 1;
                 let unique_key = 4 * key + 1;
                 return (
-                  <tr key={`rate-${key}`}>
+                  <tr key={`factor-${key}`}>
                     <td key={unique_key} scope="row">{ key }</td>
                     <td key={unique_key + 1}>
                       <RIEInput
-                        value={rate.category}
-                        change={this.handleChange.bind(this, index, 'category')}
-                        propName='category'
+                        value={factor.title}
+                        change={this.handleChange.bind(this, index, 'title')}
+                        propName='title'
                       >
                       </RIEInput>
                     </td>
                     <td key={unique_key + 2}>
                       <RIEInput
-                        value={rate.role}
-                        change={this.handleChange.bind(this, index, 'role')}
-                        propName='role'
+                        value={factor.points}
+                        change={this.handleChange.bind(this, index, 'points')}
+                        propName='points'
                       >
                       </RIEInput>
                     </td>
-                    <td key={unique_key + 3}>$
+                    <td key={unique_key + 3}>
                       <RIEInput
-                          value={rate.rate}
-                          change={this.handleChange.bind(this, index, 'rate')}
-                          propName='rate'
+                          value={factor.lower_multiplier}
+                          change={this.handleChange.bind(this, index, 'lower_multiplier')}
+                          propName='lower_multiplier'
+                        >
+                      </RIEInput>
+                    </td>
+                    <td key={unique_key + 4}>
+                      <RIEInput
+                          value={factor.heigher_multiplier}
+                          change={this.handleChange.bind(this, index, 'heigher_multiplier')}
+                          propName='heigher_multiplier'
                         >
                       </RIEInput>
                     </td>
@@ -119,8 +128,8 @@ class ProjectRates extends Component {
         </Table>
       );
     }
-    return <div className="m-3 p-3"><h3>Please select a project to view rates!</h3></div>;
+    return <div className="m-3 p-3"><h3>Please select a project to view factors!</h3></div>;
   }
 }
 
-export default ProjectRates;
+export default ProjectUncertainityFactors;
