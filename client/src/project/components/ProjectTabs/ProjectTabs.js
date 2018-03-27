@@ -13,7 +13,7 @@ import classnames from 'classnames';
 import Rates from '../../../views/Rates/';
 import UncertainityFactors from '../../../views/UncertainityFactors/';
 import ProjectDetails from '../ProjectDetails/';
-import ProjectTasks from '../../../views/ProjectTasks/';
+import Tasks from '../../../views/Tasks/';
 
 class ProjectTabs extends Component {
 
@@ -94,7 +94,7 @@ class ProjectTabs extends Component {
             <ProjectDetails pid={this.state.pid}  />
           </TabPane>
           <TabPane tabId="project_tasks">
-            <ProjectTasks pid={this.state.pid}  />
+            <Tasks pid={this.state.pid}  />
           </TabPane>
         </TabContent>
       </div>

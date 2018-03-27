@@ -219,6 +219,42 @@ module.exports = function (server, knex) {
     })
   });
 
+  /**
+   * Save tasks for a project.
+   */
+  server.post('/tasks', function (req, res) {
+    knex('tasks').insert({
+      pid: req.body.pid,
+      ufid: req.body.ufid,
+      rid: req.body.rid,
+      title: req.body.title,
+      hours_low: req.body.hours_low,
+      hours_high: req.body.hours_high,
+      assumptions: req.body.assumptions || '',
+      estimated_hours: req.body.estimated_hours,
+      rate_low: req.body.rate_low,
+      hours_high: req.body.hours_high,
+      rate_high: req.body.rate_high
+    }).then(function(results) {
+      res.end(JSON.stringify(results));
+    })
+    .catch(function(error) {
+       throw error;
+    })
+  });
+
+  /**
+   * Get role rates defined in a project.
+   */
+  server.get('/tasks/:pid', (req, res) => {
+    knex('tasks').where('pid', req.params.pid).then(function(results) {
+      res.end(JSON.stringify(results));
+    })
+    .catch(function(error) {
+      throw error;
+    })
+  });
+
 
 
 // //rest api to delete record from mysql database

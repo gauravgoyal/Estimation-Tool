@@ -1,10 +1,11 @@
 import React, {Component} from 'react';
 import ProjectHours from '../../project/components/ProjectHours';
+import ProjectTasks from '../../project/components/ProjectTasks';
 import ProjectRateCode from '../../project/components/ProjectRateCode';
 import {RIEInput} from 'riek';
 import { Col, FormGroup, Input, Label, Table, Button, Modal, ModalHeader, ModalBody, ModalFooter } from 'reactstrap';
 
-class ProjectTasks extends Component {
+class Tasks extends Component {
 
   state = {
     tasks: [],
@@ -16,7 +17,7 @@ class ProjectTasks extends Component {
       rate_high: 0,
       title: '',
       rid: '',
-      confidence: '',
+      ufid: '',
     },
     modal: false,
   };
@@ -34,15 +35,15 @@ class ProjectTasks extends Component {
       formData.append(key, this.state.newTask[key]);
     }
 
-    // // Call API to save Data.
-    // fetch("/api/factors", {
-    //   method: "POST",
-    //   headers: {
-    //     'Content-Type': 'application/x-www-form-urlencoded;charset=UTF-8',
-    //   },
-    //   body: formData
-    // })
-    // this.toggle();
+    // Call API to save Data.
+    fetch("/api/tasks", {
+      method: "POST",
+      headers: {
+        'Content-Type': 'application/x-www-form-urlencoded;charset=UTF-8',
+      },
+      body: formData
+    })
+    this.toggle();
   };
 
 
@@ -54,7 +55,7 @@ class ProjectTasks extends Component {
       let hours_high = estimated_hours * factors.heigher_multiplier;
       newTask.hours_low = hours_low;
       newTask.hours_high = hours_high;
-      newTask.confidence = conf;
+      newTask.ufid = conf;
       this.setState({
         newTask: newTask,
       });
@@ -96,34 +97,7 @@ class ProjectTasks extends Component {
     const newTask = this.state.newTask;
     return (
       <div className="animated fadeIn">
-        <Table bordered>
-          <thead>
-            <tr>
-              <th>#</th>
-              <th>Title</th>
-              <th>Estimated Hours</th>
-              <th>Confidence Factor</th>
-              <th>Low Hours</th>
-              <th>High Hours</th>
-              <th>Ratecode</th>
-              <th>Low Cost</th>
-              <th>High Cost</th>
-            </tr>
-          </thead>
-          <tbody>
-            <tr>
-              <td></td>
-              <td></td>
-              <td></td>
-              <td></td>
-              <td></td>
-              <td></td>
-              <td></td>
-              <td></td>
-              <td></td>
-            </tr>
-          </tbody>
-        </Table>
+        <ProjectTasks editable={true} refresh={this.state.modal} pid={ this.props.pid }/>
         <Button
           onClick={this.toggle.bind(this)}
           size="sm" color="primary">
@@ -187,4 +161,4 @@ class ProjectTasks extends Component {
   }
 }
 
-export default ProjectTasks;
+export default Tasks;
