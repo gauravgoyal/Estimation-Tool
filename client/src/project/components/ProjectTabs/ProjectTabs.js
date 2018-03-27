@@ -13,6 +13,7 @@ import classnames from 'classnames';
 import Rates from '../../../views/Rates/';
 import UncertainityFactors from '../../../views/UncertainityFactors/';
 import ProjectDetails from '../ProjectDetails/';
+import ProjectTasks from '../../../views/ProjectTasks/';
 
 class ProjectTabs extends Component {
 
@@ -59,6 +60,14 @@ class ProjectTabs extends Component {
           </NavItem>
           <NavItem>
             <NavLink
+              className={classnames({ active: this.state.activeTab === 'project_tasks' })}
+              href="#"
+              onClick={ this.toggleTab.bind(this, 'project_tasks') }>
+              Project Tasks
+            </NavLink>
+          </NavItem>
+          <NavItem>
+            <NavLink
               className={classnames({ active: this.state.activeTab === 'rates' })}
               href="#"
               onClick={ this.toggleTab.bind(this, 'rates') }>
@@ -83,6 +92,9 @@ class ProjectTabs extends Component {
           </TabPane>
           <TabPane tabId="project_details">
             <ProjectDetails pid={this.state.pid}  />
+          </TabPane>
+          <TabPane tabId="project_tasks">
+            <ProjectTasks pid={this.state.pid}  />
           </TabPane>
         </TabContent>
       </div>
