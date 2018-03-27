@@ -1,6 +1,6 @@
 import React, {Component} from 'react';
-import { Table } from 'reactstrap';
-import {RIEInput} from 'riek';
+import { Table, Input } from 'reactstrap';
+import {RIEInput, RIESelect, RIETextArea} from 'riek';
 
 class ProjectTasks extends Component {
 
@@ -98,6 +98,14 @@ class ProjectTasks extends Component {
 
   render = () => {
     const { tasks, rates, ufactors } = this.state;
+    let factorOptions = [];
+    ufactors.map(factor => {
+      let data = {
+        id: factor.ufid,
+        text: factor.title,
+      }
+      factorOptions.push(data);
+    })
     return (
       <Table bordered>
         <thead>
@@ -116,25 +124,72 @@ class ProjectTasks extends Component {
         </thead>
         <tbody>
           {
-            this.state.tasks.map((task) => {
+            this.state.tasks.map((task, index) => {
               return(
                 <tr>
                   <td>{task.tid}</td>
-                  <td>{task.title}</td>
-                  <td>{task.estimated_hours}</td>
+                  <td>
+                    <RIEInput
+                      value={task.title}
+                      change={this.handleChange.bind(this, index, 'title')}
+                      propName='title'>
+                    </RIEInput>
+                  </td>
+                  <td>
+                    <RIEInput
+                      value={task.estimated_hours}
+                      change={this.handleChange.bind(this, index, 'estimated_hours')}
+                      propName='estimated_hours'>
+                    </RIEInput>
+                  </td>
                   <td>
                   {
-                    (ufactors[task.ufid] !== undefined) ? <td>{ ufactors[task.ufid].title }</td> : <td></td>
+                    (ufactors[task.ufid] !== undefined && factorOptions.length !== 0) ?
+                    <Input
+                      required
+                      type="select"
+                      defaultValue={task.ufid}
+                      name="ufid"
+                      id="ufid"
+                      onChange={this.handleChange.bind(this, index, 'ufid')}
+                    >
+                      {ufactors.map((factor) => {
+                        return <option key={ factor.ufid } value={ factor.ufid }>{ factor.title }</option>
+                      })}
+                    </Input> : <span></span>
                   }
                   </td>
                   <td>{task.hours_low}</td>
                   <td>{task.hours_high}</td>
-                  {
-                    (rates[task.rid] !== undefined) ? <td>{ rates[task.rid].role }</td> : <td></td>
-                  }
+                  <td>
+                    {
+                      (rates[task.rid] !== undefined) ?
+                      <Input
+                        required
+                        type="select"
+                        defaultValue={task.rid}
+                        name="rid"
+                        id="rid"
+                        onChange={this.handleChange.bind(this, index, 'rid')}
+                      >
+                      {rates.map((rate) => {
+                        return <option key={ rate.rid } value={ rate.rid }>{ rate.role }</option>
+                      })}
+                      </Input> : <span></span>
+                    }
+                  </td>
                   <td>{task.rate_low}</td>
                   <td>{task.rate_high}</td>
-                  <td>{task.assumptions}</td>
+                  <td>
+                    <RIETextArea
+                      value = {task.assumptions}
+                      change={this.handleChange.bind(this, index, 'assumptions')}
+                      propName="assumptions"
+                      rows="5"
+                      cols="45"
+                    >
+                    </RIETextArea>
+                  </td>
                 </tr>
               )
             })
