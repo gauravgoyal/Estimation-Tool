@@ -15,32 +15,56 @@ class ProjectTasks extends Component {
 
   handleChange = (index, field, newState) => {
     let item = this.state.tasks[index];
-    item[field] = newState[field];
+    if (field === 'ufid' || field === 'rid') {
+      item[field] = newState.target.value;
+    }
+    else {
+      item[field] = newState[field];
+    }
+
+    if (field === 'ufid' || field == 'rid' || field == 'estimated_hours') {
+      item = this.generateNewTask(item, field);
+    }
 
     // Update tasks.
     var formData = new URLSearchParams();
     for (let key in item) {
       formData.append(key, item[key]);
     }
-    fetch('/api/tasks/update/' + item.rid, {
-      method: "POST",
-      headers: {
-        'Content-Type': 'application/x-www-form-urlencoded;charset=UTF-8',
-      },
-      body: formData
+
+    let tasks = this.state.tasks;
+    tasks[index] = item;
+    this.setState({
+      tasks: tasks
     })
-    .then(res => res.json())
-    .then(
-      (result) => {
-        if (result.status == 200) {
-          let tasks = this.state.tasks;
-          tasks[index] = item;
-          this.setState({
-            tasks: tasks
-          })
-        }
-      }
-    )
+    //
+    // fetch('/api/tasks/update/' + item.rid, {
+    //   method: "POST",
+    //   headers: {
+    //     'Content-Type': 'application/x-www-form-urlencoded;charset=UTF-8',
+    //   },
+    //   body: formData
+    // })
+    // .then(res => res.json())
+    // .then(
+    //   (result) => {
+    //     if (result.status == 200) {
+    //       let tasks = this.state.tasks;
+    //       tasks[index] = item;
+    //       this.setState({
+    //         tasks: tasks
+    //       })
+    //     }
+    //   }
+    // )
+  }
+
+  generateNewTask = (item, field) => {
+    item.hours_low = item.estimated_hours * this.state.ufactors[item.ufid].lower_multiplier;
+    item.hours_high = item.estimated_hours * this.state.ufactors[item.ufid].heigher_multiplier;
+    item.rate_low = item.hours_low * this.state.rates[item.rid].rate;
+    item.rate_high = item.hours_high * this.state.rates[item.rid].rate;
+    return item;
   }
 
   componentWillReceiveProps = (nextProps) => {
@@ -98,14 +122,6 @@ class ProjectTasks extends Component {
 
   render = () => {
     const { tasks, rates, ufactors } = this.state;
-    let factorOptions = [];
-    ufactors.map(factor => {
-      let data = {
-        id: factor.ufid,
-        text: factor.title,
-      }
-      factorOptions.push(data);
-    })
     return (
       <Table className="task-table">
         <thead>
@@ -142,7 +158,7 @@ class ProjectTasks extends Component {
                   </td>
                   <td className="conf-factor">
                   {
-                    (ufactors[task.ufid] !== undefined && factorOptions.length !== 0) ?
+                    (ufactors[task.ufid] !== undefined) ?
                     <Input
                       required
                       type="select"
