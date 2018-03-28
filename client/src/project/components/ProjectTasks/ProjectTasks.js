@@ -107,19 +107,18 @@ class ProjectTasks extends Component {
       factorOptions.push(data);
     })
     return (
-      <Table bordered>
+      <Table className="task-table">
         <thead>
           <tr>
-            <th>#</th>
-            <th>Title</th>
-            <th>Estimated Hours</th>
-            <th>Confidence Factor</th>
-            <th>Low Hours</th>
-            <th>High Hours</th>
-            <th>Ratecode</th>
-            <th>Low Cost</th>
-            <th>High Cost</th>
-            <th>Assumptions</th>
+            <th className="title">Title</th>
+            <th className="estimated-hours">Estimated Hours</th>
+            <th className="conf-factor">Confidence Factor</th>
+            <th className="low-hours">Low Hours</th>
+            <th className="high-hours">High Hours</th>
+            <th className="ratecode">Ratecode</th>
+            <th className="low-cost">Low Cost</th>
+            <th className="high-cost">High Cost</th>
+            <th className="assumptions">Assumptions</th>
           </tr>
         </thead>
         <tbody>
@@ -127,22 +126,21 @@ class ProjectTasks extends Component {
             this.state.tasks.map((task, index) => {
               return(
                 <tr>
-                  <td>{task.tid}</td>
-                  <td>
+                  <td className="title">
                     <RIEInput
                       value={task.title}
                       change={this.handleChange.bind(this, index, 'title')}
                       propName='title'>
                     </RIEInput>
                   </td>
-                  <td>
+                  <td className="estimated-hours">
                     <RIEInput
                       value={task.estimated_hours}
                       change={this.handleChange.bind(this, index, 'estimated_hours')}
                       propName='estimated_hours'>
                     </RIEInput>
                   </td>
-                  <td>
+                  <td className="conf-factor">
                   {
                     (ufactors[task.ufid] !== undefined && factorOptions.length !== 0) ?
                     <Input
@@ -159,9 +157,9 @@ class ProjectTasks extends Component {
                     </Input> : <span></span>
                   }
                   </td>
-                  <td>{task.hours_low}</td>
-                  <td>{task.hours_high}</td>
-                  <td>
+                  <td className="low-hours">{task.hours_low}</td>
+                  <td className="high-hours">{task.hours_high}</td>
+                  <td className="ratecode">
                     {
                       (rates[task.rid] !== undefined) ?
                       <Input
@@ -178,15 +176,14 @@ class ProjectTasks extends Component {
                       </Input> : <span></span>
                     }
                   </td>
-                  <td>{task.rate_low}</td>
-                  <td>{task.rate_high}</td>
-                  <td>
+                  <td className="low-cost">{task.rate_low}</td>
+                  <td className="high-cost">{task.rate_high}</td>
+                  <td className="assumptions">
                     <RIETextArea
                       value = {task.assumptions}
                       change={this.handleChange.bind(this, index, 'assumptions')}
                       propName="assumptions"
-                      rows="5"
-                      cols="45"
+                      cols="30"
                     >
                     </RIETextArea>
                   </td>

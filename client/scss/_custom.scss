@@ -1,1 +1,21 @@
 // Here you can add other styles
+
+.task-table {
+  td, th {
+    padding: 0.5rem;
+    width:4rem;
+  }
+  .title {
+    width: 15rem;
+    input {
+      width: 15rem;
+    }
+  }
+  .ratecode, .conf-factor{
+    width: 15rem;
+  }
+
+  .assumptions  {
+    width: 25rem;
+  }
+}
