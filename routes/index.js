@@ -255,6 +255,40 @@ module.exports = function (server, knex) {
     })
   });
 
+  /**
+   * Updates taks for a project.
+   */
+  server.post('/tasks/update/:pid', function (req, res, next) {
+    knex('tasks').where({
+      pid: req.body.pid,
+      tid: req.body.tid
+    })
+    .update({
+      ufid: req.body.ufid,
+      rid: req.body.rid,
+      title: req.body.title,
+      hours_low: req.body.hours_low,
+      hours_high: req.body.hours_high,
+      assumptions: req.body.assumptions || '',
+      estimated_hours: req.body.estimated_hours,
+      rate_low: req.body.rate_low,
+      hours_high: req.body.hours_high,
+      rate_high: req.body.rate_high
+    }).then(function(results) {
+      var response = {
+        result: results,
+        status: 200
+      };
+      res.end(JSON.stringify(response));
+    }).catch(function(error) {
+       var response = {
+        error: error,
+        status: 503
+      };
+      res.end(JSON.stringify(response));
+    })
+  });
+
 
 
 // //rest api to delete record from mysql database

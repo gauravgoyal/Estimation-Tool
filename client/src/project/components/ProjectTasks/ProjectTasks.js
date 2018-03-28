@@ -32,31 +32,26 @@ class ProjectTasks extends Component {
       formData.append(key, item[key]);
     }
 
-    let tasks = this.state.tasks;
-    tasks[index] = item;
-    this.setState({
-      tasks: tasks
+
+    fetch('/api/tasks/update/' + item.rid, {
+      method: "POST",
+      headers: {
+        'Content-Type': 'application/x-www-form-urlencoded;charset=UTF-8',
+      },
+      body: formData
     })
-    //
-    // fetch('/api/tasks/update/' + item.rid, {
-    //   method: "POST",
-    //   headers: {
-    //     'Content-Type': 'application/x-www-form-urlencoded;charset=UTF-8',
-    //   },
-    //   body: formData
-    // })
-    // .then(res => res.json())
-    // .then(
-    //   (result) => {
-    //     if (result.status == 200) {
-    //       let tasks = this.state.tasks;
-    //       tasks[index] = item;
-    //       this.setState({
-    //         tasks: tasks
-    //       })
-    //     }
-    //   }
-    // )
+    .then(res => res.json())
+    .then(
+      (result) => {
+        if (result.status == 200) {
+          let tasks = this.state.tasks;
+          tasks[index] = item;
+          this.setState({
+            tasks: tasks
+          })
+        }
+      }
+    )
   }
 
   generateNewTask = (item, field) => {
