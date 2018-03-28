@@ -191,7 +191,7 @@ class ProjectTasks extends Component {
                   <td className="high-cost">{task.rate_high}</td>
                   <td className="assumptions">
                     <RIETextArea
-                      value = {task.assumptions}
+                      value = {(task.assumptions === '') ? "No assumptions!" : task.assumptions}
                       change={this.handleChange.bind(this, index, 'assumptions')}
                       propName="assumptions"
                       cols="30"
