@@ -51,6 +51,18 @@ class ProjectTasks extends Component {
             tasks: tasks
           })
           this.calculateTotal();
+          var formData = new URLSearchParams();
+          for (let key in this.state.total) {
+            formData.append(key, this.state.total[key]);
+          }
+          fetch('/api/project-total/update/' + item.pid, {
+            method: "POST",
+            headers: {
+              'Content-Type': 'application/x-www-form-urlencoded;charset=UTF-8',
+            },
+            body:formData
+          })
+          .then(res => res.json())
         }
       }
     )
@@ -72,7 +84,6 @@ class ProjectTasks extends Component {
       total.low_estimated_cost += task.rate_low;
       total.high_estimated_cost += task.rate_high;
     })
-
     this.setState({
       total: total,
     })

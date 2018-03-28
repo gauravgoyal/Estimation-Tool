@@ -44,6 +44,31 @@ module.exports = function (server, knex) {
     })
   });
 
+  server.post('/project-total/update/:pid', function (req, res) {
+    let now = Math.floor(Date.now() / 1000);
+    knex('projects').where('pid', req.params.pid)
+    .update({
+      estimated_hours: req.body.estimated_hours || 0,
+      low_estimated_hours: req.body.low_estimated_hours || 0,
+      high_estimated_hours: req.body.high_estimated_hours || 0,
+      low_estimated_cost: req.body.low_estimated_cost || 0,
+      high_estimated_cost: req.body.high_estimated_cost || 0
+    }).then(function(results) {
+      var response = {
+        result: results,
+        status: 200
+      };
+      res.end(JSON.stringify(response));
+    })
+    .catch(function(error) {
+       var response = {
+        error: error,
+        status: 503
+      };
+      res.end(JSON.stringify(response));
+    })
+  });
+
   //rest api to create a new record into mysql database
   server.post('/project', function (req, res) {
     let now = Math.floor(Date.now() / 1000);
