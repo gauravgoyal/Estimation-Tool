@@ -131,8 +131,8 @@ class Tasks extends Component {
             </FormGroup>
             <FormGroup>
               <ProjectRateCode onChange= {this.handleRate.bind(this)} pid={this.props.pid} />
-              <div className="hours_low"><span className="low-rate">Low Rate: </span>{ newTask.rate_low} </div>
-              <div className="hours_high"><span className="high-rate">High Rate: </span>{ newTask.rate_high} </div>
+              <div className="hours_low"><span className="low-rate">Low Rate: </span>${ newTask.rate_low} </div>
+              <div className="hours_high"><span className="high-rate">High Rate: </span>${ newTask.rate_high} </div>
             </FormGroup>
             <FormGroup>
               <Label for="assumptions">Text Area</Label>

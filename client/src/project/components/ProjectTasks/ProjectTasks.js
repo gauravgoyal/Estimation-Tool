@@ -11,6 +11,7 @@ class ProjectTasks extends Component {
     loading: true,
     pid: '',
     refresh: false,
+    total: '',
   }
 
   handleChange = (index, field, newState) => {
@@ -49,9 +50,32 @@ class ProjectTasks extends Component {
           this.setState({
             tasks: tasks
           })
+          this.calculateTotal();
         }
       }
     )
+  }
+
+  calculateTotal = () => {
+    let total = {
+      estimated_hours: 0,
+      low_estimated_hours: 0,
+      high_estimated_hours: 0,
+      low_estimated_cost: 0,
+      high_estimated_cost: 0,
+    };
+
+    this.state.tasks.map((task) => {
+      total.estimated_hours += task.estimated_hours;
+      total.low_estimated_hours += task.hours_low;
+      total.high_estimated_hours += task.hours_high;
+      total.low_estimated_cost += task.rate_low;
+      total.high_estimated_cost += task.rate_high;
+    })
+
+    this.setState({
+      total: total,
+    })
   }
 
   generateNewTask = (item, field) => {
@@ -80,10 +104,13 @@ class ProjectTasks extends Component {
     if ((prevState.pid != this.state.pid) || (prevState.refresh !== this.state.refresh)) {
       fetch('/api/tasks/' + this.state.pid)
       .then(res => res.json())
-      .then(tasks => this.setState({
-        tasks: tasks,
-        loading: false
-      }));
+      .then((tasks) => {
+        this.setState({
+          tasks: tasks,
+          loading: false
+        });
+        this.calculateTotal();
+      });
 
       if (this.state.rates.length == 0) {
         let temp = [];
@@ -187,8 +214,8 @@ class ProjectTasks extends Component {
                       </Input> : <span></span>
                     }
                   </td>
-                  <td className="low-cost">{task.rate_low}</td>
-                  <td className="high-cost">{task.rate_high}</td>
+                  <td className="low-cost">${task.rate_low}</td>
+                  <td className="high-cost">${task.rate_high}</td>
                   <td className="assumptions">
                     <RIETextArea
                       value = {(task.assumptions === '') ? "No assumptions!" : task.assumptions}
@@ -203,6 +230,17 @@ class ProjectTasks extends Component {
             })
           }
         </tbody>
+        <tfoot>
+          <th className="title">Totals</th>
+          <th className="estimated-hours">{this.state.total.estimated_hours}</th>
+          <th className="conf-factor"></th>
+          <th className="low-hours">{this.state.total.low_estimated_hours}</th>
+          <th className="high-hours">{this.state.total.high_estimated_hours}</th>
+          <th className="ratecode"></th>
+          <th className="low-cost">${this.state.total.low_estimated_cost}</th>
+          <th className="high-cost">${this.state.total.high_estimated_cost}</th>
+          <th className="assumptions"></th>
+        </tfoot>
       </Table>
     )
   }
