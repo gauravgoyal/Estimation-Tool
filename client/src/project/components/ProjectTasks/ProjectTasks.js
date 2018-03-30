@@ -232,7 +232,7 @@ class ProjectTasks extends Component {
                       value = {(task.assumptions === '') ? "No assumptions!" : task.assumptions}
                       change={this.handleChange.bind(this, index, 'assumptions')}
                       propName="assumptions"
-                      cols="30"
+                      cols="20"
                     >
                     </RIETextArea>
                   </td>
