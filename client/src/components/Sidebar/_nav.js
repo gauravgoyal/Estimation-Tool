@@ -5,8 +5,7 @@ export default {
       url: '/dashboard',
       icon: 'icon-speedometer',
       badge: {
-        variant: 'info',
-        text: 'NEW'
+        variant: 'info'
       }
     },
     {
@@ -14,8 +13,7 @@ export default {
       url: '/project/add',
       icon: 'icon-speedometer',
       badge: {
-        variant: 'info',
-        text: 'NEW'
+        variant: 'info'
       }
     }
   ]
