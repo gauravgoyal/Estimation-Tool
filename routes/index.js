@@ -151,7 +151,7 @@ module.exports = function (server, knex) {
       role: req.body.role,
       rate: req.body.rate,
       pid: req.body.pid,
-      code: req.body.code || '',
+      code: req.body.code,
     }).then(function(results) {
       res.end(JSON.stringify(results));
     })
@@ -171,7 +171,8 @@ module.exports = function (server, knex) {
     .update({
       category: req.body.category,
       role: req.body.role,
-      rate: req.body.rate
+      rate: req.body.rate,
+      code: req.body.code
     }).then(function(results) {
       var response = {
         result: results,

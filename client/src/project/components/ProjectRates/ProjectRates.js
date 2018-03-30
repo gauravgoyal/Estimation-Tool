@@ -85,7 +85,6 @@ class ProjectRates extends Component {
               rates.map((rate, index) => {
                 let key = index + 1;
                 let unique_key = 4 * key + 1;
-                console.log(rate);
                 return (
                   <tr key={`rate-${key}`}>
                     <td key={unique_key} scope="row">{ key }</td>

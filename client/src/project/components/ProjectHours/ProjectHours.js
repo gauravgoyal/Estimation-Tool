@@ -58,7 +58,7 @@ class ProjectHours extends Component {
         <Input required type="select" name="confidenceFactorList" id="confidenceFactorList" onChange= { this.handleConfidence.bind(this) }>
           <option key='select-confidence-factor' value=''>Select Confidence Factor</option>
           {factors.map((factor) => {
-            return <option key={ factor.ufid } value={ factor.ufid }>{ factor.title }</option>
+            return <option key={ factor.ufid } value={ factor.ufid }>[{factor.points}] - { factor.title }</option>
           })}
         </Input>
       </FormGroup>
