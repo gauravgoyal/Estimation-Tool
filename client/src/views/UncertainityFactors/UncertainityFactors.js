@@ -85,7 +85,7 @@ class UncertainityFactors extends Component {
                     <Col xs="12">
                       <FormGroup>
                         <Label htmlFor="points">Factor Points</Label>
-                        <Input required onChange={this.updateValue.bind(this, 'points')} type="text" id="points" placeholder="Enter Factor Points (E.g. 1 or 4)"/>
+                        <Input required onChange={this.updateValue.bind(this, 'points')} type="number" id="points" placeholder="Enter Factor Points (E.g. 1 or 4)"/>
                       </FormGroup>
                     </Col>
                   </FormGroup>
@@ -93,13 +93,13 @@ class UncertainityFactors extends Component {
                     <Col xs="12">
                       <FormGroup>
                         <Label htmlFor="lower_multiplier">Lower Multiplier</Label>
-                        <Input required onChange={this.updateValue.bind(this, 'lower_multiplier')} type="text" id="lower_multiplier" placeholder="Enter Lower estimate multiplier (E.g. 1 or 1.3)"/>
+                        <Input required onChange={this.updateValue.bind(this, 'lower_multiplier')} type="number" step=".01" id="lower_multiplier" placeholder="Enter Lower estimate multiplier (E.g. 1 or 1.3)"/>
                       </FormGroup>
                     </Col>
                     <Col xs="12">
                       <FormGroup>
                         <Label htmlFor="heigher_multiplier">Heigher Multiplier</Label>
-                        <Input required onChange={this.updateValue.bind(this, 'heigher_multiplier')} type="text" id="heigher_multiplier" placeholder="Enter Heigher estimate multiplier (E.g. 1 or 1.3)"/>
+                        <Input required onChange={this.updateValue.bind(this, 'heigher_multiplier')} type="number" step=".01" id="heigher_multiplier" placeholder="Enter Heigher estimate multiplier (E.g. 1 or 1.3)"/>
                       </FormGroup>
                     </Col>
                   </FormGroup>
