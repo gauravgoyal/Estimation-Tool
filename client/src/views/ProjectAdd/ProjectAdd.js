@@ -1,4 +1,6 @@
 import React, {Component} from 'react';
+import defaultRates from './_initialRate.js';
+
 import {
   Row,
   Col,
@@ -34,6 +36,20 @@ class ProjectAdd extends Component {
     .then((res) => res.json())
     .then((result) => {
       if (result.status === 200) {
+        defaultRates.rates.map((defaultRate) => {
+          defaultRate.pid = result.result;
+          let rateFormData = new URLSearchParams();
+          for (let key in defaultRate) {
+            rateFormData.append(key, defaultRate[key]);
+          }
+          fetch("/api/rates", {
+            method: "POST",
+            headers: {
+              'Content-Type': 'application/x-www-form-urlencoded;charset=UTF-8',
+            },
+            body: rateFormData
+          })
+        });
         window.location.href = '#/project/' + result.result.pop();
       }
     })
