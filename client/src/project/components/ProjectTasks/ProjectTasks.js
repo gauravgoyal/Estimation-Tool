@@ -201,7 +201,7 @@ class ProjectTasks extends Component {
                       onChange={this.handleChange.bind(this, index, 'ufid')}
                     >
                       {ufactors.map((factor) => {
-                        return <option key={ factor.ufid } value={ factor.ufid }>[{factor.points}] - { factor.title }</option>
+                        return <option key={ factor.ufid } value={ factor.ufid }>{ factor.title } - [{factor.points}]</option>
                       })}
                     </Input> : <span></span>
                   }
