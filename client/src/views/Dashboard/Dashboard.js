@@ -1,6 +1,6 @@
 import React, {Component} from 'react';
 import {Bar, Doughnut, Line, Pie, Polar, Radar} from 'react-chartjs-2';
-import {CardColumns, CardText, CardLink, Col, Card, CardHeader, CardBody} from 'reactstrap';
+import {CardColumns, CardText, CardLink, Col, Card, Row, CardHeader, CardBody} from 'reactstrap';
 
 class Dashboard extends Component {
 
@@ -16,6 +16,7 @@ class Dashboard extends Component {
     return (
       <div className="animated fadeIn">
         <h1>Projects</h1>
+        <Row>
         {this.state.projects.map((project) => {
           return (
             <Col xs="12" sm="6" md="4">
@@ -39,6 +40,7 @@ class Dashboard extends Component {
             </Col>
           );
         })}
+        </Row>
       </div>
     );
   }
