@@ -113,7 +113,7 @@ class ProjectAdd extends Component {
                       <FormGroup>
                         <Label htmlFor="mlid">MavenLink ID</Label>
                         <Input onChange={this.updateValue.bind(this, 'mlid')}
-                               type="text" id="mlid"
+                               type="number" id="mlid"
                                placeholder="Enter MavenLink ID for the project"/>
                       </FormGroup>
                     </Col>

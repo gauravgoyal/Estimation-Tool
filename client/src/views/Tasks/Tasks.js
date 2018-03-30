@@ -29,6 +29,7 @@ class Tasks extends Component {
   }
 
   onSubmitForm = (e) => {
+    console.log(this.state.newTask);
     var formData = new URLSearchParams();
     formData.append('pid', this.props.pid);
     for (let key in this.state.newTask) {
@@ -121,6 +122,7 @@ class Tasks extends Component {
                 placeholder="Please enter estimated hours"
                 onChange={this.handleData.bind(this, 'estimated_hours')}
                 id='estimated_hours'
+                type="number"
               >
               </Input>
             </FormGroup>

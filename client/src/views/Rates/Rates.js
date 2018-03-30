@@ -106,7 +106,7 @@ class Rates extends Component {
                           <Input
                             required
                             onChange={this.updateValue.bind(this, 'rate')}
-                            type="text"
+                            type="number"
                             id="rate"
                             placeholder="Enter Rate (E.g. 20)" />
                         </FormGroup>

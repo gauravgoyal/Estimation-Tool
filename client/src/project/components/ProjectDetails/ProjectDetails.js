@@ -83,7 +83,7 @@ class ProjectDetails extends Component {
                 <th scope="row">Description</th>
                 <td>
                   <RIEInput
-                    value={this.state.project.description}
+                    value={this.state.project.description ? this.state.project.description : 'NA'}
                     change={this.handleChange.bind(this, 'description')}
                     propName='description'>
                   </RIEInput>
@@ -93,7 +93,7 @@ class ProjectDetails extends Component {
                 <th scope="row">Creator</th>
                 <td>
                   <RIEInput
-                    value={this.state.project.creator}
+                    value={this.state.project.creator ? this.state.project.creator : 'NA'}
                     change={this.handleChange.bind(this, 'creator')}
                     propName='creator'>
                   </RIEInput>
@@ -103,7 +103,7 @@ class ProjectDetails extends Component {
                 <th scope="row">Owner</th>
                 <td>
                   <RIEInput
-                    value={this.state.project.owner}
+                    value={this.state.project.owner ? this.state.project.owner : 'NA'}
                     change={this.handleChange.bind(this, 'owner')}
                     propName='owner'>
                   </RIEInput>
@@ -113,7 +113,7 @@ class ProjectDetails extends Component {
                 <th scope="row">Reviewer</th>
                 <td>
                   <RIEInput
-                    value={this.state.project.reviewer}
+                    value={this.state.project.reviewer ? this.state.project.reviewer : 'NA'}
                     change={this.handleChange.bind(this, 'reviewer')}
                     propName='reviewer'>
                   </RIEInput>
@@ -123,7 +123,7 @@ class ProjectDetails extends Component {
                 <th scope="row">Signed By</th>
                 <td>
                   <RIEInput
-                    value={this.state.project.signer}
+                    value={this.state.project.signer ? this.state.project.signer : 'NA'}
                     change={this.handleChange.bind(this, 'signer')}
                     propName='signer'>
                   </RIEInput>
@@ -133,7 +133,7 @@ class ProjectDetails extends Component {
                 <th scope="row">MavenkLink ID</th>
                 <td>
                   <RIEInput
-                    value={this.state.project.mlid}
+                    value={this.state.project.mlid ? this.state.project.mlid : 'NA'}
                     change={this.handleChange.bind(this, 'mlid')}
                     propName='mlid'>
                   </RIEInput>
