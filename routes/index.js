@@ -112,7 +112,7 @@ module.exports = function (server, knex) {
       reviewer: req.body.reviewer,
       signer: req.body.signer,
       mlid: req.body.mlid,
-      type: req.body.type,
+      type: 1,
       updated: now
     }).then(function(results) {
       var response = {
