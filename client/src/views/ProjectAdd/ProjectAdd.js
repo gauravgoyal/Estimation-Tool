@@ -161,8 +161,6 @@ class ProjectAdd extends Component {
                       </FormGroup>
                     </Col>
                   </FormGroup>
-
-
                 </CardBody>
                 <CardFooter>
                   <Button type="submit" size="sm" color="primary"><i
