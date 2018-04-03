@@ -74,6 +74,7 @@ class ProjectRates extends Component {
           <thead>
             <tr>
               <th>#</th>
+              <th>Code</th>
               <th>Category</th>
               <th>Role</th>
               <th>Rate</th>
@@ -87,6 +88,14 @@ class ProjectRates extends Component {
                 return (
                   <tr key={`rate-${key}`}>
                     <td key={unique_key} scope="row">{ key }</td>
+                    <td key={unique_key + 4}>
+                      <RIEInput
+                        value={rate.code}
+                        change={this.handleChange.bind(this, index, 'code')}
+                        propName='code'
+                      >
+                      </RIEInput>
+                    </td>
                     <td key={unique_key + 1}>
                       <RIEInput
                         value={rate.category}

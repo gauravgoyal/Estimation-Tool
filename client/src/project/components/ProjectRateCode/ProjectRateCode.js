@@ -57,7 +57,7 @@ class ProjectRateCode extends Component {
         <Input required type="select" name="rateCodeList" id="rateCodeList" onChange= { this.handleRates.bind(this) }>
           <option key='select-rate-code' value=''>Select Rate code</option>
           {rates.map((rate) => {
-            return <option key={ rate.rid } value={ rate.rid }>{ rate.role }</option>
+            return <option key={ rate.rid } value={ rate.rid }>[{rate.code}] - { rate.role }</option>
           })}
         </Input>
       </FormGroup>

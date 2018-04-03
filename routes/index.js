@@ -80,7 +80,7 @@ module.exports = function (server, knex) {
       reviewer: req.body.reviewer || '',
       signer: req.body.signer || '',
       mlid: req.body.mlid || '',
-      type: req.body.type,
+      type: req.body.type || 1,
       created: now,
       updated: now,
       deleted: 0
@@ -150,7 +150,8 @@ module.exports = function (server, knex) {
       category: req.body.category || '',
       role: req.body.role,
       rate: req.body.rate,
-      pid: req.body.pid
+      pid: req.body.pid,
+      code: req.body.code,
     }).then(function(results) {
       res.end(JSON.stringify(results));
     })
@@ -170,7 +171,8 @@ module.exports = function (server, knex) {
     .update({
       category: req.body.category,
       role: req.body.role,
-      rate: req.body.rate
+      rate: req.body.rate,
+      code: req.body.code
     }).then(function(results) {
       var response = {
         result: results,

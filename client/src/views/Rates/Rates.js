@@ -81,6 +81,14 @@ class Rates extends Component {
                 <ModalBody>
                   <Form onSubmit={this.onSubmitForm}>
                     <FormGroup>
+                      <Label htmlFor="code">Code</Label>
+                      <Input
+                        required
+                        onChange={this.updateValue.bind(this, 'code')}
+                        type="text" id="code"
+                        placeholder="Enter Code (E.g. BU)" />
+                    </FormGroup>
+                    <FormGroup>
                       <Label htmlFor="category">Category</Label>
                       <Input
                         required

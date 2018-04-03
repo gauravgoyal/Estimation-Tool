@@ -1,4 +1,7 @@
 import React, {Component} from 'react';
+import defaultRates from './_initialRate.js';
+import defaultFactors from './_initialUFactors.js';
+
 import {
   Row,
   Col,
@@ -34,6 +37,36 @@ class ProjectAdd extends Component {
     .then((res) => res.json())
     .then((result) => {
       if (result.status === 200) {
+        defaultRates.rates.map((defaultRate) => {
+          defaultRate.pid = result.result;
+          let rateFormData = new URLSearchParams();
+          for (let key in defaultRate) {
+            console.log(key);
+            console.log(defaultRate[key]);
+            rateFormData.append(key, defaultRate[key]);
+          }
+          fetch("/api/rates", {
+            method: "POST",
+            headers: {
+              'Content-Type': 'application/x-www-form-urlencoded;charset=UTF-8',
+            },
+            body: rateFormData
+          })
+        });
+        defaultFactors.ufactors.map((ufactor) => {
+          ufactor.pid = result.result;
+          let ufactorFormData = new URLSearchParams();
+          for (let key in ufactor) {
+            ufactorFormData.append(key, ufactor[key]);
+          }
+          fetch("/api/factors", {
+            method: "POST",
+            headers: {
+              'Content-Type': 'application/x-www-form-urlencoded;charset=UTF-8',
+            },
+            body: ufactorFormData
+          })
+        });
         window.location.href = '#/project/' + result.result.pop();
       }
     })
@@ -128,8 +161,6 @@ class ProjectAdd extends Component {
                       </FormGroup>
                     </Col>
                   </FormGroup>
-
-
                 </CardBody>
                 <CardFooter>
                   <Button type="submit" size="sm" color="primary"><i

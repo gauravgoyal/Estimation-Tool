@@ -63,7 +63,7 @@ class ProjectTabs extends Component {
               className={classnames({ active: this.state.activeTab === 'project_tasks' })}
               href="#"
               onClick={ this.toggleTab.bind(this, 'project_tasks') }>
-              Project Tasks
+              Work Breakdown Structure (WBS)
             </NavLink>
           </NavItem>
           <NavItem>

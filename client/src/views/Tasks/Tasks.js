@@ -137,7 +137,7 @@ class Tasks extends Component {
               <div className="hours_high"><span className="high-rate">High Rate: </span>${ newTask.rate_high} </div>
             </FormGroup>
             <FormGroup>
-              <Label for="assumptions">Text Area</Label>
+              <Label for="assumptions">Assumptions</Label>
               <Input onChange={this.handleData.bind(this, 'assumptions')}
                 type="textarea" name="assumptions" id="assumptions" />
             </FormGroup>
