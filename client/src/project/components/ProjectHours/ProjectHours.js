@@ -1,5 +1,6 @@
 import React, {Component} from 'react';
 import { FormGroup, Label, Input } from 'reactstrap';
+import config from '../../../config';
 
 class ProjectHours extends Component {
 
@@ -18,7 +19,7 @@ class ProjectHours extends Component {
 
   componentDidUpdate = (prevProps, prevState) => {
     if ((prevState.pid !== this.state.pid)) {
-      fetch('/api/factors/' + this.state.pid)
+      fetch(config.api_url + 'factors/' + this.state.pid)
         .then(res => res.json())
         .then(factors => this.setState({
           factors: factors
@@ -28,7 +29,7 @@ class ProjectHours extends Component {
   }
 
   componentDidMount = () => {
-    fetch('/api/factors/' + this.props.pid)
+    fetch(config.api_url + 'factors/' + this.props.pid)
       .then(res => res.json())
       .then(factors => this.setState({
         factors: factors

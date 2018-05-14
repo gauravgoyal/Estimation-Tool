@@ -1,6 +1,7 @@
 import React, {Component} from 'react';
 import { Table } from 'reactstrap';
 import {RIEInput} from 'riek';
+import config from '../../../config';
 
 class ProjectUncertainityFactors extends Component {
 
@@ -20,7 +21,7 @@ class ProjectUncertainityFactors extends Component {
     for (let key in item) {
       formData.append(key, item[key]);
     }
-    fetch('/api/factors/update/' + item.ufid, {
+    fetch(config.api_url + 'factors/update/' + item.ufid, {
       method: "POST",
       headers: {
         'Content-Type': 'application/x-www-form-urlencoded;charset=UTF-8',
@@ -57,7 +58,7 @@ class ProjectUncertainityFactors extends Component {
 
   componentDidUpdate = (prevProps, prevState) => {
     if ((prevState.pid !== this.state.pid) || (prevState.refresh !== this.state.refresh)) {
-      fetch('/api/factors/' + this.state.pid)
+      fetch(config.api_url + 'factors/' + this.state.pid)
       .then(res => res.json())
       .then(factors => this.setState({
         factors: factors,

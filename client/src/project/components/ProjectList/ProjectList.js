@@ -1,5 +1,6 @@
 import React, {Component} from 'react';
 import { FormGroup, Label, Input } from 'reactstrap';
+import config from '../../../config';
 
 class ProjectList extends Component {
 
@@ -8,7 +9,7 @@ class ProjectList extends Component {
   }
 
   componentDidMount = () => {
-    fetch('/api/projects')
+    fetch(config.api_url + 'projects')
       .then(res => res.json())
       .then(projects => this.setState({projects}));
   }

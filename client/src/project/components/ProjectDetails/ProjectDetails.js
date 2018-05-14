@@ -1,6 +1,7 @@
 import React, {Component} from 'react';
 import {RIEInput} from 'riek';
 import { Col, Table } from 'reactstrap';
+import config from '../../../config';
 
 class ProjectDetails extends Component {
 
@@ -19,7 +20,7 @@ class ProjectDetails extends Component {
 
   componentDidUpdate = (prevProps, prevState) => {
     if (prevState.pid !== this.state.pid) {
-      fetch('/api/projects/' + this.state.pid)
+      fetch(config.api_url + 'projects/' + this.state.pid)
       .then(res => res.json())
       .then((results) => {
         if (results.status === 200) {
@@ -41,7 +42,7 @@ class ProjectDetails extends Component {
       formData.append(key, project[key]);
     }
 
-    fetch('/api/project/update/' + project.pid, {
+    fetch(config.api_url + 'project/update/' + project.pid, {
       method: "POST",
       headers: {
         'Content-Type': 'application/x-www-form-urlencoded;charset=UTF-8',

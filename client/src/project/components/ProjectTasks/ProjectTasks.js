@@ -1,6 +1,7 @@
 import React, {Component} from 'react';
 import { Table, Input } from 'reactstrap';
 import {RIEInput, RIETextArea} from 'riek';
+import config from '../../../config';
 
 class ProjectTasks extends Component {
 
@@ -34,7 +35,7 @@ class ProjectTasks extends Component {
     }
 
 
-    fetch('/api/tasks/update/' + item.rid, {
+    fetch(config.api_url + 'tasks/update/' + item.rid, {
       method: "POST",
       headers: {
         'Content-Type': 'application/x-www-form-urlencoded;charset=UTF-8',
@@ -55,7 +56,7 @@ class ProjectTasks extends Component {
           for (let key in this.state.total) {
             formData.append(key, this.state.total[key]);
           }
-          fetch('/api/project-total/update/' + item.pid, {
+          fetch(config.api_url + 'project-total/update/' + item.pid, {
             method: "POST",
             headers: {
               'Content-Type': 'application/x-www-form-urlencoded;charset=UTF-8',
@@ -114,7 +115,7 @@ class ProjectTasks extends Component {
 
   componentDidUpdate = (prevProps, prevState) => {
     if ((prevState.pid !== this.state.pid) || (prevState.refresh !== this.state.refresh)) {
-      fetch('/api/tasks/' + this.state.pid)
+      fetch(config.api_url + 'tasks/' + this.state.pid)
       .then(res => res.json())
       .then((tasks) => {
         this.setState({
@@ -126,7 +127,7 @@ class ProjectTasks extends Component {
 
       if (this.state.rates.length === 0) {
         let temp = [];
-        fetch('/api/rates/' + this.props.pid)
+        fetch(config.api_url + 'rates/' + this.props.pid)
         .then(res => res.json())
         .then((rates) => {
           rates.map((rate) => {
@@ -141,7 +142,7 @@ class ProjectTasks extends Component {
 
       if (this.state.ufactors.length === 0) {
         let temp = [];
-        fetch('/api/factors/' + this.props.pid)
+        fetch(config.api_url + 'factors/' + this.props.pid)
         .then(res => res.json())
         .then((ufactors) => {
           ufactors.map((ufactor) => {

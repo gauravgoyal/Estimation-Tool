@@ -1,6 +1,7 @@
 import React, {Component} from 'react';
 import { Table } from 'reactstrap';
 import {RIEInput} from 'riek';
+import config from '../../../config';
 
 class ProjectRates extends Component {
 
@@ -20,7 +21,7 @@ class ProjectRates extends Component {
     for (let key in item) {
       formData.append(key, item[key]);
     }
-    fetch('/api/rates/update/' + item.rid, {
+    fetch(config.api_url + 'rates/update/' + item.rid, {
       method: "POST",
       headers: {
         'Content-Type': 'application/x-www-form-urlencoded;charset=UTF-8',
@@ -57,7 +58,7 @@ class ProjectRates extends Component {
 
   componentDidUpdate = (prevProps, prevState) => {
     if ((prevState.pid !== this.state.pid) || (prevState.refresh !== this.state.refresh)) {
-      fetch('/api/rates/' + this.state.pid)
+      fetch(config.api_url + 'rates/' + this.state.pid)
       .then(res => res.json())
       .then(rates => this.setState({
         rates: rates,

@@ -16,6 +16,7 @@ import {
 } from 'reactstrap';
 
 import ProjectUncertainityFactors from '../../project/components/ProjectUncertainityFactors';
+import config from '../../config';
 
 class UncertainityFactors extends Component {
 
@@ -37,7 +38,7 @@ class UncertainityFactors extends Component {
     }
 
     // Call API to save Data.
-    fetch("/api/factors", {
+    fetch(config.api_url + "factors", {
       method: "POST",
       headers: {
         'Content-Type': 'application/x-www-form-urlencoded;charset=UTF-8',

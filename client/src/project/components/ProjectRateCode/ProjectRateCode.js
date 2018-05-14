@@ -1,5 +1,6 @@
 import React, {Component} from 'react';
 import { FormGroup, Label, Input } from 'reactstrap';
+import config from '../../../config';
 
 class ProjectRateCode extends Component {
 
@@ -18,7 +19,7 @@ class ProjectRateCode extends Component {
 
   componentDidUpdate = (prevProps, prevState) => {
     if ((prevState.pid !== this.state.pid)) {
-      fetch('/api/rates/' + this.state.pid)
+      fetch(config.api_url + 'rates/' + this.state.pid)
         .then(res => res.json())
         .then(rates => this.setState({
           rates: rates
@@ -28,7 +29,7 @@ class ProjectRateCode extends Component {
   }
 
   componentDidMount = () => {
-    fetch('/api/rates/' + this.props.pid)
+    fetch(config.api_url + 'rates/' + this.props.pid)
       .then(res => res.json())
       .then(rates => this.setState({
         rates: rates

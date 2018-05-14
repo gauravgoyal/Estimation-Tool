@@ -1,6 +1,7 @@
 import React, {Component} from 'react';
 import defaultRates from './_initialRate.js';
 import defaultFactors from './_initialUFactors.js';
+import config from '../../config';
 
 import {
   Row,
@@ -27,7 +28,7 @@ class ProjectAdd extends Component {
     }
 
     // Call API to save Data.
-    fetch("/api/project", {
+    fetch(config.api_url + "project", {
       method: "POST",
       headers: {
         'Content-Type': 'application/x-www-form-urlencoded;charset=UTF-8',
@@ -43,7 +44,7 @@ class ProjectAdd extends Component {
           for (let key in defaultRate) {
             rateFormData.append(key, defaultRate[key]);
           }
-          fetch("/api/rates", {
+          fetch(config.api_url + "rates", {
             method: "POST",
             headers: {
               'Content-Type': 'application/x-www-form-urlencoded;charset=UTF-8',
@@ -58,7 +59,7 @@ class ProjectAdd extends Component {
           for (let key in ufactor) {
             ufactorFormData.append(key, ufactor[key]);
           }
-          fetch("/api/factors", {
+          fetch(config.api_url + "factors", {
             method: "POST",
             headers: {
               'Content-Type': 'application/x-www-form-urlencoded;charset=UTF-8',
