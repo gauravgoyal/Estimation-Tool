@@ -10,8 +10,7 @@ const extractSCSS = new ExtractTextPlugin('[name].styles.css');
 const BUILD_DIR = path.resolve(__dirname, 'build');
 const SRC_DIR = path.resolve(__dirname, 'src');
 
-console.log('BUILD_DIR', BUILD_DIR);
-console.log('SRC_DIR', SRC_DIR);
+const config = require('../config');
 
 module.exports = (env = {}) => {
   return {
@@ -26,13 +25,13 @@ module.exports = (env = {}) => {
     devtool: env.prod ? 'source-map' : 'cheap-module-eval-source-map',
     devServer: {
       contentBase: BUILD_DIR,
-      port: 8080,
+      port: config.web_port || 8080,
       compress: true,
       hot: true,
-      open: true,
+      open: false,
       proxy: {
         "/api/**": {
-          target: "http://localhost:3001",
+          target: process.env.BASE_URL || "http://localhost:3001",
           pathRewrite: {"^/api" : ""},
           changeOrigin: true,
           secure: false

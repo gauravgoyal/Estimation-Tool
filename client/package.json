@@ -7,7 +7,6 @@
   "copyright": "Copyright 2018 creativeLabs Łukasz Holeczek",
   "license": "MIT",
   "private": true,
-  "proxy": "http://localhost:3001/",
   "devDependencies": {
     "babel-cli": "^6.26.0",
     "babel-core": "6.26.0",
