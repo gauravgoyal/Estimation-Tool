@@ -30,7 +30,7 @@ class ProjectRates extends Component {
     .then(res => res.json())
     .then(
       (result) => {
-        if (result.status == 200) {
+        if (result.status === 200) {
           let rates = this.state.rates;
           rates[index] = item;
           this.setState({
@@ -42,13 +42,13 @@ class ProjectRates extends Component {
   }
 
   componentWillReceiveProps = (nextProps) => {
-    if (nextProps.pid != this.props.pid) {
+    if (nextProps.pid !== this.props.pid) {
       this.setState({
         pid: nextProps.pid
       })
     }
 
-    if (nextProps.refresh != this.props.refresh) {
+    if (nextProps.refresh !== this.props.refresh) {
       this.setState({
         refresh: nextProps.refresh
       })
@@ -56,7 +56,7 @@ class ProjectRates extends Component {
   }
 
   componentDidUpdate = (prevProps, prevState) => {
-    if ((prevState.pid != this.state.pid) || (prevState.refresh !== this.state.refresh)) {
+    if ((prevState.pid !== this.state.pid) || (prevState.refresh !== this.state.refresh)) {
       fetch('/api/rates/' + this.state.pid)
       .then(res => res.json())
       .then(rates => this.setState({
@@ -73,11 +73,11 @@ class ProjectRates extends Component {
         <Table>
           <thead>
             <tr>
-              <th>#</th>
-              <th>Code</th>
-              <th>Category</th>
-              <th>Role</th>
-              <th>Rate</th>
+              <th scope="row">#</th>
+              <th scope="row">Code</th>
+              <th scope="row">Category</th>
+              <th scope="row">Role</th>
+              <th scope="row">Rate</th>
             </tr>
           </thead>
           <tbody>
@@ -87,7 +87,7 @@ class ProjectRates extends Component {
                 let unique_key = 4 * key + 1;
                 return (
                   <tr key={`rate-${key}`}>
-                    <td key={unique_key} scope="row">{ key }</td>
+                    <th key={unique_key} scope="row">{ key }</th>
                     <td key={unique_key + 4}>
                       <RIEInput
                         value={rate.code}

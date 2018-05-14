@@ -3,8 +3,6 @@ import {
   Nav,
   NavItem,
   NavLink,
-  NavbarToggler,
-  NavbarBrand,
   TabContent,
   TabPane
 } from 'reactstrap';
@@ -31,7 +29,7 @@ class ProjectTabs extends Component {
   }
 
   componentWillReceiveProps = (nextProps) => {
-    if (nextProps.pid != this.props.pid) {
+    if (nextProps.pid !== this.props.pid) {
       this.setState({
         pid: nextProps.pid
       })
@@ -39,7 +37,7 @@ class ProjectTabs extends Component {
   }
 
   componentDidMount = () => {
-    if (this.state.pid == '') {
+    if (this.state.pid === '') {
       this.setState({
         pid: this.props.pid
       })

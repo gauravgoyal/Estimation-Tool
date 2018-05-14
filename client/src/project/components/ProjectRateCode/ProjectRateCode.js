@@ -9,7 +9,7 @@ class ProjectRateCode extends Component {
   }
 
   componentWillReceiveProps = (nextProps) => {
-    if (nextProps.pid != this.props.pid) {
+    if (nextProps.pid !== this.props.pid) {
       this.setState({
         pid: nextProps.pid
       })
@@ -17,7 +17,7 @@ class ProjectRateCode extends Component {
   }
 
   componentDidUpdate = (prevProps, prevState) => {
-    if ((prevState.pid != this.state.pid)) {
+    if ((prevState.pid !== this.state.pid)) {
       fetch('/api/rates/' + this.state.pid)
         .then(res => res.json())
         .then(rates => this.setState({
@@ -38,19 +38,20 @@ class ProjectRateCode extends Component {
 
   handleRates = (e) => {
     let selectedRate = {};
-    if (e.target.value) {
+    let key = Number (e.target.value);
+    if (key) {
       this.state.rates.map((rate) => {
-        if (rate.rid == e.target.value) {
+        if (rate.rid === key) {
           selectedRate.rate = rate.rate;
         }
         return selectedRate;
       })
-      this.props.onChange(e.target.value, selectedRate);
+      this.props.onChange(key, selectedRate);
     }
   }
 
   render = () => {
-    const { rates, pid } = this.state;
+    const { rates } = this.state;
     return (
       <FormGroup>
         <Label for="rateCodeList">Select Rate Code</Label>

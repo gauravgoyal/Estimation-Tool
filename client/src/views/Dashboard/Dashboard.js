@@ -1,6 +1,5 @@
 import React, {Component} from 'react';
-import {Bar, Doughnut, Line, Pie, Polar, Radar} from 'react-chartjs-2';
-import {CardColumns, CardText, CardLink, Col, Card, Row, CardHeader, CardBody} from 'reactstrap';
+import {CardText, CardLink, Col, Card, Row, CardHeader, CardBody} from 'reactstrap';
 
 class Dashboard extends Component {
 

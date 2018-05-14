@@ -30,7 +30,7 @@ class ProjectUncertainityFactors extends Component {
     .then(res => res.json())
     .then(
       (result) => {
-        if (result.status == 200) {
+        if (result.status === 200) {
           let factors = this.state.factors;
           factors[index] = item;
           this.setState({
@@ -42,13 +42,13 @@ class ProjectUncertainityFactors extends Component {
   }
 
   componentWillReceiveProps = (nextProps) => {
-    if (nextProps.pid != this.props.pid) {
+    if (nextProps.pid !== this.props.pid) {
       this.setState({
         pid: nextProps.pid
       })
     }
 
-    if (nextProps.refresh != this.props.refresh) {
+    if (nextProps.refresh !== this.props.refresh) {
       this.setState({
         refresh: nextProps.refresh
       })
@@ -56,7 +56,7 @@ class ProjectUncertainityFactors extends Component {
   }
 
   componentDidUpdate = (prevProps, prevState) => {
-    if ((prevState.pid != this.state.pid) || (prevState.refresh !== this.state.refresh)) {
+    if ((prevState.pid !== this.state.pid) || (prevState.refresh !== this.state.refresh)) {
       fetch('/api/factors/' + this.state.pid)
       .then(res => res.json())
       .then(factors => this.setState({
@@ -73,11 +73,11 @@ class ProjectUncertainityFactors extends Component {
         <Table>
           <thead>
             <tr>
-              <th>#</th>
-              <th>Confidence Factor</th>
-              <th>Factor Points</th>
-              <th>Lower Multiplier</th>
-              <th>Heigher Multiplier</th>
+              <th scope="row">#</th>
+              <th scope="row">Confidence Factor</th>
+              <th scope="row">Factor Points</th>
+              <th scope="row">Lower Multiplier</th>
+              <th scope="row">Heigher Multiplier</th>
             </tr>
           </thead>
           <tbody>
@@ -87,7 +87,7 @@ class ProjectUncertainityFactors extends Component {
                 let unique_key = 4 * key + 1;
                 return (
                   <tr key={`factor-${key}`}>
-                    <td key={unique_key} scope="row">{ key }</td>
+                    <th key={unique_key} scope="row">{ key }</th>
                     <td key={unique_key + 1}>
                       <RIEInput
                         value={factor.title}

@@ -9,7 +9,7 @@ class ProjectHours extends Component {
   }
 
   componentWillReceiveProps = (nextProps) => {
-    if (nextProps.pid != this.props.pid) {
+    if (nextProps.pid !== this.props.pid) {
       this.setState({
         pid: nextProps.pid
       })
@@ -17,7 +17,7 @@ class ProjectHours extends Component {
   }
 
   componentDidUpdate = (prevProps, prevState) => {
-    if ((prevState.pid != this.state.pid)) {
+    if ((prevState.pid !== this.state.pid)) {
       fetch('/api/factors/' + this.state.pid)
         .then(res => res.json())
         .then(factors => this.setState({
@@ -38,20 +38,21 @@ class ProjectHours extends Component {
 
   handleConfidence = (e) => {
     let conf = {};
-    if (e.target.value) {
+    let key = Number (e.target.value);
+    if (key) {
       this.state.factors.map((factor) => {
-        if (factor.ufid == e.target.value) {
+        if (factor.ufid === key) {
           conf.lower_multiplier = factor.lower_multiplier;
           conf.heigher_multiplier = factor.heigher_multiplier;
         }
         return conf;
       })
-      this.props.onChange(e.target.value, conf);
+      this.props.onChange(key, conf);
     }
   }
 
   render = () => {
-    const { factors, pid } = this.state;
+    const { factors } = this.state;
     return (
       <FormGroup>
         <Label for="confidenceFactorList">Select Confidence Factor</Label>

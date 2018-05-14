@@ -4,7 +4,6 @@ import {
   Col,
   Card,
   CardHeader,
-  CardBody,
   CardFooter,
   Button,
   Form,
@@ -16,7 +15,6 @@ import {
   ModalBody,
   ModalFooter
 } from 'reactstrap';
-import ProjectList from '../../project/components/ProjectList';
 import ProjectRates from '../../project/components/ProjectRates';
 
 class Rates extends Component {

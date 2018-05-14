@@ -2,8 +2,7 @@ import React, {Component} from 'react';
 import ProjectHours from '../../project/components/ProjectHours';
 import ProjectTasks from '../../project/components/ProjectTasks';
 import ProjectRateCode from '../../project/components/ProjectRateCode';
-import {RIEInput} from 'riek';
-import { Col, FormGroup, Input, Label, Table, Button, Modal, ModalHeader, ModalBody, ModalFooter } from 'reactstrap';
+import { FormGroup, Input, Label, Button, Modal, ModalHeader, ModalBody, ModalFooter } from 'reactstrap';
 
 class Tasks extends Component {
 

@@ -41,8 +41,6 @@ class ProjectAdd extends Component {
           defaultRate.pid = result.result;
           let rateFormData = new URLSearchParams();
           for (let key in defaultRate) {
-            console.log(key);
-            console.log(defaultRate[key]);
             rateFormData.append(key, defaultRate[key]);
           }
           fetch("/api/rates", {
@@ -52,6 +50,7 @@ class ProjectAdd extends Component {
             },
             body: rateFormData
           })
+          return defaultRates;
         });
         defaultFactors.ufactors.map((ufactor) => {
           ufactor.pid = result.result;
@@ -66,6 +65,7 @@ class ProjectAdd extends Component {
             },
             body: ufactorFormData
           })
+          return defaultFactors;
         });
         window.location.href = '#/project/' + result.result.pop();
       }

@@ -10,7 +10,7 @@ class ProjectDetails extends Component {
   }
 
   componentWillReceiveProps = (nextProps) => {
-    if (nextProps.pid != this.props.pid) {
+    if (nextProps.pid !== this.props.pid) {
       this.setState({
         pid: nextProps.pid
       })
@@ -18,11 +18,11 @@ class ProjectDetails extends Component {
   }
 
   componentDidUpdate = (prevProps, prevState) => {
-    if (prevState.pid != this.state.pid) {
+    if (prevState.pid !== this.state.pid) {
       fetch('/api/projects/' + this.state.pid)
       .then(res => res.json())
       .then((results) => {
-        if (results.status == 200) {
+        if (results.status === 200) {
           this.setState({
             project: results.result.pop()
           })
@@ -51,7 +51,7 @@ class ProjectDetails extends Component {
     .then(res => res.json())
     .then(
       (result) => {
-        if (result.status == 200) {
+        if (result.status === 200) {
           this.setState({
             project: project
           })
@@ -61,7 +61,7 @@ class ProjectDetails extends Component {
   }
 
   render = () => {
-    if (this.state.project.length == 0) {
+    if (this.state.project.length === 0) {
       return <div>No data found</div>
     }
     else {
