@@ -1,6 +1,7 @@
 import React, {Component} from 'react';
 import { Table } from 'reactstrap';
 import {RIEInput} from 'riek';
+import config from '../../../config';
 
 class ProjectUncertainityFactors extends Component {
 
@@ -20,7 +21,7 @@ class ProjectUncertainityFactors extends Component {
     for (let key in item) {
       formData.append(key, item[key]);
     }
-    fetch('/api/factors/update/' + item.ufid, {
+    fetch(config.api_url + 'factors/update/' + item.ufid, {
       method: "POST",
       headers: {
         'Content-Type': 'application/x-www-form-urlencoded;charset=UTF-8',
@@ -30,7 +31,7 @@ class ProjectUncertainityFactors extends Component {
     .then(res => res.json())
     .then(
       (result) => {
-        if (result.status == 200) {
+        if (result.status === 200) {
           let factors = this.state.factors;
           factors[index] = item;
           this.setState({
@@ -42,13 +43,13 @@ class ProjectUncertainityFactors extends Component {
   }
 
   componentWillReceiveProps = (nextProps) => {
-    if (nextProps.pid != this.props.pid) {
+    if (nextProps.pid !== this.props.pid) {
       this.setState({
         pid: nextProps.pid
       })
     }
 
-    if (nextProps.refresh != this.props.refresh) {
+    if (nextProps.refresh !== this.props.refresh) {
       this.setState({
         refresh: nextProps.refresh
       })
@@ -56,8 +57,8 @@ class ProjectUncertainityFactors extends Component {
   }
 
   componentDidUpdate = (prevProps, prevState) => {
-    if ((prevState.pid != this.state.pid) || (prevState.refresh !== this.state.refresh)) {
-      fetch('/api/factors/' + this.state.pid)
+    if ((prevState.pid !== this.state.pid) || (prevState.refresh !== this.state.refresh)) {
+      fetch(config.api_url + 'factors/' + this.state.pid)
       .then(res => res.json())
       .then(factors => this.setState({
         factors: factors,
@@ -73,11 +74,11 @@ class ProjectUncertainityFactors extends Component {
         <Table>
           <thead>
             <tr>
-              <th>#</th>
-              <th>Confidence Factor</th>
-              <th>Factor Points</th>
-              <th>Lower Multiplier</th>
-              <th>Heigher Multiplier</th>
+              <th scope="row">#</th>
+              <th scope="row">Confidence Factor</th>
+              <th scope="row">Factor Points</th>
+              <th scope="row">Lower Multiplier</th>
+              <th scope="row">Heigher Multiplier</th>
             </tr>
           </thead>
           <tbody>
@@ -87,7 +88,7 @@ class ProjectUncertainityFactors extends Component {
                 let unique_key = 4 * key + 1;
                 return (
                   <tr key={`factor-${key}`}>
-                    <td key={unique_key} scope="row">{ key }</td>
+                    <th key={unique_key} scope="row">{ key }</th>
                     <td key={unique_key + 1}>
                       <RIEInput
                         value={factor.title}

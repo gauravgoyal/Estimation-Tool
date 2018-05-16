@@ -1,6 +1,7 @@
 import React, {Component} from 'react';
 import { Table, Input } from 'reactstrap';
-import {RIEInput, RIESelect, RIETextArea} from 'riek';
+import {RIEInput, RIETextArea} from 'riek';
+import config from '../../../config';
 
 class ProjectTasks extends Component {
 
@@ -23,7 +24,7 @@ class ProjectTasks extends Component {
       item[field] = newState[field];
     }
 
-    if (field === 'ufid' || field == 'rid' || field == 'estimated_hours') {
+    if (field === 'ufid' || field === 'rid' || field === 'estimated_hours') {
       item = this.generateNewTask(item, field);
     }
 
@@ -34,7 +35,7 @@ class ProjectTasks extends Component {
     }
 
 
-    fetch('/api/tasks/update/' + item.rid, {
+    fetch(config.api_url + 'tasks/update/' + item.rid, {
       method: "POST",
       headers: {
         'Content-Type': 'application/x-www-form-urlencoded;charset=UTF-8',
@@ -44,7 +45,7 @@ class ProjectTasks extends Component {
     .then(res => res.json())
     .then(
       (result) => {
-        if (result.status == 200) {
+        if (result.status === 200) {
           let tasks = this.state.tasks;
           tasks[index] = item;
           this.setState({
@@ -55,7 +56,7 @@ class ProjectTasks extends Component {
           for (let key in this.state.total) {
             formData.append(key, this.state.total[key]);
           }
-          fetch('/api/project-total/update/' + item.pid, {
+          fetch(config.api_url + 'project-total/update/' + item.pid, {
             method: "POST",
             headers: {
               'Content-Type': 'application/x-www-form-urlencoded;charset=UTF-8',
@@ -78,11 +79,12 @@ class ProjectTasks extends Component {
     };
 
     this.state.tasks.map((task) => {
-      total.estimated_hours += task.estimated_hours;
+      total.estimated_hours += Number (task.estimated_hours);
       total.low_estimated_hours += task.hours_low;
       total.high_estimated_hours += task.hours_high;
       total.low_estimated_cost += task.rate_low;
       total.high_estimated_cost += task.rate_high;
+      return total;
     })
     this.setState({
       total: total,
@@ -98,13 +100,13 @@ class ProjectTasks extends Component {
   }
 
   componentWillReceiveProps = (nextProps) => {
-    if (nextProps.pid != this.props.pid) {
+    if (nextProps.pid !== this.props.pid) {
       this.setState({
         pid: nextProps.pid
       })
     }
 
-    if (nextProps.refresh != this.props.refresh) {
+    if (nextProps.refresh !== this.props.refresh) {
       this.setState({
         refresh: nextProps.refresh
       })
@@ -112,8 +114,8 @@ class ProjectTasks extends Component {
   }
 
   componentDidUpdate = (prevProps, prevState) => {
-    if ((prevState.pid != this.state.pid) || (prevState.refresh !== this.state.refresh)) {
-      fetch('/api/tasks/' + this.state.pid)
+    if ((prevState.pid !== this.state.pid) || (prevState.refresh !== this.state.refresh)) {
+      fetch(config.api_url + 'tasks/' + this.state.pid)
       .then(res => res.json())
       .then((tasks) => {
         this.setState({
@@ -123,13 +125,14 @@ class ProjectTasks extends Component {
         this.calculateTotal();
       });
 
-      if (this.state.rates.length == 0) {
+      if (this.state.rates.length === 0) {
         let temp = [];
-        fetch('/api/rates/' + this.props.pid)
+        fetch(config.api_url + 'rates/' + this.props.pid)
         .then(res => res.json())
         .then((rates) => {
           rates.map((rate) => {
             temp[rate.rid] = rate;
+            return temp;
           })
           this.setState({
             rates: temp,
@@ -137,13 +140,14 @@ class ProjectTasks extends Component {
         });
       }
 
-      if (this.state.ufactors.length == 0) {
+      if (this.state.ufactors.length === 0) {
         let temp = [];
-        fetch('/api/factors/' + this.props.pid)
+        fetch(config.api_url + 'factors/' + this.props.pid)
         .then(res => res.json())
         .then((ufactors) => {
           ufactors.map((ufactor) => {
             temp[ufactor.ufid] = ufactor;
+            return temp;
           })
           this.setState({
             ufactors: temp,
@@ -154,7 +158,8 @@ class ProjectTasks extends Component {
   }
 
   render = () => {
-    const { tasks, rates, ufactors } = this.state;
+    const rates = this.state.rates;
+    const ufactors = this.state.ufactors;
     return (
       <Table className="task-table">
         <thead>
@@ -242,15 +247,17 @@ class ProjectTasks extends Component {
           }
         </tbody>
         <tfoot>
-          <th className="title">Totals</th>
-          <th className="estimated-hours">{this.state.total.estimated_hours}</th>
-          <th className="conf-factor"></th>
-          <th className="low-hours">{this.state.total.low_estimated_hours}</th>
-          <th className="high-hours">{this.state.total.high_estimated_hours}</th>
-          <th className="ratecode"></th>
-          <th className="low-cost">${this.state.total.low_estimated_cost}</th>
-          <th className="high-cost">${this.state.total.high_estimated_cost}</th>
-          <th className="assumptions"></th>
+          <tr>
+            <th className="title">Totals</th>
+            <th className="estimated-hours">{this.state.total.estimated_hours}</th>
+            <th className="conf-factor"></th>
+            <th className="low-hours">{this.state.total.low_estimated_hours}</th>
+            <th className="high-hours">{this.state.total.high_estimated_hours}</th>
+            <th className="ratecode"></th>
+            <th className="low-cost">${this.state.total.low_estimated_cost}</th>
+            <th className="high-cost">${this.state.total.high_estimated_cost}</th>
+            <th className="assumptions"></th>
+          </tr>
         </tfoot>
       </Table>
     )

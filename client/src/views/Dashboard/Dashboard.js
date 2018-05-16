@@ -1,13 +1,13 @@
 import React, {Component} from 'react';
-import {Bar, Doughnut, Line, Pie, Polar, Radar} from 'react-chartjs-2';
-import {CardColumns, CardText, CardLink, Col, Card, Row, CardHeader, CardBody} from 'reactstrap';
+import {CardText, CardLink, Col, Card, Row, CardHeader, CardBody} from 'reactstrap';
+import config from '../../config';
 
 class Dashboard extends Component {
 
   state = {projects: []};
 
   componentDidMount() {
-    fetch('/api/projects')
+    fetch(config.api_url + 'projects')
       .then(res => res.json())
       .then(projects => this.setState({projects}));
   }

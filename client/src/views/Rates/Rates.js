@@ -4,7 +4,6 @@ import {
   Col,
   Card,
   CardHeader,
-  CardBody,
   CardFooter,
   Button,
   Form,
@@ -16,8 +15,8 @@ import {
   ModalBody,
   ModalFooter
 } from 'reactstrap';
-import ProjectList from '../../project/components/ProjectList';
 import ProjectRates from '../../project/components/ProjectRates';
+import config from '../../config';
 
 class Rates extends Component {
 
@@ -36,7 +35,7 @@ class Rates extends Component {
     }
 
     // Call API to save Data.
-    fetch("/api/rates", {
+    fetch(config.api_url + "rates", {
       method: "POST",
       headers: {
         'Content-Type': 'application/x-www-form-urlencoded;charset=UTF-8',

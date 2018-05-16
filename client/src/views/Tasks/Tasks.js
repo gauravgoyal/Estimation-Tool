@@ -2,8 +2,8 @@ import React, {Component} from 'react';
 import ProjectHours from '../../project/components/ProjectHours';
 import ProjectTasks from '../../project/components/ProjectTasks';
 import ProjectRateCode from '../../project/components/ProjectRateCode';
-import {RIEInput} from 'riek';
-import { Col, FormGroup, Input, Label, Table, Button, Modal, ModalHeader, ModalBody, ModalFooter } from 'reactstrap';
+import { FormGroup, Input, Label, Button, Modal, ModalHeader, ModalBody, ModalFooter } from 'reactstrap';
+import config from '../../config';
 
 class Tasks extends Component {
 
@@ -29,7 +29,6 @@ class Tasks extends Component {
   }
 
   onSubmitForm = (e) => {
-    console.log(this.state.newTask);
     var formData = new URLSearchParams();
     formData.append('pid', this.props.pid);
     for (let key in this.state.newTask) {
@@ -37,7 +36,7 @@ class Tasks extends Component {
     }
 
     // Call API to save Data.
-    fetch("/api/tasks", {
+    fetch(config.api_url + "tasks", {
       method: "POST",
       headers: {
         'Content-Type': 'application/x-www-form-urlencoded;charset=UTF-8',

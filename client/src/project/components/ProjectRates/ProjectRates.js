@@ -1,6 +1,7 @@
 import React, {Component} from 'react';
 import { Table } from 'reactstrap';
 import {RIEInput} from 'riek';
+import config from '../../../config';
 
 class ProjectRates extends Component {
 
@@ -20,7 +21,7 @@ class ProjectRates extends Component {
     for (let key in item) {
       formData.append(key, item[key]);
     }
-    fetch('/api/rates/update/' + item.rid, {
+    fetch(config.api_url + 'rates/update/' + item.rid, {
       method: "POST",
       headers: {
         'Content-Type': 'application/x-www-form-urlencoded;charset=UTF-8',
@@ -30,7 +31,7 @@ class ProjectRates extends Component {
     .then(res => res.json())
     .then(
       (result) => {
-        if (result.status == 200) {
+        if (result.status === 200) {
           let rates = this.state.rates;
           rates[index] = item;
           this.setState({
@@ -42,13 +43,13 @@ class ProjectRates extends Component {
   }
 
   componentWillReceiveProps = (nextProps) => {
-    if (nextProps.pid != this.props.pid) {
+    if (nextProps.pid !== this.props.pid) {
       this.setState({
         pid: nextProps.pid
       })
     }
 
-    if (nextProps.refresh != this.props.refresh) {
+    if (nextProps.refresh !== this.props.refresh) {
       this.setState({
         refresh: nextProps.refresh
       })
@@ -56,8 +57,8 @@ class ProjectRates extends Component {
   }
 
   componentDidUpdate = (prevProps, prevState) => {
-    if ((prevState.pid != this.state.pid) || (prevState.refresh !== this.state.refresh)) {
-      fetch('/api/rates/' + this.state.pid)
+    if ((prevState.pid !== this.state.pid) || (prevState.refresh !== this.state.refresh)) {
+      fetch(config.api_url + 'rates/' + this.state.pid)
       .then(res => res.json())
       .then(rates => this.setState({
         rates: rates,
@@ -73,11 +74,11 @@ class ProjectRates extends Component {
         <Table>
           <thead>
             <tr>
-              <th>#</th>
-              <th>Code</th>
-              <th>Category</th>
-              <th>Role</th>
-              <th>Rate</th>
+              <th scope="row">#</th>
+              <th scope="row">Code</th>
+              <th scope="row">Category</th>
+              <th scope="row">Role</th>
+              <th scope="row">Rate</th>
             </tr>
           </thead>
           <tbody>
@@ -87,7 +88,7 @@ class ProjectRates extends Component {
                 let unique_key = 4 * key + 1;
                 return (
                   <tr key={`rate-${key}`}>
-                    <td key={unique_key} scope="row">{ key }</td>
+                    <th key={unique_key} scope="row">{ key }</th>
                     <td key={unique_key + 4}>
                       <RIEInput
                         value={rate.code}
