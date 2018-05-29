@@ -6,7 +6,11 @@ import {
   PROJECT_LIST_SUCCESS,
   PROJECT_VIEWED,
   PROJECT_UPDATE_REQUEST,
-  PROJECT_UPDATE_SUCCESS
+  PROJECT_UPDATE_SUCCESS,
+  PROJECT_RATE_REQUEST,
+  PROJECT_RATE_SUCCESS,
+  PROJECT_RATE_UPDATE_REQUEST,
+  PROJECT_RATE_UPDATE_SUCCESS
 } from '../actions'
 
 function projectOperations(state = {
@@ -67,8 +71,41 @@ function projectOperations(state = {
   }
 }
 
+function projectRates(state = {
+  isFetching: true,
+  projectRates: [],
+ }, action) {
+  switch (action.type) {
+    case PROJECT_RATE_REQUEST:
+    case PROJECT_RATE_UPDATE_REQUEST:
+    return {
+      ...state,
+      isFetching: true
+    }
+
+    case PROJECT_RATE_SUCCESS:
+    return {
+      ...state,
+      isFetching: false,
+      projectRates: action.data
+    }
+
+    case PROJECT_RATE_UPDATE_SUCCESS:
+    return {
+      ...state,
+      isFetching: false,
+      projectRates: action.data
+    }
+
+    default:
+    return state
+  }
+
+}
+
 const rootReducer = combineReducers({
-  projectOperations
+  projectOperations,
+  projectRates
 })
 
 export default rootReducer

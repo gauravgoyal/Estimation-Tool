@@ -1,7 +1,9 @@
 import {
   apiListProjects,
   apiFetchProject,
-  apiProjectUpdate
+  apiProjectUpdate,
+  apiProjectRates,
+  apiProjectRatesUpdate,
 } from '../api';
 export const PROJECT_FETCH_REQUEST = 'PROJECT_FETCH_REQUEST'
 export const PROJECT_FETCH_SUCCESS = 'PROJECT_FETCH_SUCCESS'
@@ -10,6 +12,10 @@ export const PROJECT_UPDATE_SUCCESS = 'PROJECT_UPDATE_SUCCESS'
 export const PROJECT_LIST_REQUEST = 'PROJECT_LIST_REQUEST'
 export const PROJECT_LIST_SUCCESS = 'PROJECT_LIST_SUCCESS'
 export const PROJECT_VIEWED = 'PROJECT_VIEWED'
+export const PROJECT_RATE_REQUEST = 'PROJECT_RATE_REQUEST'
+export const PROJECT_RATE_SUCCESS = 'PROJECT_RATE_SUCCESS'
+export const PROJECT_RATE_UPDATE_REQUEST = 'PROJECT_RATE_REQUEST'
+export const PROJECT_RATE_UPDATE_SUCCESS = 'PROJECT_RATE_SUCCESS'
 
 const sendProjectFetchRequest = () => ({
   type: PROJECT_FETCH_REQUEST
@@ -38,6 +44,24 @@ const projectUpdateSuccess = (project) => ({
   data: project
 })
 
+const sendProjectRateRequest = () => ({
+  type: PROJECT_RATE_REQUEST
+})
+
+const projectRateSuccess = (rates) => ({
+  type: PROJECT_RATE_SUCCESS,
+  data: rates
+})
+
+const sendProjectRateUpdateRequest = () => ({
+  type: PROJECT_RATE_UPDATE_REQUEST
+})
+
+const projectRateUpdateSuccess = (rates) => ({
+  type: PROJECT_RATE_UPDATE_SUCCESS,
+  data: rates
+})
+
 export const viewedProjects = (project) => ({
   type: PROJECT_VIEWED,
   data: project
@@ -62,4 +86,18 @@ export const fetchProject = (pid) => (dispatch) => {
   return apiFetchProject(pid)
   .then(res => res.json())
   .then(json => dispatch(projectFetchSuccess(json.result.pop())))
+}
+
+export const fetchProjectRates = (pid) => (dispatch) => {
+  dispatch(sendProjectRateRequest())
+  return apiProjectRates(pid)
+  .then(res => res.json())
+  .then(json => dispatch(projectRateSuccess(json)))
+}
+
+export const updateProjectRates = (item, rates) => (dispatch) => {
+  dispatch(sendProjectRateUpdateRequest())
+  return apiProjectRatesUpdate(item)
+  .then(res => res.json())
+  .then(json => dispatch(projectRateUpdateSuccess(rates)))
 }

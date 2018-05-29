@@ -8,7 +8,7 @@ import {
 } from 'reactstrap';
 import classnames from 'classnames';
 
-import Rates from '../../../views/Rates/';
+import Rates from '../../containers/Rates';
 import UncertainityFactors from '../../../views/UncertainityFactors/';
 import ProjectDetails from '../../containers/ProjectDetails';
 import Tasks from '../../../views/Tasks/';

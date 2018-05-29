@@ -2,6 +2,8 @@ import config from '../../config';
 
 const ENDPOINT_PROJECT_DETAILS = config.api_url + 'projects';
 const ENDPOINT_PROJECT_UPDATE = config.api_url + 'project/update/';
+const ENDPOINT_PROJECT_RATES = config.api_url + 'rates/';
+const ENDPOINT_PROJECT_RATES_UPDATE = config.api_url + 'rates/update/'
 
 export const apiProjectUpdate = (project) => {
   let formData = createFormData(project);
@@ -20,6 +22,21 @@ export const apiListProjects = () => {
 
 export const apiFetchProject = (pid) => {
   return fetch(ENDPOINT_PROJECT_DETAILS + '/' + pid)
+}
+
+export const apiProjectRates = (pid) => {
+  return fetch(ENDPOINT_PROJECT_RATES + pid)
+}
+
+export const apiProjectRatesUpdate = (rate) => {
+  let formData = createFormData(rate);
+  return fetch(ENDPOINT_PROJECT_RATES_UPDATE + rate.rid, {
+    method: "POST",
+    headers: {
+      'Content-Type': 'application/x-www-form-urlencoded;charset=UTF-8',
+    },
+    body: formData
+  })
 }
 
 const createFormData = (data) => {
