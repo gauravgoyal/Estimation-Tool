@@ -1,23 +1,15 @@
 import React, {Component} from 'react';
 import {CardText, CardLink, Col, Card, Row, CardHeader, CardBody} from 'reactstrap';
-import config from '../../config';
 
-class Dashboard extends Component {
-
-  state = {projects: []};
-
-  componentDidMount() {
-    fetch(config.api_url + 'projects')
-      .then(res => res.json())
-      .then(projects => this.setState({projects}));
-  }
+class ProjectsDashboard extends Component {
 
   render() {
+    const { projects } = this.props
     return (
       <div className="animated fadeIn">
         <h1>Projects</h1>
         <Row>
-        {this.state.projects.map((project) => {
+        {projects.map((project) => {
           return (
             <Col xs="12" sm="6" md="4">
               <Card>
@@ -46,4 +38,4 @@ class Dashboard extends Component {
   }
 }
 
-export default Dashboard;
+export default ProjectsDashboard;
