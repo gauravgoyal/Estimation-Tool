@@ -6,6 +6,7 @@ import {
   CardHeader,
   Table } from 'reactstrap';
 import {RIEInput} from 'riek';
+import AddRate from '../Modals/AddRate/';
 
 class ProjectRates extends Component {
 
@@ -77,6 +78,7 @@ class ProjectRates extends Component {
               </Table>
             </Card>
           </Col>
+          <AddRate onSubmit={this.props.submitForm.bind(this)} updateValue = { this.props.onUpdate.bind(this) }/>
         </Row>
       </div>
     )

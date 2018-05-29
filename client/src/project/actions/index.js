@@ -4,7 +4,9 @@ import {
   apiProjectUpdate,
   apiProjectRates,
   apiProjectRatesUpdate,
+  apiProjectRateCreate
 } from '../api';
+
 export const PROJECT_FETCH_REQUEST = 'PROJECT_FETCH_REQUEST'
 export const PROJECT_FETCH_SUCCESS = 'PROJECT_FETCH_SUCCESS'
 export const PROJECT_UPDATE_REQUEST = 'PROJECT_UPDATE_REQUEST'
@@ -16,6 +18,8 @@ export const PROJECT_RATE_REQUEST = 'PROJECT_RATE_REQUEST'
 export const PROJECT_RATE_SUCCESS = 'PROJECT_RATE_SUCCESS'
 export const PROJECT_RATE_UPDATE_REQUEST = 'PROJECT_RATE_REQUEST'
 export const PROJECT_RATE_UPDATE_SUCCESS = 'PROJECT_RATE_SUCCESS'
+export const PROJECT_RATE_CREATE_REQUEST = 'PROJECT_RATE_CREATE_REQUEST'
+export const PROJECT_RATE_CREATE_SUCCESS = 'PROJECT_RATE_CREATE_SUCCESS'
 
 const sendProjectFetchRequest = () => ({
   type: PROJECT_FETCH_REQUEST
@@ -62,6 +66,15 @@ const projectRateUpdateSuccess = (rates) => ({
   data: rates
 })
 
+const sendProjectRateCreateRequest = () => ({
+  type: PROJECT_RATE_CREATE_REQUEST
+})
+
+const sendProjectRateCreateSuccess = (rate) => ({
+  type: PROJECT_RATE_CREATE_SUCCESS,
+  data: rate
+})
+
 export const viewedProjects = (project) => ({
   type: PROJECT_VIEWED,
   data: project
@@ -100,4 +113,11 @@ export const updateProjectRates = (item, rates) => (dispatch) => {
   return apiProjectRatesUpdate(item)
   .then(res => res.json())
   .then(json => dispatch(projectRateUpdateSuccess(rates)))
+}
+
+export const addProjectRate = (rate, rates) => (dispatch) => {
+  dispatch(sendProjectRateCreateRequest());
+  return apiProjectRateCreate(rate)
+  .then(res => res.json())
+  .then(json => dispatch(sendProjectRateCreateSuccess(rates)))
 }
