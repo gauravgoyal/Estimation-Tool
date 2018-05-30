@@ -22,7 +22,7 @@ import FullFooter from './FullFooter';
 import FullHeader from './FullHeader';
 
 import Dashboard from '../../project/containers/Dashboard/';
-import ProjectAdd from '../../views/ProjectAdd/';
+import AddProject from '../../project/containers/AddProject/';
 import Tabs from '../../project/containers/Tabs/';
 
 class Full extends Component {
@@ -63,7 +63,7 @@ class Full extends Component {
             <Container fluid>
               <Switch>
                 <Route path="/dashboard" name="Dashboard" component={Dashboard} />
-                <Route path="/project/add" name="ProjectAdd" component={ProjectAdd}/>
+                <Route path="/project/add" name="AddProject" component={AddProject}/>
                 <Route path="/project/:pid" name="Project" component={Tabs}/>
                 <Redirect from="/" to="/dashboard"/>
               </Switch>

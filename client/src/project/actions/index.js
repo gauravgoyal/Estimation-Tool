@@ -4,7 +4,9 @@ import {
   apiProjectUpdate,
   apiProjectRates,
   apiProjectRatesUpdate,
-  apiProjectRateCreate
+  apiProjectRateCreate,
+  apiProjectCreate,
+  apiProjectUFactorsCreate
 } from '../api';
 
 export const PROJECT_FETCH_REQUEST = 'PROJECT_FETCH_REQUEST'
@@ -13,6 +15,8 @@ export const PROJECT_UPDATE_REQUEST = 'PROJECT_UPDATE_REQUEST'
 export const PROJECT_UPDATE_SUCCESS = 'PROJECT_UPDATE_SUCCESS'
 export const PROJECT_LIST_REQUEST = 'PROJECT_LIST_REQUEST'
 export const PROJECT_LIST_SUCCESS = 'PROJECT_LIST_SUCCESS'
+export const PROJECT_CREATE_REQUEST = 'PROJECT_CREATE_REQUEST'
+export const PROJECT_CREATE_SUCCESS = 'PROJECT_CREATE_SUCCESS'
 export const PROJECT_VIEWED = 'PROJECT_VIEWED'
 export const PROJECT_RATE_REQUEST = 'PROJECT_RATE_REQUEST'
 export const PROJECT_RATE_SUCCESS = 'PROJECT_RATE_SUCCESS'
@@ -40,6 +44,15 @@ const listProjectsRequest = () => ({
 
 const listProjectsSuccess = (json) => ({
   type: PROJECT_LIST_SUCCESS,
+  data: json
+})
+
+const sendProjectCreateRequest = () => ({
+  type: PROJECT_CREATE_REQUEST
+})
+
+const projectCreateSuccess = (json) => ({
+  type: PROJECT_CREATE_SUCCESS,
   data: json
 })
 
@@ -120,4 +133,23 @@ export const addProjectRate = (rate, rates) => (dispatch) => {
   return apiProjectRateCreate(rate)
   .then(res => res.json())
   .then(json => dispatch(sendProjectRateCreateSuccess(rates)))
+}
+
+export const addProject = (project, defaultRates, defaultUFactors) => (dispatch) => {
+  dispatch(sendProjectCreateRequest());
+  return apiProjectCreate(project)
+  .then(res => res.json())
+  .then(json => {
+    let pid = json.result.pop()
+    project.pid = pid;
+    defaultRates.map((defaultRate) => {
+      defaultRate.pid = pid
+      return apiProjectRateCreate(defaultRate)
+    })
+    defaultUFactors.map((defaultUFactor) => {
+      defaultUFactor.pid = pid
+      return apiProjectUFactorsCreate(defaultUFactor)
+    })
+    dispatch(projectCreateSuccess(project))
+  })
 }
