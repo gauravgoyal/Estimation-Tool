@@ -68,6 +68,24 @@ class Tasks extends Component {
     dispatch(updateProjectTotal(project))
   }
 
+  submitForm = (e) => {
+    var formData = new URLSearchParams();
+    formData.append('pid', this.props.pid);
+    for (let key in this.state.newTask) {
+      formData.append(key, this.state.newTask[key]);
+    }
+
+    // Call API to save Data.
+    // fetch(config.api_url + "tasks", {
+    //   method: "POST",
+    //   headers: {
+    //     'Content-Type': 'application/x-www-form-urlencoded;charset=UTF-8',
+    //   },
+    //   body: formData
+    // })
+  };
+
+
   render = () => {
     const { isFetching, projectTasks, projectRates, projectUFactors, projectTotal } = this.props
     if (isFetching) {
@@ -83,6 +101,7 @@ class Tasks extends Component {
           ufactors = { projectUFactors }
           handleChange = { this.onHandleChange.bind(this) }
           projectTotal = { projectTotal }
+          onSubmitForm = { this.submitForm.bind(this) }
         />
       )
     }
@@ -91,7 +110,7 @@ class Tasks extends Component {
 }
 
 const mapStateToProps = (state) => {
-  const { isFetching, currProject } = state.projectOperations
+  const { isFetching } = state.projectOperations
   const { projectTasks, inValidate, projectTotal } = state.projectTasks
   const { projectRates } = state.projectRates
   const { projectUFactors } = state.projectUFactors
