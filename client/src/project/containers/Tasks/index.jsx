@@ -13,11 +13,22 @@ class Tasks extends Component {
 
   generateNewTask = (item, field) => {
     const { projectRates, projectUFactors } = this.props
-    item.hours_low = item.estimated_hours * projectUFactors[item.ufid].lower_multiplier;
-    item.hours_high = item.estimated_hours * projectUFactors[item.ufid].heigher_multiplier;
-    item.rate_low = item.hours_low * projectRates[item.rid].rate;
-    item.rate_high = item.hours_high * projectRates[item.rid].rate;
-    return item;
+    projectUFactors.map((uFactor) => {
+      if (uFactor.ufid === item.ufid) {
+        item.hours_low = item.estimated_hours * uFactor.lower_multiplier;
+        item.hours_high = item.estimated_hours * uFactor.heigher_multiplier;
+      }
+      return item
+    })
+
+    projectRates.map((projectRate) => {
+      if (projectRate.rid === Number (item.rid)) {
+        item.rate_low = item.hours_low * projectRate.rate;
+        item.rate_high = item.hours_high * projectRate.rate;
+      }
+      return item
+    })
+    return item
   }
 
   calculateTotal = (tasks) => {
