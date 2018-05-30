@@ -52,7 +52,7 @@ function projectOperations(state = {
     return {
       ...state,
       isFetching: false,
-      projectsList: [...state.projectsList, action.data],
+      projectsList: action.data,
     }
 
     case PROJECT_VIEWED:
