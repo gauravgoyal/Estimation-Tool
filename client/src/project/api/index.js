@@ -9,10 +9,17 @@ const ENDPOINT_PROJECT_CREATE = config.api_url + "project"
 const ENDPOINT_PROJECT_UFACTORS_CREATE = config.api_url + "factors"
 const ENDPOINT_PROJECT_UFACTORS = config.api_url + 'factors/'
 const ENDPOINT_PROJECT_UFACTORS_UPDATE = config.api_url + 'factors/update/'
+const ENDPOINT_PROJECT_TASKS = config.api_url + 'tasks/'
+const ENDPOINT_PROJECT_TASKS_UPDATE = config.api_url + 'tasks/update/'
 
 export const apiProjectUpdate = (project) => {
   let endpoint = ENDPOINT_PROJECT_UPDATE + project.pid
   return sendPostRequest(endpoint, project)
+}
+
+export const apiProjectTasksUpdate = (task) => {
+  let endpoint = ENDPOINT_PROJECT_TASKS_UPDATE + task.pid
+  return sendPostRequest(endpoint, task)
 }
 
 export const apiListProjects = () => {
@@ -25,6 +32,10 @@ export const apiFetchProject = (pid) => {
 
 export const apiProjectRates = (pid) => {
   return fetch(ENDPOINT_PROJECT_RATES + pid)
+}
+
+export const apiProjectTasks = (pid) => {
+  return fetch(ENDPOINT_PROJECT_TASKS + pid)
 }
 
 export const apiProjectRatesUpdate = (rate) => {

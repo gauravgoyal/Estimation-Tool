@@ -11,7 +11,7 @@ import classnames from 'classnames';
 import Rates from '../../containers/Rates';
 import UFactors from '../../containers/UFactors/';
 import ProjectDetails from '../../containers/ProjectDetails';
-import Tasks from '../../../views/Tasks/';
+import Tasks from '../../containers/Tasks';
 
 class ProjectTabs extends Component {
 

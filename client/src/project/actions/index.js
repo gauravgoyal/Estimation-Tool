@@ -8,7 +8,9 @@ import {
   apiProjectCreate,
   apiProjectUFactorsCreate,
   apiProjectUFactors,
-  apiProjectUFactorsUpdate
+  apiProjectUFactorsUpdate,
+  apiProjectTasks,
+  apiProjectTasksUpdate
 } from '../api';
 
 export const PROJECT_FETCH_REQUEST = 'PROJECT_FETCH_REQUEST'
@@ -32,6 +34,10 @@ export const PROJECT_UFACTOR_UPDATE_REQUEST = 'PROJECT_UFACTOR_UPDATE_REQUEST'
 export const PROJECT_UFACTOR_UPDATE_SUCCESS = 'PROJECT_UFACTOR_UPDATE_SUCCESS'
 export const PROJECT_UFACTOR_CREATE_REQUEST = 'PROJECT_UFACTOR_CREATE_REQUEST'
 export const PROJECT_UFACTOR_CREATE_SUCCESS = 'PROJECT_UFACTOR_CREATE_SUCCESS'
+export const PROJECT_TASKS_FETCH_REQUEST = 'PROJECT_TASKS_FETCH_REQUEST'
+export const PROJECT_TASKS_FETCH_SUCCESS = 'PROJECT_TASKS_FETCH_SUCCESS'
+export const PROJECT_TASKS_UPDATE_REQUEST = 'PROJECT_TASKS_UPDATE_REQUEST'
+export const PROJECT_TASKS_UPDATE_SUCCESS = 'PROJECT_TASKS_UPDATE_SUCCESS'
 
 const sendProjectFetchRequest = () => ({
   type: PROJECT_FETCH_REQUEST
@@ -40,6 +46,15 @@ const sendProjectFetchRequest = () => ({
 const projectFetchSuccess = (project) => ({
   type: PROJECT_FETCH_SUCCESS,
   data: project
+})
+
+const sendProjectTasksFetchRequest = () => ({
+  type: PROJECT_TASKS_FETCH_REQUEST
+})
+
+const projectTasksFetchSuccess = (tasks) => ({
+  type: PROJECT_TASKS_FETCH_SUCCESS,
+  data: tasks
 })
 
 const sendProjectUpdateRequest = () => ({
@@ -94,6 +109,15 @@ const sendProjectRateUpdateRequest = () => ({
 const projectRateUpdateSuccess = (rates) => ({
   type: PROJECT_RATE_UPDATE_SUCCESS,
   data: rates
+})
+
+const sendProjectTasksUpdateRequest = () => ({
+  type: PROJECT_TASKS_UPDATE_REQUEST
+})
+
+const projectTasksUpdateSuccess = (tasks) => ({
+  type: PROJECT_TASKS_UPDATE_SUCCESS,
+  data: tasks
 })
 
 const sendProjectUfactorsUpdateRequest = () => ({
@@ -189,8 +213,9 @@ export const addProject = (project, defaultRates, defaultUFactors) => (dispatch)
   })
 }
 
-export const fetchProjectUfactors = (pid) => (dispatch) => {
+export const fetchProjectUfactors = () => (dispatch, getState) => {
   dispatch(projectUFactorsRequest());
+  let pid = getState().projectOperations.currProject.pid;
   return apiProjectUFactors(pid)
   .then(res => res.json())
   .then(json => dispatch(projectUFactorsSuccess(json)))
@@ -208,4 +233,23 @@ export const addProjectUFactors = (uFactor, uFactors) => (dispatch) => {
   return apiProjectUFactorsCreate(uFactor)
   .then(res => res.json())
   .then(json => dispatch(projectUfactorSuccess(uFactors)))
+}
+
+export const fetchProjectTasks = () => (dispatch, getState) => {
+  let pid = getState().projectOperations.currProject.pid;
+  dispatch(sendProjectTasksFetchRequest());
+  return apiProjectTasks(pid)
+  .then(res => res.json())
+  .then(json => dispatch(projectTasksFetchSuccess(json)))
+}
+
+export const updateProjectTasks = (task, index) => (dispatch, getState) => {
+  let pid = getState().projectOperations.currProject.pid;
+  task.pid = pid;
+  let tasks = getState().projectTasks.projectTasks;
+  tasks[index] = task;
+  dispatch(sendProjectTasksUpdateRequest())
+  return apiProjectTasksUpdate(task)
+  .then(res => res.json())
+  .then(json => dispatch(projectTasksUpdateSuccess(tasks)))
 }
