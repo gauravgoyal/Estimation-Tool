@@ -26,7 +26,10 @@ class AddProject extends Component {
 
   render = () => {
     return (
-      <NewProject onSubmitForm={this.submitForm.bind(this)} updateValue={this.onUpdateValue.bind(this)}/>
+      <NewProject
+        onSubmitForm={this.submitForm.bind(this)}
+        updateValue={this.onUpdateValue.bind(this)}
+      />
     )
   }
 }
