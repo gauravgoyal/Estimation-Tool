@@ -9,7 +9,7 @@ import {
 import classnames from 'classnames';
 
 import Rates from '../../containers/Rates';
-import UncertainityFactors from '../../../views/UncertainityFactors/';
+import UFactors from '../../containers/UFactors/';
 import ProjectDetails from '../../containers/ProjectDetails';
 import Tasks from '../../../views/Tasks/';
 
@@ -69,7 +69,7 @@ class ProjectTabs extends Component {
             <Rates />
           </TabPane>
           <TabPane tabId="uncertainity_factors">
-            <UncertainityFactors />
+            <UFactors />
           </TabPane>
           <TabPane tabId="project_details">
             <ProjectDetails />

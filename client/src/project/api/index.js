@@ -7,6 +7,8 @@ const ENDPOINT_PROJECT_RATES_UPDATE = config.api_url + 'rates/update/'
 const ENDPOINT_PROJECT_RATE_CREATE = config.api_url + "rates"
 const ENDPOINT_PROJECT_CREATE = config.api_url + "project"
 const ENDPOINT_PROJECT_UFACTORS_CREATE = config.api_url + "factors"
+const ENDPOINT_PROJECT_UFACTORS = config.api_url + 'factors/'
+const ENDPOINT_PROJECT_UFACTORS_UPDATE = config.api_url + 'factors/update/'
 
 export const apiProjectUpdate = (project) => {
   let endpoint = ENDPOINT_PROJECT_UPDATE + project.pid
@@ -40,6 +42,15 @@ export const apiProjectCreate = (project) => {
 
 export const apiProjectUFactorsCreate = (uFactor) => {
   return sendPostRequest(ENDPOINT_PROJECT_UFACTORS_CREATE, uFactor)
+}
+
+export const apiProjectUFactors = (pid) => {
+  return fetch(ENDPOINT_PROJECT_UFACTORS + pid)
+}
+
+export const apiProjectUFactorsUpdate = (uFactor) => {
+  let endpoint = ENDPOINT_PROJECT_UFACTORS_UPDATE + uFactor.ufid
+  return sendPostRequest(endpoint, uFactor)
 }
 
 const sendPostRequest = (endpoint, data) => {
