@@ -1,12 +1,11 @@
 import React, {Component} from 'react';
 import { Table, Input } from 'reactstrap';
 import {RIEInput, RIETextArea} from 'riek';
-import config from '../../../config';
 
 class ProjectTasks extends Component {
 
   render = () => {
-    const { tasks, rates, ufactors} = this.props
+    const { tasks, rates, ufactors, projectTotal} = this.props
     return (
       <Table className="task-table">
         <thead>
@@ -93,19 +92,19 @@ class ProjectTasks extends Component {
             })
           }
         </tbody>
-        {/*<tfoot>
+        <tfoot>
           <tr>
             <th className="title">Totals</th>
-            <th className="estimated-hours">{this.state.total.estimated_hours}</th>
+            <th className="estimated-hours">{projectTotal.estimated_hours}</th>
             <th className="conf-factor"></th>
-            <th className="low-hours">{this.state.total.low_estimated_hours}</th>
-            <th className="high-hours">{this.state.total.high_estimated_hours}</th>
+            <th className="low-hours">{projectTotal.low_estimated_hours}</th>
+            <th className="high-hours">{projectTotal.high_estimated_hours}</th>
             <th className="ratecode"></th>
-            <th className="low-cost">${this.state.total.low_estimated_cost}</th>
-            <th className="high-cost">${this.state.total.high_estimated_cost}</th>
+            <th className="low-cost">${projectTotal.low_estimated_cost}</th>
+            <th className="high-cost">${projectTotal.high_estimated_cost}</th>
             <th className="assumptions"></th>
           </tr>
-        </tfoot>*/}
+        </tfoot>
       </Table>
     )
   }

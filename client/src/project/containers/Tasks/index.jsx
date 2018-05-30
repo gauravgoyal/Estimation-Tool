@@ -1,6 +1,6 @@
 import React, {Component} from 'react'
 import { connect } from 'react-redux'
-import { fetchProjectTasks, updateProjectTasks } from '../../actions'
+import { fetchProjectTasks, updateProjectTasks, updateProjectTotal, fetchProjectTotal } from '../../actions'
 import ProjectTasks from '../../components/ProjectTasks';
 
 class Tasks extends Component {
@@ -8,6 +8,7 @@ class Tasks extends Component {
   componentDidMount = () => {
     const { dispatch } = this.props
     dispatch(fetchProjectTasks())
+    dispatch(fetchProjectTotal())
   }
 
   generateNewTask = (item, field) => {
@@ -19,12 +20,22 @@ class Tasks extends Component {
     return item;
   }
 
-  componentWillReceiveProps = (nextProps) => {
-    const { inValidate } = this.props
-    if (nextProps.inValidate !== inValidate && inValidate === true) {
-      const { dispatch } = nextProps
-      dispatch(fetchProjectTasks())
-    }
+  calculateTotal = (tasks) => {
+    const { projectTotal } = this.props
+    projectTotal.estimated_hours = 0;
+    projectTotal.high_estimated_hours = 0;
+    projectTotal.low_estimated_hours = 0;
+    projectTotal.high_estimated_cost = 0
+    projectTotal.low_estimated_cost = 0
+    tasks.map((task) => {
+      projectTotal.estimated_hours += Number (task.estimated_hours)
+      projectTotal.high_estimated_hours += task.hours_high
+      projectTotal.low_estimated_hours += task.hours_low
+      projectTotal.high_estimated_cost += task.rate_high
+      projectTotal.low_estimated_cost += task.rate_low
+      return projectTotal
+    })
+    return projectTotal
   }
 
   onHandleChange = (index, field, newState) => {
@@ -40,45 +51,14 @@ class Tasks extends Component {
     if (field === 'ufid' || field === 'rid' || field === 'estimated_hours') {
       item = this.generateNewTask(item, field);
     }
-
+    projectTasks[index] = item
+    let project = this.calculateTotal(projectTasks)
     dispatch(updateProjectTasks(item, index))
-
-    // fetch(config.api_url + 'tasks/update/' + item.rid, {
-    //   method: "POST",
-    //   headers: {
-    //     'Content-Type': 'application/x-www-form-urlencoded;charset=UTF-8',
-    //   },
-    //   body: formData
-    // })
-    // .then(res => res.json())
-    // .then(
-    //   (result) => {
-    //     if (result.status === 200) {
-    //       let tasks = this.state.tasks;
-    //       tasks[index] = item;
-    //       this.setState({
-    //         tasks: tasks
-    //       })
-    //       this.calculateTotal();
-    //       var formData = new URLSearchParams();
-    //       for (let key in this.state.total) {
-    //         formData.append(key, this.state.total[key]);
-    //       }
-    //       fetch(config.api_url + 'project-total/update/' + item.pid, {
-    //         method: "POST",
-    //         headers: {
-    //           'Content-Type': 'application/x-www-form-urlencoded;charset=UTF-8',
-    //         },
-    //         body:formData
-    //       })
-    //       .then(res => res.json())
-    //     }
-    //   }
-    // )
+    dispatch(updateProjectTotal(project))
   }
 
   render = () => {
-    const { isFetching, projectTasks, projectRates, projectUFactors } = this.props
+    const { isFetching, projectTasks, projectRates, projectUFactors, projectTotal } = this.props
     if (isFetching) {
       return (
         <h2>Loading...</h2>
@@ -91,6 +71,7 @@ class Tasks extends Component {
           rates = { projectRates }
           ufactors = { projectUFactors }
           handleChange = { this.onHandleChange.bind(this) }
+          projectTotal = { projectTotal }
         />
       )
     }
@@ -99,8 +80,8 @@ class Tasks extends Component {
 }
 
 const mapStateToProps = (state) => {
-  const { isFetching } = state.projectOperations
-  const { projectTasks, inValidate } = state.projectTasks
+  const { isFetching, currProject } = state.projectOperations
+  const { projectTasks, inValidate, projectTotal } = state.projectTasks
   const { projectRates } = state.projectRates
   const { projectUFactors } = state.projectUFactors
   return {
@@ -108,7 +89,8 @@ const mapStateToProps = (state) => {
     projectTasks,
     projectRates,
     projectUFactors,
-    inValidate
+    inValidate,
+    projectTotal
   }
 }
 
