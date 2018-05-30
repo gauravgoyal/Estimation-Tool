@@ -1,9 +1,11 @@
 import React, {Component} from 'react'
 import { connect } from 'react-redux'
-import { fetchProjectUfactors, updateProjectUfactors } from '../../actions'
+import { fetchProjectUfactors, updateProjectUfactors, addProjectUFactors } from '../../actions'
 import ProjectUncertainityFactors from '../../components/ProjectUncertainityFactors';
 
 class UFactors extends Component {
+
+  state = {}
 
   componentDidMount = () => {
     const {currProject, dispatch} = this.props
@@ -18,6 +20,22 @@ class UFactors extends Component {
     dispatch(updateProjectUfactors(item, projectUFactors))
   }
 
+  onSubmitForm = () => {
+    let uFactor = this.state;
+    const {projectUFactors, currProject, dispatch} = this.props
+    uFactor.pid = currProject.pid;
+    projectUFactors.push(uFactor);
+    dispatch(addProjectUFactors(uFactor, projectUFactors))
+  }
+
+  updateValue = (field, e) => {
+    if (e.target.value !== '') {
+      var data = {};
+      data[field] = e.target.value;
+      this.setState(data);
+    }
+  }
+
 
   render = () => {
     const {isFetching, projectUFactors} = this.props
@@ -29,6 +47,8 @@ class UFactors extends Component {
         <ProjectUncertainityFactors
           uFactors={ projectUFactors }
           handleChange={ this.onHandleChange.bind(this) }
+          submitForm={this.onSubmitForm.bind(this)}
+          onUpdate = {this.updateValue.bind(this)}
         />
       )
     }

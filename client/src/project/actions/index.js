@@ -30,6 +30,8 @@ export const PROJECT_UFACTOR_REQUEST = 'PROJECT_UFACTOR_REQUEST'
 export const PROJECT_UFACTOR_SUCCESS = 'PROJECT_UFACTOR_SUCCESS'
 export const PROJECT_UFACTOR_UPDATE_REQUEST = 'PROJECT_UFACTOR_UPDATE_REQUEST'
 export const PROJECT_UFACTOR_UPDATE_SUCCESS = 'PROJECT_UFACTOR_UPDATE_SUCCESS'
+export const PROJECT_UFACTOR_CREATE_REQUEST = 'PROJECT_UFACTOR_CREATE_REQUEST'
+export const PROJECT_UFACTOR_CREATE_SUCCESS = 'PROJECT_UFACTOR_CREATE_SUCCESS'
 
 const sendProjectFetchRequest = () => ({
   type: PROJECT_FETCH_REQUEST
@@ -74,6 +76,15 @@ const sendProjectRateRequest = () => ({
 const projectRateSuccess = (rates) => ({
   type: PROJECT_RATE_SUCCESS,
   data: rates
+})
+
+const sendProjectUfactorRequest = () => ({
+  type: PROJECT_UFACTOR_CREATE_REQUEST
+})
+
+const projectUfactorSuccess = (uFactors) => ({
+  type: PROJECT_UFACTOR_CREATE_SUCCESS,
+  data: uFactors
 })
 
 const sendProjectRateUpdateRequest = () => ({
@@ -190,4 +201,11 @@ export const updateProjectUfactors = (uFactor, uFactors) => (dispatch) => {
   return apiProjectUFactorsUpdate(uFactor)
   .then(res => res.json())
   .then(json => dispatch(projectUfactorsUpdateSuccess(uFactors)))
+}
+
+export const addProjectUFactors = (uFactor, uFactors) => (dispatch) => {
+  dispatch(sendProjectUfactorRequest());
+  return apiProjectUFactorsCreate(uFactor)
+  .then(res => res.json())
+  .then(json => dispatch(projectUfactorSuccess(uFactors)))
 }

@@ -18,7 +18,9 @@ import {
   PROJECT_UFACTOR_REQUEST,
   PROJECT_UFACTOR_SUCCESS,
   PROJECT_UFACTOR_UPDATE_REQUEST,
-  PROJECT_UFACTOR_UPDATE_SUCCESS
+  PROJECT_UFACTOR_UPDATE_SUCCESS,
+  PROJECT_UFACTOR_CREATE_REQUEST,
+  PROJECT_UFACTOR_CREATE_SUCCESS
 } from '../actions'
 
 function projectOperations(state = {
@@ -92,20 +94,8 @@ function projectRates(state = {
     }
 
     case PROJECT_RATE_SUCCESS:
-    return {
-      ...state,
-      isFetching: false,
-      projectRates: action.data
-    }
-
-    case PROJECT_RATE_UPDATE_SUCCESS:
-    return {
-      ...state,
-      isFetching: false,
-      projectRates: action.data
-    }
-
     case PROJECT_RATE_CREATE_SUCCESS:
+    case PROJECT_RATE_UPDATE_SUCCESS:
     return {
       ...state,
       isFetching: false,
@@ -125,18 +115,14 @@ function projectUFactors(state = {
   switch (action.type) {
     case PROJECT_UFACTOR_REQUEST:
     case PROJECT_UFACTOR_UPDATE_REQUEST:
+    case PROJECT_UFACTOR_CREATE_REQUEST:
     return {
       ...state,
       isFetching: true
     }
 
     case PROJECT_UFACTOR_SUCCESS:
-    return {
-      ...state,
-      isFetching: false,
-      projectUFactors: action.data
-    }
-
+    case PROJECT_UFACTOR_CREATE_SUCCESS:
     case PROJECT_UFACTOR_UPDATE_SUCCESS:
     return {
       ...state,
