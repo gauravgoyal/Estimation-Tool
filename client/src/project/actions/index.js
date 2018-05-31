@@ -11,7 +11,8 @@ import {
   apiProjectUFactorsUpdate,
   apiProjectTasks,
   apiProjectTasksUpdate,
-  apiProjectTotalUpdate
+  apiProjectTotalUpdate,
+  apiProjectTaskCreate
 } from '../api';
 
 export const PROJECT_FETCH_REQUEST = 'PROJECT_FETCH_REQUEST'
@@ -43,6 +44,8 @@ export const PROJECT_TOTAL_UPDATE_REQUEST = 'PROJECT_TOTAL_UPDATE_REQUEST'
 export const PROJECT_TOTAL_UPDATE_SUCCESS = 'PROJECT_TOTAL_UPDATE_SUCCESS'
 export const PROJECT_TOTAL_FETCH_REQUEST = 'PROJECT_TOTAL_FETCH_REQUEST'
 export const PROJECT_TOTAL_FETCH_SUCCESS = 'PROJECT_TOTAL_FETCH_SUCCESS'
+export const PROJECT_TASKS_CREATE_REQUEST = 'PROJECT_TASKS_CREATE_REQUEST'
+export const PROJECT_TASKS_CREATE_SUCCESS = 'PROJECT_TASKS_CREATE_SUCCESS'
 
 const sendProjectFetchRequest = () => ({
   type: PROJECT_FETCH_REQUEST
@@ -99,6 +102,15 @@ const sendProjectCreateRequest = () => ({
 
 const projectCreateSuccess = (json) => ({
   type: PROJECT_CREATE_SUCCESS,
+  data: json
+})
+
+const sendProjectTaskCreateRequest = () => ({
+  type: PROJECT_TASKS_CREATE_REQUEST
+})
+
+const projectTaskCreateSuccess = (json) => ({
+  type: PROJECT_TASKS_CREATE_SUCCESS,
   data: json
 })
 
@@ -294,4 +306,15 @@ export const fetchProjectTotal = (total) => (dispatch, getState) => {
   dispatch(sendProjectTotalFetchRequest())
   let project = getState().projectOperations.currProject
   dispatch(projectTotalFetchSuccess(project))
+}
+
+export const createProjectTask = (task) => (dispatch, getState) => {
+  let tasks = getState().projectTasks.projectTasks
+  let pid = getState().projectOperations.currProject.pid
+  dispatch(sendProjectTaskCreateRequest())
+  task.pid = pid
+  tasks.push(task)
+  return apiProjectTaskCreate(task)
+  .then(res => res.json())
+  .then(json => dispatch(projectTaskCreateSuccess(tasks)))
 }

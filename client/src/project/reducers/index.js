@@ -29,6 +29,8 @@ import {
   PROJECT_TOTAL_UPDATE_SUCCESS,
   PROJECT_TOTAL_FETCH_REQUEST,
   PROJECT_TOTAL_FETCH_SUCCESS,
+  PROJECT_TASKS_CREATE_REQUEST,
+  PROJECT_TASKS_CREATE_SUCCESS
 } from '../actions'
 
 function projectOperations(state = {
@@ -155,6 +157,7 @@ function projectTasks(state = {
     case PROJECT_TASKS_UPDATE_REQUEST:
     case PROJECT_TOTAL_UPDATE_REQUEST:
     case PROJECT_TOTAL_FETCH_REQUEST:
+    case PROJECT_TASKS_CREATE_REQUEST:
     return {
       ...state,
       isFetching: true,
@@ -162,9 +165,11 @@ function projectTasks(state = {
     }
 
     case PROJECT_TASKS_FETCH_SUCCESS:
+    case PROJECT_TASKS_CREATE_SUCCESS:
     return {
       ...state,
       isFetching: false,
+      inValidate: true,
       projectTasks: action.data
     }
 
@@ -176,7 +181,7 @@ function projectTasks(state = {
       projectTasks: action.data
     }
 
-    case PROJECT_TOTAL_UPDATE_REQUEST:
+    case PROJECT_TOTAL_UPDATE_SUCCESS:
     case PROJECT_TOTAL_FETCH_SUCCESS:
     return {
       ...state,

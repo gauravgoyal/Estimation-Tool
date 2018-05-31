@@ -1,6 +1,5 @@
 import React, {Component} from 'react';
 import ProjectHours from '../../ProjectHours';
-import ProjectTasks from '../../ProjectTasks';
 import ProjectRateCode from '../../ProjectRateCode';
 import {
   FormGroup,
@@ -20,7 +19,8 @@ class AddTask extends Component {
       hours_low: 0,
       hours_high: 0,
       rate_low: 0,
-      rate_high: 0
+      rate_high: 0,
+      assumptions: '',
     }
   };
 
@@ -37,6 +37,11 @@ class AddTask extends Component {
       this.setState(newTask);
     }
   }
+
+  onSubmitForm = (e) => {
+    this.props.submitForm(this.state.newTask)
+    this.toggle();
+  };
 
   handleConfidence = (e) => {
     const { ufactors } = this.props;

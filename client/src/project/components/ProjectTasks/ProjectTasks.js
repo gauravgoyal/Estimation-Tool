@@ -114,6 +114,7 @@ class ProjectTasks extends Component {
           handleData={ this.props.onHandleData }
           handleProjectHours = {this.props.onProjectHours }
           handleProjectRates = { this.props.onProjectRates }
+          submitForm = { this.props.onSubmitForm }
         />
       </div>
     )

@@ -12,6 +12,7 @@ const ENDPOINT_PROJECT_UFACTORS_UPDATE = config.api_url + 'factors/update/'
 const ENDPOINT_PROJECT_TASKS = config.api_url + 'tasks/'
 const ENDPOINT_PROJECT_TASKS_UPDATE = config.api_url + 'tasks/update/'
 const ENDPOINT_PROJECT_TOTAL_UPDATE = config.api_url + 'project-total/update/'
+const ENDPOINT_PROJECT_TASKS_CREATE = config.api_url + "tasks"
 
 export const apiProjectUpdate = (project) => {
   let endpoint = ENDPOINT_PROJECT_UPDATE + project.pid
@@ -21,6 +22,10 @@ export const apiProjectUpdate = (project) => {
 export const apiProjectTasksUpdate = (task) => {
   let endpoint = ENDPOINT_PROJECT_TASKS_UPDATE + task.pid
   return sendPostRequest(endpoint, task)
+}
+
+export const apiProjectTaskCreate = (task) => {
+  return sendPostRequest(ENDPOINT_PROJECT_TASKS_CREATE, task)
 }
 
 export const apiProjectTotalUpdate = (total) => {

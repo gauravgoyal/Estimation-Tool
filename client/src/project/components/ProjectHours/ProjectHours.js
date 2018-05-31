@@ -1,6 +1,5 @@
 import React, {Component} from 'react';
 import { FormGroup, Label, Input } from 'reactstrap';
-import config from '../../../config';
 
 class ProjectHours extends Component {
 

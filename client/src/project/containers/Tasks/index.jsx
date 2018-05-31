@@ -1,6 +1,12 @@
 import React, {Component} from 'react'
 import { connect } from 'react-redux'
-import { fetchProjectTasks, updateProjectTasks, updateProjectTotal, fetchProjectTotal } from '../../actions'
+import {
+  fetchProjectTasks,
+  updateProjectTasks,
+  updateProjectTotal,
+  fetchProjectTotal,
+  createProjectTask
+} from '../../actions'
 import ProjectTasks from '../../components/ProjectTasks';
 
 class Tasks extends Component {
@@ -14,7 +20,7 @@ class Tasks extends Component {
   generateNewTask = (item, field) => {
     const { projectRates, projectUFactors } = this.props
     projectUFactors.map((uFactor) => {
-      if (uFactor.ufid === item.ufid) {
+      if (uFactor.ufid === Number (item.ufid)) {
         item.hours_low = item.estimated_hours * uFactor.lower_multiplier;
         item.hours_high = item.estimated_hours * uFactor.heigher_multiplier;
       }
@@ -68,21 +74,15 @@ class Tasks extends Component {
     dispatch(updateProjectTotal(project))
   }
 
-  submitForm = (e) => {
-    var formData = new URLSearchParams();
-    formData.append('pid', this.props.pid);
-    for (let key in this.state.newTask) {
-      formData.append(key, this.state.newTask[key]);
-    }
-
-    // Call API to save Data.
-    // fetch(config.api_url + "tasks", {
-    //   method: "POST",
-    //   headers: {
-    //     'Content-Type': 'application/x-www-form-urlencoded;charset=UTF-8',
-    //   },
-    //   body: formData
-    // })
+  submitForm = (newTask) => {
+    const { dispatch, projectTotal } = this.props
+    projectTotal.estimated_hours += Number (newTask.estimated_hours)
+    projectTotal.high_estimated_hours += newTask.hours_high
+    projectTotal.low_estimated_hours += newTask.hours_low
+    projectTotal.high_estimated_cost += newTask.rate_high
+    projectTotal.low_estimated_cost += newTask.rate_low
+    dispatch(createProjectTask(newTask))
+    dispatch(updateProjectTotal(projectTotal))
   };
 
 
