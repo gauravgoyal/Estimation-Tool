@@ -1,6 +1,7 @@
 import React, { Component } from 'react';
 import { Redirect, Route, Switch } from 'react-router-dom';
 import { Container } from 'reactstrap';
+import { connect } from 'react-redux'
 
 import {
   AppAside,
@@ -20,22 +21,11 @@ import FullAside from './FullAside';
 import FullFooter from './FullFooter';
 import FullHeader from './FullHeader';
 
-import Dashboard from '../../views/Dashboard/';
-import ProjectAdd from '../../views/ProjectAdd/';
-import Project from '../../views/Project/';
+import Dashboard from '../../project/containers/Dashboard/';
+import AddProject from '../../project/containers/AddProject/';
+import Tabs from '../../project/containers/Tabs/';
 
 class Full extends Component {
-  state = {
-    projects: []
-  }
-
-  pushProject = (project, e) => {
-    let projects = this.state.projects;
-    projects.push(project);
-    this.setState({
-      projects : projects
-    })
-  }
 
   render() {
     const createProjectItems = (projects) => {
@@ -53,10 +43,9 @@ class Full extends Component {
       }
     };
 
-    if (this.state.projects) {
-      createProjectItems(this.state.projects);
+    if (this.props.viewedProjects) {
+      createProjectItems(this.props.viewedProjects);
     }
-
     return (
       <div className="app">
         <AppHeader fixed>
@@ -73,9 +62,9 @@ class Full extends Component {
             <AppBreadcrumb />
             <Container fluid>
               <Switch>
-                <Route path="/dashboard" name="Dashboard" render={(props) => ( <Dashboard addProject={this.pushProject.bind(this)} />)}/>
-                <Route path="/project/add" name="ProjectAdd" component={ProjectAdd}/>
-                <Route path="/project/:pid" name="Project" component={Project}/>
+                <Route path="/dashboard" name="Dashboard" component={Dashboard} />
+                <Route path="/project/add" name="AddProject" component={AddProject}/>
+                <Route path="/project/:pid" name="Project" component={Tabs}/>
                 <Redirect from="/" to="/dashboard"/>
               </Switch>
             </Container>
@@ -92,4 +81,11 @@ class Full extends Component {
   }
 }
 
-export default Full;
+const mapStateToProps = state => {
+  const { viewedProjects} = state.projectOperations
+  return {
+    viewedProjects
+  }
+}
+
+export default connect(mapStateToProps)(Full)

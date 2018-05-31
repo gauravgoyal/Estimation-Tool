@@ -8,16 +8,15 @@ import {
 } from 'reactstrap';
 import classnames from 'classnames';
 
-import Rates from '../../../views/Rates/';
-import UncertainityFactors from '../../../views/UncertainityFactors/';
-import ProjectDetails from '../ProjectDetails/';
-import Tasks from '../../../views/Tasks/';
+import Rates from '../../containers/Rates';
+import UFactors from '../../containers/UFactors/';
+import ProjectDetails from '../../containers/ProjectDetails';
+import Tasks from '../../containers/Tasks';
 
 class ProjectTabs extends Component {
 
   state = {
-    activeTab: 'project_details',
-    pid: ''
+    activeTab: 'project_details'
   };
 
   toggleTab = (tab) => {
@@ -25,22 +24,6 @@ class ProjectTabs extends Component {
       this.setState({
         activeTab: tab
       });
-    }
-  }
-
-  componentWillReceiveProps = (nextProps) => {
-    if (nextProps.pid !== this.props.pid) {
-      this.setState({
-        pid: nextProps.pid
-      })
-    }
-  }
-
-  componentDidMount = () => {
-    if (this.state.pid === '') {
-      this.setState({
-        pid: this.props.pid
-      })
     }
   }
 
@@ -83,16 +66,16 @@ class ProjectTabs extends Component {
         </Nav>
         <TabContent activeTab={this.state.activeTab}>
           <TabPane tabId="rates">
-            <Rates pid={this.state.pid}  />
+            <Rates />
           </TabPane>
           <TabPane tabId="uncertainity_factors">
-            <UncertainityFactors pid={this.state.pid} />
+            <UFactors />
           </TabPane>
           <TabPane tabId="project_details">
-            <ProjectDetails pid={this.state.pid}  />
+            <ProjectDetails />
           </TabPane>
           <TabPane tabId="project_tasks">
-            <Tasks pid={this.state.pid}  />
+            <Tasks />
           </TabPane>
         </TabContent>
       </div>

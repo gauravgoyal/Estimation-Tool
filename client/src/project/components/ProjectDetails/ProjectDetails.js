@@ -1,68 +1,11 @@
 import React, {Component} from 'react';
 import {RIEInput} from 'riek';
 import { Col, Table } from 'reactstrap';
-import config from '../../../config';
 
 class ProjectDetails extends Component {
-
-  state = {
-    pid: '',
-    project: []
-  }
-
-  componentWillReceiveProps = (nextProps) => {
-    if (nextProps.pid !== this.props.pid) {
-      this.setState({
-        pid: nextProps.pid
-      })
-    }
-  }
-
-  componentDidUpdate = (prevProps, prevState) => {
-    if (prevState.pid !== this.state.pid) {
-      fetch(config.api_url + 'projects/' + this.state.pid)
-      .then(res => res.json())
-      .then((results) => {
-        if (results.status === 200) {
-          this.setState({
-            project: results.result.pop()
-          })
-        }
-      });
-    }
-  }
-
-  handleChange = (field, newState) => {
-    let project = this.state.project;
-    project[field] = newState[field];
-
-    // Update rates.
-    var formData = new URLSearchParams();
-    for (let key in project) {
-      formData.append(key, project[key]);
-    }
-
-    fetch(config.api_url + 'project/update/' + project.pid, {
-      method: "POST",
-      headers: {
-        'Content-Type': 'application/x-www-form-urlencoded;charset=UTF-8',
-      },
-      body: formData
-    })
-    .then(res => res.json())
-    .then(
-      (result) => {
-        if (result.status === 200) {
-          this.setState({
-            project: project
-          })
-        }
-      }
-    )
-  }
-
   render = () => {
-    if (this.state.project.length === 0) {
+    const { project } = this.props;
+    if (project.length === 0) {
       return <div>No data found</div>
     }
     else {
@@ -74,8 +17,8 @@ class ProjectDetails extends Component {
                 <th scope="row">Title</th>
                 <td>
                   <RIEInput
-                    value={this.state.project.title}
-                    change={this.handleChange.bind(this, 'title')}
+                    value={project.title}
+                    change={this.props.handleChange.bind(this, 'title')}
                     propName='title'>
                   </RIEInput>
                 </td>
@@ -84,8 +27,8 @@ class ProjectDetails extends Component {
                 <th scope="row">Description</th>
                 <td>
                   <RIEInput
-                    value={this.state.project.description ? this.state.project.description : 'NA'}
-                    change={this.handleChange.bind(this, 'description')}
+                    value={project.description ? project.description : 'NA'}
+                    change={this.props.handleChange.bind(this, 'description')}
                     propName='description'>
                   </RIEInput>
                 </td>
@@ -94,8 +37,8 @@ class ProjectDetails extends Component {
                 <th scope="row">Creator</th>
                 <td>
                   <RIEInput
-                    value={this.state.project.creator ? this.state.project.creator : 'NA'}
-                    change={this.handleChange.bind(this, 'creator')}
+                    value={project.creator ? project.creator : 'NA'}
+                    change={this.props.handleChange.bind(this, 'creator')}
                     propName='creator'>
                   </RIEInput>
                 </td>
@@ -104,8 +47,8 @@ class ProjectDetails extends Component {
                 <th scope="row">Owner</th>
                 <td>
                   <RIEInput
-                    value={this.state.project.owner ? this.state.project.owner : 'NA'}
-                    change={this.handleChange.bind(this, 'owner')}
+                    value={project.owner ? project.owner : 'NA'}
+                    change={this.props.handleChange.bind(this, 'owner')}
                     propName='owner'>
                   </RIEInput>
                 </td>
@@ -114,8 +57,8 @@ class ProjectDetails extends Component {
                 <th scope="row">Reviewer</th>
                 <td>
                   <RIEInput
-                    value={this.state.project.reviewer ? this.state.project.reviewer : 'NA'}
-                    change={this.handleChange.bind(this, 'reviewer')}
+                    value={project.reviewer ? project.reviewer : 'NA'}
+                    change={this.props.handleChange.bind(this, 'reviewer')}
                     propName='reviewer'>
                   </RIEInput>
                 </td>
@@ -124,8 +67,8 @@ class ProjectDetails extends Component {
                 <th scope="row">Signed By</th>
                 <td>
                   <RIEInput
-                    value={this.state.project.signer ? this.state.project.signer : 'NA'}
-                    change={this.handleChange.bind(this, 'signer')}
+                    value={project.signer ? project.signer : 'NA'}
+                    change={this.props.handleChange.bind(this, 'signer')}
                     propName='signer'>
                   </RIEInput>
                 </td>
@@ -134,8 +77,8 @@ class ProjectDetails extends Component {
                 <th scope="row">MavenkLink ID</th>
                 <td>
                   <RIEInput
-                    value={this.state.project.mlid ? this.state.project.mlid : 'NA'}
-                    change={this.handleChange.bind(this, 'mlid')}
+                    value={project.mlid ? project.mlid : 'NA'}
+                    change={this.props.handleChange.bind(this, 'mlid')}
                     propName='mlid'>
                   </RIEInput>
                 </td>

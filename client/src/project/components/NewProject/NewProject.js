@@ -1,8 +1,4 @@
 import React, {Component} from 'react';
-import defaultRates from './_initialRate.js';
-import defaultFactors from './_initialUFactors.js';
-import config from '../../config';
-
 import {
   Row,
   Col,
@@ -17,70 +13,7 @@ import {
   Input,
 } from 'reactstrap';
 
-class ProjectAdd extends Component {
-
-  state = {};
-
-  onSubmitForm = () => {
-    var formData = new URLSearchParams();
-    for (let key in this.state) {
-      formData.append(key, this.state[key]);
-    }
-
-    // Call API to save Data.
-    fetch(config.api_url + "project", {
-      method: "POST",
-      headers: {
-        'Content-Type': 'application/x-www-form-urlencoded;charset=UTF-8',
-      },
-      body: formData
-    })
-    .then((res) => res.json())
-    .then((result) => {
-      if (result.status === 200) {
-        defaultRates.rates.map((defaultRate) => {
-          defaultRate.pid = result.result;
-          let rateFormData = new URLSearchParams();
-          for (let key in defaultRate) {
-            rateFormData.append(key, defaultRate[key]);
-          }
-          fetch(config.api_url + "rates", {
-            method: "POST",
-            headers: {
-              'Content-Type': 'application/x-www-form-urlencoded;charset=UTF-8',
-            },
-            body: rateFormData
-          })
-          return defaultRates;
-        });
-        defaultFactors.ufactors.map((ufactor) => {
-          ufactor.pid = result.result;
-          let ufactorFormData = new URLSearchParams();
-          for (let key in ufactor) {
-            ufactorFormData.append(key, ufactor[key]);
-          }
-          fetch(config.api_url + "factors", {
-            method: "POST",
-            headers: {
-              'Content-Type': 'application/x-www-form-urlencoded;charset=UTF-8',
-            },
-            body: ufactorFormData
-          })
-          return defaultFactors;
-        });
-        window.location.href = '#/project/' + result.result.pop();
-      }
-    })
-
-  };
-
-  updateValue = (field, e) => {
-    if (e.target.value !== '') {
-      var data = {};
-      data[field] = e.target.value;
-      this.setState(data);
-    }
-  }
+class NewProject extends Component {
 
   render() {
     return (
@@ -88,20 +21,20 @@ class ProjectAdd extends Component {
         <Row>
           <Col xs="12" sm="6">
             <Card>
-              <Form onSubmit={this.onSubmitForm}>
+              <Form onSubmit={this.props.onSubmitForm}>
                 <CardHeader>
                   <strong>Add New Project</strong>
                 </CardHeader>
                 <CardBody>
                   <FormGroup>
                     <Label htmlFor="title">Title</Label>
-                    <Input onChange={this.updateValue.bind(this, 'title')}
+                    <Input onChange={this.props.updateValue.bind(this, 'title')}
                            type="text" id="title"
                            placeholder="Enter Project Title"/>
                   </FormGroup>
                   <FormGroup>
                     <Label htmlFor="description">Description</Label>
-                    <Input onChange={this.updateValue.bind(this, 'description')}
+                    <Input onChange={this.props.updateValue.bind(this, 'description')}
                            type="textarea" id="description"
                            placeholder="Enter Project Description"/>
                   </FormGroup>
@@ -109,7 +42,7 @@ class ProjectAdd extends Component {
                     <Col xs="6">
                       <FormGroup>
                         <Label htmlFor="creator">Creator</Label>
-                        <Input onChange={this.updateValue.bind(this, 'creator')}
+                        <Input onChange={this.props.updateValue.bind(this, 'creator')}
                                type="text" id="creator"
                                placeholder="Enter Creator's Name"/>
                       </FormGroup>
@@ -117,7 +50,7 @@ class ProjectAdd extends Component {
                     <Col xs="6">
                       <FormGroup>
                         <Label htmlFor="owner">Owner</Label>
-                        <Input onChange={this.updateValue.bind(this, 'owner')}
+                        <Input onChange={this.props.updateValue.bind(this, 'owner')}
                                type="text" id="owner"
                                placeholder="Enter Owner's Name"/>
                       </FormGroup>
@@ -128,7 +61,7 @@ class ProjectAdd extends Component {
                       <FormGroup>
                         <Label htmlFor="creator">Reviewer</Label>
                         <Input
-                          onChange={this.updateValue.bind(this, 'reviewer')}
+                          onChange={this.props.updateValue.bind(this, 'reviewer')}
                           type="text" id="reviewer"
                           placeholder="Enter Reviewer's Name"/>
                       </FormGroup>
@@ -136,7 +69,7 @@ class ProjectAdd extends Component {
                     <Col xs="6">
                       <FormGroup>
                         <Label htmlFor="rate">Signed of by</Label>
-                        <Input onChange={this.updateValue.bind(this, 'signer')}
+                        <Input onChange={this.props.updateValue.bind(this, 'signer')}
                                type="text" id="signer"
                                placeholder="Enter Signer's Name"/>
                       </FormGroup>
@@ -146,7 +79,7 @@ class ProjectAdd extends Component {
                     <Col xs="6">
                       <FormGroup>
                         <Label htmlFor="mlid">MavenLink ID</Label>
-                        <Input onChange={this.updateValue.bind(this, 'mlid')}
+                        <Input onChange={this.props.updateValue.bind(this, 'mlid')}
                                type="number" id="mlid"
                                placeholder="Enter MavenLink ID for the project"/>
                       </FormGroup>
@@ -154,7 +87,7 @@ class ProjectAdd extends Component {
                     <Col xs="6">
                       <FormGroup>
                         <Label htmlFor="type">Type</Label>
-                        <Input onChange={this.updateValue.bind(this, 'type')}
+                        <Input onChange={this.props.updateValue.bind(this, 'type')}
                                type="select" id="type">
                           <option value="0">Fixed Rate</option>
                           <option value="1">Time and Money</option>
@@ -176,4 +109,4 @@ class ProjectAdd extends Component {
   }
 }
 
-export default ProjectAdd;
+export default NewProject;
