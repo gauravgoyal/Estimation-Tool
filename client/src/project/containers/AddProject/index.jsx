@@ -16,10 +16,23 @@ class AddProject extends Component {
     }
   }
 
-  submitForm = () => {
+  submitForm = (e) => {
     const { dispatch } = this.props
     let project = this.state;
-    let rates = defaultRates.rates
+    let rates = [];
+    defaultRates.rates.map((defaultRate) => {
+      let tempRate = {}
+      tempRate.role = defaultRate.role;
+      defaultRate.rate.map((rate) => {
+        if (rate.currency === this.state.currency) {
+          tempRate.rate = rate.standard_rate;
+          tempRate.cost = rate.cost;
+        }
+        return tempRate;
+      })
+      rates.push(tempRate);
+      return rates;
+    })
     let uFactors = defaultFactors.ufactors
     dispatch(addProject(project, rates, uFactors));
   }

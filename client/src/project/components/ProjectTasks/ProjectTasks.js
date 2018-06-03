@@ -17,7 +17,7 @@ class ProjectTasks extends Component {
               <th className="conf-factor">Confidence Factor</th>
               <th className="low-hours">Low Hours</th>
               <th className="high-hours">High Hours</th>
-              <th className="ratecode">Ratecode</th>
+              <th className="ratecode">Role</th>
               <th className="low-cost">Low Cost</th>
               <th className="high-cost">High Cost</th>
               <th className="assumptions">Assumptions</th>
@@ -73,7 +73,7 @@ class ProjectTasks extends Component {
                           onChange={this.props.handleChange.bind(this, index, 'rid')}
                         >
                         {rates.map((rate) => {
-                          return <option key={ rate.rid } value={ rate.rid }>[{rate.code}] - { rate.role }</option>
+                          return <option key={ rate.rid } value={ rate.rid }>{ rate.role }</option>
                         })}
                         </Input> : <span></span>
                       }

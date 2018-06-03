@@ -24,10 +24,9 @@ class ProjectRates extends Component {
                 <thead>
                   <tr>
                     <th scope="row">#</th>
-                    <th scope="row">Code</th>
-                    <th scope="row">Category</th>
                     <th scope="row">Role</th>
-                    <th scope="row">Rate</th>
+                    <th scope="row">Standard Rate</th>
+                    <th scope="row">Cost</th>
                   </tr>
                 </thead>
                 <tbody>
@@ -38,23 +37,7 @@ class ProjectRates extends Component {
                       return (
                         <tr key={`rate-${key}`}>
                           <th key={unique_key} scope="row">{ key }</th>
-                          <td key={unique_key + 4}>
-                            <RIEInput
-                              value={rate.code}
-                              change={this.props.handleChange.bind(this, index, 'code')}
-                              propName='code'
-                            >
-                            </RIEInput>
-                          </td>
                           <td key={unique_key + 1}>
-                            <RIEInput
-                              value={rate.category}
-                              change={this.props.handleChange.bind(this, index, 'category')}
-                              propName='category'
-                            >
-                            </RIEInput>
-                          </td>
-                          <td key={unique_key + 2}>
                             <RIEInput
                               value={rate.role}
                               change={this.props.handleChange.bind(this, index, 'role')}
@@ -62,12 +45,20 @@ class ProjectRates extends Component {
                             >
                             </RIEInput>
                           </td>
-                          <td key={unique_key + 3}>$
+                          <td key={unique_key + 2}>$
                             <RIEInput
                                 value={rate.rate}
                                 change={this.props.handleChange.bind(this, index, 'rate')}
                                 propName='rate'
                               >
+                            </RIEInput>
+                          </td>
+                          <td key={unique_key + 3}>$
+                            <RIEInput
+                              value={rate.cost}
+                              change={this.props.handleChange.bind(this, index, 'cost')}
+                              propName='cost'
+                            >
                             </RIEInput>
                           </td>
                         </tr>

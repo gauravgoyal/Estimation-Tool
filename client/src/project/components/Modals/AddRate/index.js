@@ -35,22 +35,6 @@ class AddRate extends Component {
           <ModalHeader toggle={this.toggle.bind(this)}>Add Rate</ModalHeader>
           <ModalBody>
             <Form onSubmit={this.props.onSubmit}>
-              <FormGroup>
-                <Label htmlFor="code">Code</Label>
-                <Input
-                  required
-                  onChange={this.props.updateValue.bind(this, 'code')}
-                  type="text" id="code"
-                  placeholder="Enter Code (E.g. BU)" />
-              </FormGroup>
-              <FormGroup>
-                <Label htmlFor="category">Category</Label>
-                <Input
-                  required
-                  onChange={this.props.updateValue.bind(this, 'category')}
-                  type="text" id="category"
-                  placeholder="Enter Category (E.g. Uncertainty buffer)" />
-              </FormGroup>
               <FormGroup row>
                 <Col xs="6">
                   <FormGroup>
@@ -65,13 +49,24 @@ class AddRate extends Component {
                 </Col>
                 <Col xs="6">
                   <FormGroup>
-                    <Label htmlFor="rate">Rate: (in USD)</Label>
+                    <Label htmlFor="rate">Standard Rate: </Label>
                     <Input
                       required
                       onChange={this.props.updateValue.bind(this, 'rate')}
                       type="number"
                       id="rate"
                       placeholder="Enter Rate (E.g. 20)" />
+                  </FormGroup>
+                </Col>
+                <Col xs="6">
+                  <FormGroup>
+                    <Label htmlFor="cost">Cost: </Label>
+                    <Input
+                      required
+                      onChange={this.props.updateValue.bind(this, 'cost')}
+                      type="number"
+                      id="cost"
+                      placeholder="Enter Cost (E.g. 20)" />
                   </FormGroup>
                 </Col>
               </FormGroup>

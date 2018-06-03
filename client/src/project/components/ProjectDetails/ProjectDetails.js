@@ -34,6 +34,10 @@ class ProjectDetails extends Component {
                 </td>
               </tr>
               <tr>
+                <th scope="row">Region (Currency)</th>
+                <td>{ project.currency ? project.currency : 'USD' }</td>
+              </tr>
+              <tr>
                 <th scope="row">Creator</th>
                 <td>
                   <RIEInput

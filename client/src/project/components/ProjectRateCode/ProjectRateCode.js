@@ -7,11 +7,11 @@ class ProjectRateCode extends Component {
     const { rates } = this.props;
     return (
       <FormGroup>
-        <Label for="rateCodeList">Select Rate Code</Label>
+        <Label for="rateCodeList">Select Role</Label>
         <Input required type="select" name="rateCodeList" id="rateCodeList" onChange = { this.props.onChange.bind(this) }>
-          <option key='select-rate-code' value=''>Select Rate code</option>
+          <option key='select-rate-code' value=''>Select Role</option>
           {rates.map((rate) => {
-            return <option key={ rate.rid } value={ rate.rid }>[{rate.code}] - { rate.role }</option>
+            return <option key={ rate.rid } value={ rate.rid }>{ rate.role }</option>
           })}
         </Input>
       </FormGroup>

@@ -1,58 +1,634 @@
 module.exports = {
   rates: [
     {
-      category: 'Uncertainty buffer',
-      role: 'Developers',
-      rate: '1',
-      code: 'BU'
+      role: 'Services Solutions',
+      rate: [
+        {
+          currency: 'USD',
+          standard_rate: 340,
+          cost: 110
+        },
+        {
+          currency: 'Public Sector',
+          standard_rate: 245,
+          cost: 110
+        },
+        {
+          currency: 'GBP',
+          standard_rate: 190,
+          cost: 90
+        },
+        {
+          currency: 'EUR',
+          standard_rate: 230,
+          cost: 105
+        },
+        {
+          currency: 'AUD',
+          standard_rate: 295,
+          cost: 145
+        },
+      ]
     },
     {
-      category: 'Configuration management, features',
-      role: 'Developers',
-      rate: '1',
-      code: 'CM'
+      role: 'Program Lead - Required',
+      rate: [
+        {
+          currency: 'USD',
+          standard_rate: 315,
+          cost: 86
+        },
+        {
+          currency: 'Public Sector',
+          standard_rate: 225,
+          cost: 86
+        },
+        {
+          currency: 'GBP',
+          standard_rate: 175,
+          cost: 60
+        },
+        {
+          currency: 'EUR',
+          standard_rate: 215,
+          cost: 70
+        },
+        {
+          currency: 'AUD',
+          standard_rate: 275,
+          cost: 114
+        },
+      ]
     },
     {
-      category: 'Development',
-      role: 'Developers',
-      rate: 1,
-      code: 'DEV'
+      role: 'Technical Program Lead - Required',
+      rate: [
+        {
+          currency: 'USD',
+          standard_rate: 315,
+          cost: 88
+        },
+        {
+          currency: 'Public Sector',
+          standard_rate: 225,
+          cost: 88
+        },
+        {
+          currency: 'GBP',
+          standard_rate: 175,
+          cost: 56
+        },
+        {
+          currency: 'EUR',
+          standard_rate: 215,
+          cost: 65
+        },
+        {
+          currency: 'AUD',
+          standard_rate: 275,
+          cost: 116
+        },
+      ]
     },
     {
-      category: 'Migration of data',
-      role: 'Tech or Developer',
-      rate: 1,
-      code: 'DM'
+      role: 'Technical Architect - Required',
+      rate: [
+        {
+          currency: 'USD',
+          standard_rate: 285,
+          cost: 73
+        },
+        {
+          currency: 'Public Sector',
+          standard_rate: 215,
+          cost: 73
+        },
+        {
+          currency: 'GBP',
+          standard_rate: 150,
+          cost: 56
+        },
+        {
+          currency: 'EUR',
+          standard_rate: 175,
+          cost: 65
+        },
+        {
+          currency: 'AUD',
+          standard_rate: 250,
+          cost: 95
+        },
+      ]
     },
     {
-      category: 'Web design',
-      role: 'Design Team',
-      rate: 1,
-      code: 'DS'
+      role: 'Front End Architect',
+      rate: [
+        {
+          currency: 'USD',
+          standard_rate: 285,
+          cost: 56
+        },
+        {
+          currency: 'Public Sector',
+          standard_rate: 215,
+          cost: 56
+        },
+        {
+          currency: 'GBP',
+          standard_rate: 150,
+          cost: 56
+        },
+        {
+          currency: 'EUR',
+          standard_rate: 175,
+          cost: 65
+        },
+        {
+          currency: 'AUD',
+          standard_rate: 250,
+          cost: 95
+        },
+      ]
     },
     {
-      category: 'Project management',
-      role: 'Production Manager',
-      rate: 1,
-      code: 'PM'
+      role: 'Contingency',
+      rate: [
+        {
+          currency: 'USD',
+          standard_rate: 285,
+          cost: 73
+        },
+        {
+          currency: 'Public Sector',
+          standard_rate: 215,
+          cost: 73
+        },
+        {
+          currency: 'GBP',
+          standard_rate: 150,
+          cost: 56
+        },
+        {
+          currency: 'EUR',
+          standard_rate: 175,
+          cost: 65
+        },
+        {
+          currency: 'AUD',
+          standard_rate: 250,
+          cost: 95
+        },
+      ]
     },
     {
-      category: 'Concept and solution',
-      role: 'Techincal Architect',
-      rate: 1,
-      code: 'TA'
+      role: 'Program Manager - Required',
+      rate: [
+        {
+          currency: 'USD',
+          standard_rate: 260,
+          cost: 78
+        },
+        {
+          currency: 'Public Sector',
+          standard_rate: 195,
+          cost: 78
+        },
+        {
+          currency: 'GBP',
+          standard_rate: 150,
+          cost: 56
+        },
+        {
+          currency: 'EUR',
+          standard_rate: 175,
+          cost: 65
+        },
+        {
+          currency: 'AUD',
+          standard_rate: 225,
+          cost: 98
+        },
+      ]
     },
     {
-      category: 'Testing',
-      role: 'Developers',
-      rate: 1,
-      code: 'TE'
+      role: 'Sr. Project Manager',
+      rate: [
+        {
+          currency: 'USD',
+          standard_rate: 215,
+          cost: 67
+        },
+        {
+          currency: 'Public Sector',
+          standard_rate: 150,
+          cost: 67
+        },
+        {
+          currency: 'GBP',
+          standard_rate: 125,
+          cost: 41
+        },
+        {
+          currency: 'EUR',
+          standard_rate: 155,
+          cost: 58
+        },
+        {
+          currency: 'AUD',
+          standard_rate: 205,
+          cost: 88
+        },
+      ]
     },
     {
-      category: 'Theming',
-      role: 'Developers',
-      rate: 1,
-      code: 'TH'
-    }
+      role: 'Sr. Front End Developer',
+      rate: [
+        {
+          currency: 'USD',
+          standard_rate: 215,
+          cost: 67
+        },
+        {
+          currency: 'Public Sector',
+          standard_rate: 140,
+          cost: 67
+        },
+        {
+          currency: 'GBP',
+          standard_rate: 125,
+          cost: 52
+        },
+        {
+          currency: 'EUR',
+          standard_rate: 165,
+          cost: 58
+        },
+        {
+          currency: 'AUD',
+          standard_rate: 210,
+          cost: 88
+        },
+      ]
+    },
+    {
+      role: 'Sr. Developer',
+      rate: [
+        {
+          currency: 'USD',
+          standard_rate: 215,
+          cost: 67
+        },
+        {
+          currency: 'Public Sector',
+          standard_rate: 140,
+          cost: 67
+        },
+        {
+          currency: 'GBP',
+          standard_rate: 125,
+          cost: 52
+        },
+        {
+          currency: 'EUR',
+          standard_rate: 165,
+          cost: 58
+        },
+        {
+          currency: 'AUD',
+          standard_rate: 210,
+          cost: 88
+        },
+      ]
+    },
+    {
+      role: 'Project Manager',
+      rate: [
+        {
+          currency: 'USD',
+          standard_rate: 180,
+          cost: 60
+        },
+        {
+          currency: 'Public Sector',
+          standard_rate: 140,
+          cost: 60
+        },
+        {
+          currency: 'GBP',
+          standard_rate: 105,
+          cost: 47
+        },
+        {
+          currency: 'EUR',
+          standard_rate: 130,
+          cost: 54
+        },
+        {
+          currency: 'AUD',
+          standard_rate: 190,
+          cost: 80
+        },
+      ]
+    },
+    {
+      role: 'Front End Developer',
+      rate: [
+        {
+          currency: 'USD',
+          standard_rate: 180,
+          cost: 56
+        },
+        {
+          currency: 'Public Sector',
+          standard_rate: 120,
+          cost: 56
+        },
+        {
+          currency: 'GBP',
+          standard_rate: 105,
+          cost: 41
+        },
+        {
+          currency: 'EUR',
+          standard_rate: 130,
+          cost: 50
+        },
+        {
+          currency: 'AUD',
+          standard_rate: 190,
+          cost: 74
+        },
+      ]
+    },
+    {
+      role: 'Developer',
+      rate: [
+        {
+          currency: 'USD',
+          standard_rate: 180,
+          cost: 56
+        },
+        {
+          currency: 'Public Sector',
+          standard_rate: 120,
+          cost: 56
+        },
+        {
+          currency: 'GBP',
+          standard_rate: 105,
+          cost: 41
+        },
+        {
+          currency: 'EUR',
+          standard_rate: 130,
+          cost: 50
+        },
+        {
+          currency: 'AUD',
+          standard_rate: 190,
+          cost: 67
+        },
+      ]
+    },
+    {
+      role: 'Quality Assurance',
+      rate: [
+        {
+          currency: 'USD',
+          standard_rate: 180,
+          cost: 53
+        },
+        {
+          currency: 'Public Sector',
+          standard_rate: 120,
+          cost: 56
+        },
+        {
+          currency: 'GBP',
+          standard_rate: 105,
+          cost: 41
+        },
+        {
+          currency: 'EUR',
+          standard_rate: 130,
+          cost: 50
+        },
+        {
+          currency: 'AUD',
+          standard_rate: 190,
+          cost: 67
+        },
+      ]
+    },
+    {
+      role: 'Technical Project Manager - India',
+      rate: [
+        {
+          currency: 'USD',
+          standard_rate: 115,
+          cost: 31
+        },
+        {
+          currency: 'Public Sector',
+          standard_rate: 100,
+          cost: 31
+        },
+        {
+          currency: 'GBP',
+          standard_rate: 65,
+          cost: 23
+        },
+        {
+          currency: 'EUR',
+          standard_rate: 85,
+          cost: 20
+        },
+        {
+          currency: 'AUD',
+          standard_rate: 125,
+          cost: 24
+        },
+      ]
+    },
+    {
+      role: 'Technical Architect - India',
+      rate: [
+        {
+          currency: 'USD',
+          standard_rate: 115,
+          cost: 31
+        },
+        {
+          currency: 'Public Sector',
+          standard_rate: 100,
+          cost: 31
+        },
+        {
+          currency: 'GBP',
+          standard_rate: 65,
+          cost: 23
+        },
+        {
+          currency: 'EUR',
+          standard_rate: 85,
+          cost: 20
+        },
+        {
+          currency: 'AUD',
+          standard_rate: 125,
+          cost: 24
+        },
+      ]
+    },
+    {
+      role: 'QA Lead - India',
+      rate: [
+        {
+          currency: 'USD',
+          standard_rate: 85,
+          cost: 16
+        },
+        {
+          currency: 'Public Sector',
+          standard_rate: 75,
+          cost: 16
+        },
+        {
+          currency: 'GBP',
+          standard_rate: 50,
+          cost: 13
+        },
+        {
+          currency: 'EUR',
+          standard_rate: 65,
+          cost: 15
+        },
+        {
+          currency: 'AUD',
+          standard_rate: 90,
+          cost: 21
+        },
+      ]
+    },
+    {
+      role: 'Project Manager - India',
+      rate: [
+        {
+          currency: 'USD',
+          standard_rate: 65,
+          cost: 31
+        },
+        {
+          currency: 'Public Sector',
+          standard_rate: 45,
+          cost: 31
+        },
+        {
+          currency: 'GBP',
+          standard_rate: 35,
+          cost: 23
+        },
+        {
+          currency: 'EUR',
+          standard_rate: 45,
+          cost: 20
+        },
+        {
+          currency: 'AUD',
+          standard_rate: 65,
+          cost: 24
+        },
+      ]
+    },
+    {
+      role: 'Front End Developer - India',
+      rate: [
+        {
+          currency: 'USD',
+          standard_rate: 65,
+          cost: 12
+        },
+        {
+          currency: 'Public Sector',
+          standard_rate: 45,
+          cost: 12
+        },
+        {
+          currency: 'GBP',
+          standard_rate: 35,
+          cost: 9.50
+        },
+        {
+          currency: 'EUR',
+          standard_rate: 45,
+          cost: 10
+        },
+        {
+          currency: 'AUD',
+          standard_rate: 65,
+          cost: 15
+        },
+      ]
+    },
+    {
+      role: 'Developer - India',
+      rate: [
+        {
+          currency: 'USD',
+          standard_rate: 65,
+          cost: 12
+        },
+        {
+          currency: 'Public Sector',
+          standard_rate: 45,
+          cost: 12
+        },
+        {
+          currency: 'GBP',
+          standard_rate: 35,
+          cost: 9.50
+        },
+        {
+          currency: 'EUR',
+          standard_rate: 45,
+          cost: 10
+        },
+        {
+          currency: 'AUD',
+          standard_rate: 65,
+          cost: 15
+        },
+      ]
+    },
+    {
+      role: 'QA - India',
+      rate: [
+        {
+          currency: 'USD',
+          standard_rate: 65,
+          cost: 12
+        },
+        {
+          currency: 'Public Sector',
+          standard_rate: 45,
+          cost: 12
+        },
+        {
+          currency: 'GBP',
+          standard_rate: 35,
+          cost: 9.50
+        },
+        {
+          currency: 'EUR',
+          standard_rate: 45,
+          cost: 10
+        },
+        {
+          currency: 'AUD',
+          standard_rate: 65,
+          cost: 15
+        },
+      ]
+    },
   ]
 };

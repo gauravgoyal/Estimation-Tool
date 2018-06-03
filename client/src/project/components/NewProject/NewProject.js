@@ -38,6 +38,17 @@ class NewProject extends Component {
                            type="textarea" id="description"
                            placeholder="Enter Project Description"/>
                   </FormGroup>
+                  <FormGroup>
+                    <Label htmlFor="currency">Currency (Region)</Label>
+                    <Input onChange={this.props.updateValue.bind(this, 'currency')}
+                               type="select" id="currency">
+                      <option value="USD">USD</option>
+                      <option value="Public Sector">Public Sector</option>
+                      <option value="GBP">GBP</option>
+                      <option value="EUR">EUR</option>
+                      <option value="AUD">AUD</option>
+                    </Input>
+                  </FormGroup>
                   <FormGroup row>
                     <Col xs="6">
                       <FormGroup>

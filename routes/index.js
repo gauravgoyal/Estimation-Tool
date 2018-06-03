@@ -81,6 +81,7 @@ module.exports = function (server, knex) {
       signer: req.body.signer || '',
       mlid: req.body.mlid || '',
       type: req.body.type || 1,
+      currency: req.body.currency || "USD",
       created: now,
       updated: now,
       deleted: 0
@@ -147,11 +148,10 @@ module.exports = function (server, knex) {
    */
   server.post('/rates', function (req, res) {
     knex('rates').insert({
-      category: req.body.category || '',
       role: req.body.role,
       rate: req.body.rate,
       pid: req.body.pid,
-      code: req.body.code,
+      cost: req.body.cost
     }).then(function(results) {
       res.end(JSON.stringify(results));
     })
@@ -169,10 +169,9 @@ module.exports = function (server, knex) {
       pid: req.body.pid
     })
     .update({
-      category: req.body.category,
       role: req.body.role,
       rate: req.body.rate,
-      code: req.body.code
+      cost: req.body.cost
     }).then(function(results) {
       var response = {
         result: results,
