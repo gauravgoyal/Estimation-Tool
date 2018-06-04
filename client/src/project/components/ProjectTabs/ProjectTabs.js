@@ -12,6 +12,7 @@ import Rates from '../../containers/Rates';
 import UFactors from '../../containers/UFactors/';
 import ProjectDetails from '../../containers/ProjectDetails';
 import Tasks from '../../containers/Tasks';
+import ResourcePlan from '../../containers/ResourcePlan';
 
 class ProjectTabs extends Component {
 
@@ -63,6 +64,14 @@ class ProjectTabs extends Component {
               Uncertainity Factors
             </NavLink>
           </NavItem>
+          <NavItem>
+            <NavLink
+              className={classnames({ active: this.state.activeTab === 'resource_plan' })}
+              href="#"
+              onClick={ this.toggleTab.bind(this, 'resource_plan') }>
+              Resource Plan
+            </NavLink>
+          </NavItem>
         </Nav>
         <TabContent activeTab={this.state.activeTab}>
           <TabPane tabId="rates">
@@ -76,6 +85,9 @@ class ProjectTabs extends Component {
           </TabPane>
           <TabPane tabId="project_tasks">
             <Tasks />
+          </TabPane>
+          <TabPane tabId="resource_plan">
+            <ResourcePlan />
           </TabPane>
         </TabContent>
       </div>

@@ -1,0 +1,6 @@
+{
+  "name": "AddResourcePlan",
+  "version": "0.0.0",
+  "private": true,
+  "main": "./AddResourcePlan.js"
+}
