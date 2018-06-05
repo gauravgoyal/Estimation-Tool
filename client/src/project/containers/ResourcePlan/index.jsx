@@ -2,6 +2,7 @@ import React, {Component} from 'react'
 import ResourcePlanList from '../../components/ResourcePlanList'
 import AddResourcePlan from '../../components/AddResourcePlan'
 import { Button } from 'reactstrap';
+import defaultResourcePlan from './_defaultResourceAllocations.js'
 
 class ResourcePlan extends Component {
   state = {
@@ -19,7 +20,7 @@ class ResourcePlan extends Component {
     return (
       <div>
         {
-          (add) ? <AddResourcePlan /> :
+          (add) ? <AddResourcePlan defaultPlan={defaultResourcePlan.resourcePlan}/> :
           <div>
           <ResourcePlanList></ResourcePlanList>
           <Button onClick={this.addNewResource.bind(this)} color="primary" size="lg" active>Add New Resource Plan</Button>

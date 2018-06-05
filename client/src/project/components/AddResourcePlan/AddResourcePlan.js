@@ -1,5 +1,5 @@
 import React, {Component} from 'react'
-import { Button, Col, Form, FormGroup, Label, Input } from 'reactstrap';
+import { Button, Col, Form, FormGroup, Label, Input, Table } from 'reactstrap';
 
 class AddResourcePlan extends Component {
   state = {}
@@ -13,6 +13,37 @@ class AddResourcePlan extends Component {
 
   render = () => {
     const { weeks } = this.state
+    const { defaultPlan } = this.props
+    var header = [];
+    var rows = {};
+    defaultPlan.forEach(function (weeksData) {
+      let week = weeksData.week_name + " (W" + weeksData.week + ")"
+      header.push(week)
+        weeksData.allocations.forEach((data) => {
+          if (!rows[data.role]) {
+            rows[data.role] = [];
+            for (var i = 1; i < weeksData.week; i++) {
+              rows[data.role].push(0)
+            }
+          }
+          rows[data.role].push(data.hours);
+        });
+    });
+    if (header.length !== weeks) {
+      for (var i = header.length + 1; i <= weeks; i++) {
+        header.push("W" + i)
+      }
+    }
+
+    Object.keys(rows).map((data) => {
+      if (rows[data].length !== weeks )
+        var i = 1
+        for (i; i <= weeks - rows[data].length; i = i++) {
+          rows[data].push(0);
+        }
+    })
+    console.log(rows);
+    console.log(header);
     return (
       <div>
         {
@@ -29,7 +60,24 @@ class AddResourcePlan extends Component {
             </FormGroup>
           </Form>
           :
-          <div>Show resource plan</div>
+          <div>
+            <Table className="table table-bordered">
+              <thead>
+                <tr>
+                  <th></th>
+                  {Object.keys(header).map((data, i) => <th key={i}>{header[data]}</th>)}
+                </tr>
+              </thead>
+              <tbody>
+                {Object.keys(rows).map((letter) =>
+                    <tr>
+                        <td>{letter}</td>
+                        {rows[letter].map((data) => <td>{data}</td>)}
+                    </tr>
+                )}
+              </tbody>
+          </Table>
+          </div>
         }
       </div>
     )
