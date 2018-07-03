@@ -14,7 +14,7 @@ exports.up = function(knex, Promise) {
       table.integer('week');
       table.integer('hours');
       table.string('week_name');
-      table.primary(['res_id', 'rid', 'week', 'hours']);
+      table.primary(['res_id', 'rid', 'week']);
     }),
   ]);
 };

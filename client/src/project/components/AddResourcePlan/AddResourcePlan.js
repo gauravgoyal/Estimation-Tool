@@ -1,8 +1,14 @@
 import React, {Component} from 'react'
-import { Button, Col, Form, FormGroup, Label, Input, Table } from 'reactstrap';
+import { Button, Row, Col, Form, FormGroup, Label, Input, Table } from 'reactstrap';
+
+// Import React Bootstrap Table
+import {BootstrapTable, TableHeaderColumn} from 'react-bootstrap-table';
+import '../../../../node_modules/react-bootstrap-table/dist/react-bootstrap-table-all.min.css';
+
+
 
 class AddResourcePlan extends Component {
-  state = {}
+  state = {};
 
   onSubmitForm = (e, form) => {
     e.preventDefault()
@@ -13,37 +19,20 @@ class AddResourcePlan extends Component {
 
   render = () => {
     const { weeks } = this.state
-    const { defaultPlan } = this.props
-    var header = [];
-    var rows = {};
-    defaultPlan.forEach(function (weeksData) {
-      let week = weeksData.week_name + " (W" + weeksData.week + ")"
-      header.push(week)
-        weeksData.allocations.forEach((data) => {
-          if (!rows[data.role]) {
-            rows[data.role] = [];
-            for (var i = 1; i < weeksData.week; i++) {
-              rows[data.role].push(0)
-            }
-          }
-          rows[data.role].push(data.hours);
-        });
-    });
-    if (header.length !== weeks) {
-      for (var i = header.length + 1; i <= weeks; i++) {
-        header.push("W" + i)
+    const { header, rows, rateOptions, cellEditProp, options, revenue, totalRevenue } = this.props
+    let total = [totalRevenue]
+    if (weeks) {
+      let lastWeek = header.slice(-1).pop();
+      let weekNumber = lastWeek.weekNumber;
+      for (let i=1; i <= weeks - weekNumber; i++ ) {
+        let tempHeader = {
+          Header: "(W" + (weekNumber + i) + ")",
+          accessor: "(W" + (weekNumber + i) + ")"
+        }
+        header.push(tempHeader)
       }
     }
 
-    Object.keys(rows).map((data) => {
-      if (rows[data].length !== weeks )
-        var i = 1
-        for (i; i <= weeks - rows[data].length; i = i++) {
-          rows[data].push(0);
-        }
-    })
-    console.log(rows);
-    console.log(header);
     return (
       <div>
         {
@@ -61,22 +50,46 @@ class AddResourcePlan extends Component {
           </Form>
           :
           <div>
-            <Table className="table table-bordered">
-              <thead>
-                <tr>
-                  <th></th>
-                  {Object.keys(header).map((data, i) => <th key={i}>{header[data]}</th>)}
-                </tr>
-              </thead>
-              <tbody>
-                {Object.keys(rows).map((letter) =>
-                    <tr>
-                        <td>{letter}</td>
-                        {rows[letter].map((data) => <td>{data}</td>)}
-                    </tr>
-                )}
-              </tbody>
-          </Table>
+          <Row>
+          <Col md="12">
+            <h2 className="text-center">Resource Plan</h2>
+            <BootstrapTable options = { options } data={rows} striped hover cellEdit={ cellEditProp } insertRow>
+              {
+                header.map((data) => {
+                  if (data.accessor == 'role') {
+                    return (
+                      <TableHeaderColumn isKey width='300' dataField = {data.accessor} editable={ { type: 'select', options: { values: rateOptions } } }>
+                        {data.Header}
+                      </TableHeaderColumn>
+                      )
+                  }
+                  else {
+                    return <TableHeaderColumn dataField = {data.accessor}>{data.Header}</TableHeaderColumn>
+                  }
+                })
+              }
+            </BootstrapTable>
+            </Col>
+            <Col xs="12" sm="8" md="8" className="mt-3">
+              <h2 className="text-center">Cost & Rate (Role Wise)</h2>
+              <BootstrapTable className="mt-2" data={revenue} striped hover >
+                <TableHeaderColumn isKey width="250" dataField = "role">Role</TableHeaderColumn>
+                <TableHeaderColumn dataField = "hours">Hours</TableHeaderColumn>
+                <TableHeaderColumn width="190" dataField = "cost">Resource Cost <small>(Per Hour)</small></TableHeaderColumn>
+                <TableHeaderColumn width="170" dataField = "listedRate">Listed Rate <small>(Per Hour)</small></TableHeaderColumn>
+                <TableHeaderColumn width="80" dataField = "totalCost">Cost</TableHeaderColumn>
+                <TableHeaderColumn width="120" dataField = "listRev">List Revenue</TableHeaderColumn>
+              </BootstrapTable>
+            </Col>
+            <Col xs="12" sm="4" md="4" className="mt-3">
+              <h2 className="text-center">Totals</h2>
+              <BootstrapTable className="mt-2" data={ total } striped hover >
+                <TableHeaderColumn width="150" isKey dataField = "hours">Total Hours</TableHeaderColumn>
+                <TableHeaderColumn width="150" dataField="cost">Total Cost</TableHeaderColumn>
+                <TableHeaderColumn width="150" dataField="revenue">Total Revenue</TableHeaderColumn>
+              </BootstrapTable>
+            </Col>
+            </Row>
           </div>
         }
       </div>

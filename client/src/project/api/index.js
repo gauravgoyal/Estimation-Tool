@@ -13,10 +13,42 @@ const ENDPOINT_PROJECT_TASKS = config.api_url + 'tasks/'
 const ENDPOINT_PROJECT_TASKS_UPDATE = config.api_url + 'tasks/update/'
 const ENDPOINT_PROJECT_TOTAL_UPDATE = config.api_url + 'project-total/update/'
 const ENDPOINT_PROJECT_TASKS_CREATE = config.api_url + "tasks"
+const ENDPOINT_PROJECT_RESOURCE_PLAN_FETCH = config.api_url + "resource-plans/"
+const ENDPOINT_PROJECT_RESOURCE_PLAN_CREATE = config.api_url + "resource-plan/create"
+const ENDPOINT_PROJECT_RESOURCE_PLAN_ADD_ALLOCATIONS = config.api_url + "resource-plan/allocation/add/"
+const ENDPOINT_PROJECT_RESOURCE_PLAN_FETCH_ALLOCATIONS = config.api_url + "resource-plan/allocation/fetch/"
+const ENDPOINT_PROJECT_RESOURCE_PLAN_UPDATE_ALLOCATION = config.api_url + "resource-plan/allocation/update"
+
+export const apiProjectResourcePlanAllocationUpdate = (allocation) => {
+  let endpoint = ENDPOINT_PROJECT_RESOURCE_PLAN_UPDATE_ALLOCATION
+  return sendPostRequest(endpoint, allocation);
+}
+
+export const apiProjectResourcePlanAllocationFetch = (resId) => {
+  let endpoint = ENDPOINT_PROJECT_RESOURCE_PLAN_FETCH_ALLOCATIONS + resId
+  return fetch(endpoint)
+}
+
+export const apiProjectResourcePlansFetch = (pid) => {
+  let endpoint = ENDPOINT_PROJECT_RESOURCE_PLAN_FETCH + pid
+  return fetch(endpoint)
+}
 
 export const apiProjectUpdate = (project) => {
   let endpoint = ENDPOINT_PROJECT_UPDATE + project.pid
   return sendPostRequest(endpoint, project)
+}
+
+export const apiProjectResourcePlanCreate = (data) => {
+  return sendPostRequest(ENDPOINT_PROJECT_RESOURCE_PLAN_CREATE, data)
+}
+
+export const apiProjectResoourcePlanAllocationAdd = (allocations, resId) => {
+  let endpoint = ENDPOINT_PROJECT_RESOURCE_PLAN_ADD_ALLOCATIONS + resId;
+  for (let key in allocations) {
+    allocations[key] = createFormData(allocations[key])
+  }
+  return sendPostRequest(endpoint, allocations)
 }
 
 export const apiProjectTasksUpdate = (task) => {

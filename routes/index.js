@@ -2,6 +2,8 @@
  * Module Dependencies
  */
 const errors = require('restify-errors');
+var qs = require('querystring');
+var util = require('util');
 
 module.exports = function (server, knex) {
 
@@ -314,6 +316,93 @@ module.exports = function (server, knex) {
       res.end(JSON.stringify(response));
     })
   });
+
+  server.post('resource-plan/create', function(req, res) {
+    knex('resource_plans').insert({
+      pid: req.body.pid,
+    }).then(function(results) {
+      res.end(JSON.stringify(results));
+    })
+    .catch(function(error) {
+       throw error;
+    })
+  })
+
+  server.post('resource-plan/allocation/add/:resid', function(req, res) {
+    let data = []
+    Object.keys(req.body).map((key) => {
+      data.push(qs.parse(req.body[key]))
+    })
+    knex('resource_allocations').insert(data).then(function(results) {
+      res.end(JSON.stringify(results));
+    })
+    .catch(function(error) {
+      throw error;
+    })
+  })
+
+  /**
+   * Get resource plan defined in the project.
+   */
+  server.get('/resource-plans/:pid', (req, res) => {
+    knex('resource_plans').where('pid', req.params.pid).then(function(results) {
+      res.end(JSON.stringify(results));
+    })
+    .catch(function(error) {
+      throw error;
+    })
+  });
+
+  /**
+   * Get resource plan allocations defined in the resource plan.
+   */
+  server.get('/resource-plan/allocation/fetch/:resId', (req, res) => {
+    knex('resource_allocations').where('res_id', req.params.resId).then(function(results) {
+      res.end(JSON.stringify(results));
+    })
+    .catch(function(error) {
+      throw error;
+    })
+  });
+
+  server.post('resource-plan/allocation/update', function(req, res) {
+    const insert = knex('resource_allocations').insert({
+      res_id: req.body.resId,
+      rid: req.body.rid,
+      week: req.body.week,
+      week_name: req.body.weekName,
+      hours: req.body.hours
+    })
+
+    const update = knex('resource_allocations')
+    .update({
+      week_name: req.body.weekName,
+      hours: req.body.hours
+    })
+
+    const query = util.format(
+      '%s ON DUPLICATE KEY UPDATE %s',
+      insert.toString(),
+      update.toString().replace(/^update\s.*\sset\s/i, '')
+    )
+
+    knex.raw(query).then(function(results) {
+      var response = {
+        result: results,
+        status: 200
+      };
+      res.end(JSON.stringify(response));
+    }).catch(function(error) {
+       var response = {
+        error: error,
+        status: 503
+      };
+      res.end(JSON.stringify(response));
+    })
+
+
+  })
+
 
 
 

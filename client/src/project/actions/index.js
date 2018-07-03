@@ -12,7 +12,12 @@ import {
   apiProjectTasks,
   apiProjectTasksUpdate,
   apiProjectTotalUpdate,
-  apiProjectTaskCreate
+  apiProjectTaskCreate,
+  apiProjectResourcePlanCreate,
+  apiProjectResoourcePlanAllocationAdd,
+  apiProjectResourcePlansFetch,
+  apiProjectResourcePlanAllocationFetch,
+  apiProjectResourcePlanAllocationUpdate
 } from '../api';
 
 export const PROJECT_FETCH_REQUEST = 'PROJECT_FETCH_REQUEST'
@@ -46,6 +51,65 @@ export const PROJECT_TOTAL_FETCH_REQUEST = 'PROJECT_TOTAL_FETCH_REQUEST'
 export const PROJECT_TOTAL_FETCH_SUCCESS = 'PROJECT_TOTAL_FETCH_SUCCESS'
 export const PROJECT_TASKS_CREATE_REQUEST = 'PROJECT_TASKS_CREATE_REQUEST'
 export const PROJECT_TASKS_CREATE_SUCCESS = 'PROJECT_TASKS_CREATE_SUCCESS'
+export const PROJECT_RESOURCE_PLAN_CREATE_REQUEST = 'PROJECT_RESOURCE_PLAN_CREATE_REQUEST'
+export const PROJECT_RESOURCE_PLAN_CREATE_SUCCESS = 'PROJECT_RESOURCE_PLAN_CREATE_SUCCESS'
+export const PROJECT_RESOURCE_PLAN_FETCH_REQUEST = 'PROJECT_RESOURCE_PLAN_FETCH_REQUEST'
+export const PROJECT_RESOURCE_PLAN_FETCH_SUCCESS = 'PROJECT_RESOURCE_PLAN_FETCH_SUCCESS'
+export const PROJECT_RESOURCE_PLAN_ALLOCATION_FETCH_REQUEST = 'PROJECT_RESOURCE_PLAN_ALLOCATION_FETCH_REQUEST'
+export const PROJECT_RESOURCE_PLAN_ALLOCATION_FETCH_SUCCESS = 'PROJECT_RESOURCE_PLAN_ALLOCATION_FETCH_SUCCESS'
+export const PROJECT_RESOURCE_PLAN_ALLOCATION_UPDATE_REQUEST = 'PROJECT_RESOURCE_PLAN_ALLOCATION_UPDATE_REQUEST'
+export const PROJECT_RESOURCE_PLAN_ALLOCATION_UPDATE_SUCCESS = 'PROJECT_RESOURCE_PLAN_ALLOCATION_UPDATE_SUCCESS'
+export const PROJECT_RESOURCE_PLAN_ALLOCATION_ADD_REQUEST = 'PROJECT_RESOURCE_PLAN_ALLOCATION_ADD_REQUEST'
+export const PROJECT_RESOURCE_PLAN_ALLOCATION_ADD_SUCCESS = 'PROJECT_RESOURCE_PLAN_ALLOCATION_ADD_SUCCESS'
+
+const projectResourcePlanAllocationAddRoleRequest = () => ({
+  type: PROJECT_RESOURCE_PLAN_ALLOCATION_ADD_REQUEST
+})
+
+const projectResourcePlanAllocationAddRoleSuccess = (data, resId) => ({
+  type: PROJECT_RESOURCE_PLAN_ALLOCATION_ADD_SUCCESS,
+  data: data,
+  resId: resId
+})
+
+const projectResourcePlanAllocationUpdateRequest = () => ({
+  type: PROJECT_RESOURCE_PLAN_ALLOCATION_UPDATE_REQUEST
+})
+
+const projectResourcePlanAllocationUpdateSuccess = (resId) => ({
+  type: PROJECT_RESOURCE_PLAN_ALLOCATION_UPDATE_SUCCESS,
+  resId: resId
+})
+
+
+const projectResourcePlanAllocationFetchRequest = () => ({
+  type: PROJECT_RESOURCE_PLAN_ALLOCATION_FETCH_REQUEST
+})
+
+const projectResourcePlanAllocationFetchSuccess = (data, resId) => ({
+  type: PROJECT_RESOURCE_PLAN_ALLOCATION_FETCH_SUCCESS,
+  data: data,
+  resId: resId
+})
+
+const projectResourcePlanCreateRequest = () => ({
+  type: PROJECT_RESOURCE_PLAN_CREATE_REQUEST
+})
+
+const projectResourcePlanCreateSuccess = (data, resId) => ({
+  type: PROJECT_RESOURCE_PLAN_CREATE_SUCCESS,
+  data: data,
+  resId: resId
+})
+
+const projectResourcePlanFetchRequest = () => ({
+  type: PROJECT_RESOURCE_PLAN_FETCH_REQUEST
+})
+
+const projectResourcePlanFetchSuccess = (data) => ({
+  type: PROJECT_RESOURCE_PLAN_FETCH_SUCCESS,
+  data: data
+})
 
 const sendProjectFetchRequest = () => ({
   type: PROJECT_FETCH_REQUEST
@@ -317,4 +381,115 @@ export const createProjectTask = (task) => (dispatch, getState) => {
   return apiProjectTaskCreate(task)
   .then(res => res.json())
   .then(json => dispatch(projectTaskCreateSuccess(tasks)))
+}
+
+export const createProjectPlan = (defaultAllocation) => (dispatch, getState) => {
+  dispatch(projectResourcePlanCreateRequest())
+  let pid = getState().projectOperations.currProject.pid
+  let data = {
+    pid: pid
+  }
+  apiProjectResourcePlanCreate(data)
+  .then(res => res.json())
+  .then(json => {
+    let resource_id = json.pop();
+    let allocations = [];
+    defaultAllocation.forEach((data, index) => {
+      allocations = prepareAllocationData(data, resource_id)
+      defaultAllocation[index].resId = resource_id
+    })
+    apiProjectResoourcePlanAllocationAdd(allocations, resource_id)
+    .then(res => res.json())
+    .then(json => dispatch(projectResourcePlanCreateSuccess(defaultAllocation, resource_id)))
+  })
+}
+
+const prepareAllocationData = (data, resource_id) => {
+  let allocations = [];
+  Object.keys(data).forEach((key) => {
+    let matches = key.match(/\(W(\d+)\)/)
+    if (matches !== null) {
+      let allocation = {
+        res_id : resource_id,
+        rid: data.rid,
+        week: matches[1],
+        week_name: key,
+        hours: (data[key] === '') ? 0 : data[key]
+      }
+      allocations.push(allocation)
+    }
+  })
+  return allocations
+}
+
+export const fetchProjectResourcePlans = () => (dispatch, getState) => {
+  let pid = getState().projectOperations.currProject.pid
+  dispatch(projectResourcePlanFetchRequest())
+  apiProjectResourcePlansFetch(pid)
+  .then(res => res.json())
+  .then(json => dispatch(projectResourcePlanFetchSuccess(json)))
+}
+
+export const fetchProjectResourceAllocations = (res_id) => (dispatch, getState) => {
+  dispatch(projectResourcePlanAllocationFetchRequest())
+  apiProjectResourcePlanAllocationFetch(res_id)
+  .then(res => res.json())
+  .then(result => {
+    let projectRates = getState().projectRates.projectRates
+    const rateOptions = []
+    let currPlan = []
+    currPlan = prepareResourceAllocationRows(projectRates, result)
+    // Resetting the array keys to default.
+    let finalCurrPlan = []
+    currPlan.forEach((data) => {
+      data.resId = res_id
+      finalCurrPlan.push(data)
+    })
+    dispatch(projectResourcePlanAllocationFetchSuccess(finalCurrPlan, res_id))
+  })
+}
+
+const prepareResourceAllocationRows = (projectRates, allocations) => {
+  let rateOptions = []
+  let currPlan = []
+  projectRates.forEach((rate) => {
+    rateOptions[rate.rid] = rate.role
+  })
+
+  allocations.forEach((data, key) => {
+    if (currPlan[data.rid] !== undefined) {
+      currPlan[data.rid][data.week_name] = data.hours
+    }
+    else {
+      currPlan[data.rid] = {}
+      currPlan[data.rid][data.week_name] = data.hours
+    }
+    if (currPlan[data.rid].role === undefined) {
+      currPlan[data.rid].role = rateOptions[data.rid]
+      currPlan[data.rid].rid = data.rid
+    }
+  })
+  return currPlan
+}
+
+export const updateProjectResourceAllocations = (allocation) => (dispatch, getState) => {
+  dispatch(projectResourcePlanAllocationUpdateRequest())
+  apiProjectResourcePlanAllocationUpdate(allocation)
+  .then(res => res.json())
+  .then(json => dispatch(projectResourcePlanAllocationUpdateSuccess(allocation.resId)))
+}
+
+export const addProjectResourceAllocation = (allocation, resId) => (dispatch, getState) => {
+  dispatch(projectResourcePlanAllocationAddRoleRequest())
+  let projectRates = getState().projectRates.projectRates
+  let rateOptions = []
+  projectRates.forEach((rate) => {
+    rateOptions[rate.role] = rate.rid
+  })
+  allocation.rid = rateOptions[allocation.role]
+  allocation.resId = resId
+  let allocations = prepareAllocationData(allocation, resId)
+  apiProjectResoourcePlanAllocationAdd(allocations, resId)
+    .then(res => res.json())
+    .then(json => dispatch(projectResourcePlanAllocationAddRoleSuccess(allocation, resId)))
 }

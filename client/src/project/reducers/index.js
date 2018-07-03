@@ -30,7 +30,17 @@ import {
   PROJECT_TOTAL_FETCH_REQUEST,
   PROJECT_TOTAL_FETCH_SUCCESS,
   PROJECT_TASKS_CREATE_REQUEST,
-  PROJECT_TASKS_CREATE_SUCCESS
+  PROJECT_TASKS_CREATE_SUCCESS,
+  PROJECT_RESOURCE_PLAN_CREATE_REQUEST,
+  PROJECT_RESOURCE_PLAN_CREATE_SUCCESS,
+  PROJECT_RESOURCE_PLAN_FETCH_REQUEST,
+  PROJECT_RESOURCE_PLAN_FETCH_SUCCESS,
+  PROJECT_RESOURCE_PLAN_ALLOCATION_FETCH_REQUEST,
+  PROJECT_RESOURCE_PLAN_ALLOCATION_FETCH_SUCCESS,
+  PROJECT_RESOURCE_PLAN_ALLOCATION_UPDATE_REQUEST,
+  PROJECT_RESOURCE_PLAN_ALLOCATION_UPDATE_SUCCESS,
+  PROJECT_RESOURCE_PLAN_ALLOCATION_ADD_REQUEST,
+  PROJECT_RESOURCE_PLAN_ALLOCATION_ADD_SUCCESS,
 } from '../actions'
 
 function projectOperations(state = {
@@ -195,11 +205,65 @@ function projectTasks(state = {
   }
 }
 
+function projectResourcePlans(state = {
+  isFetchingResources: false,
+  currPlan: [],
+  resourcePlans: [],
+  currResId: '',
+}, action) {
+  switch(action.type) {
+    case PROJECT_RESOURCE_PLAN_CREATE_REQUEST:
+    case PROJECT_RESOURCE_PLAN_FETCH_REQUEST:
+    case PROJECT_RESOURCE_PLAN_ALLOCATION_FETCH_REQUEST:
+    case PROJECT_RESOURCE_PLAN_ALLOCATION_UPDATE_REQUEST:
+    case PROJECT_RESOURCE_PLAN_ALLOCATION_ADD_REQUEST:
+    return {
+      ...state,
+      isFetchingResources: true
+    }
+
+    case PROJECT_RESOURCE_PLAN_CREATE_SUCCESS:
+    case PROJECT_RESOURCE_PLAN_ALLOCATION_FETCH_SUCCESS:
+    return {
+      ...state,
+      isFetchingResources: false,
+      currPlan: action.data,
+      currResId: action.resId
+    }
+
+    case PROJECT_RESOURCE_PLAN_ALLOCATION_ADD_SUCCESS:
+    return {
+      ...state,
+      isFetchingResources: false,
+      currResId: action.resId,
+      currPlan: [...state.currPlan, action.data]
+    }
+
+    case PROJECT_RESOURCE_PLAN_ALLOCATION_UPDATE_SUCCESS:
+    return {
+      ...state,
+      isFetchingResources: false,
+      currResId: action.resId
+    }
+
+    case PROJECT_RESOURCE_PLAN_FETCH_SUCCESS:
+    return {
+      ...state,
+      isFetchingResources: false,
+      resourcePlans: action.data,
+    }
+
+    default:
+    return state
+  }
+}
+
 const rootReducer = combineReducers({
   projectOperations,
   projectRates,
   projectUFactors,
-  projectTasks
+  projectTasks,
+  projectResourcePlans
 })
 
 export default rootReducer
