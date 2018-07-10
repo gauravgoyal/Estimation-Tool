@@ -220,16 +220,29 @@ module.exports = function (server, knex) {
    * Updates uncertainity factors for a project.
    */
   server.post('/factors/update/:ufid', function (req, res, next) {
-    knex('uncertainity_factors').where({
-      ufid: req.params.ufid,
-      pid: req.body.pid
-    })
-    .update({
-      title: req.body.title || '',
+    const insert = knex('uncertainity_factors').insert({
+      pid: req.body.pid,
+      title: req.body.title,
       points: req.body.points,
       lower_multiplier: req.body.lower_multiplier,
-      heigher_multiplier: req.body.heigher_multiplier,
-    }).then(function(results) {
+      heigher_multiplier: req.body.heigher_multiplier
+    })
+
+    const update = knex('uncertainity_factors')
+    .update({
+      title: req.body.title,
+      points: req.body.points,
+      lower_multiplier: req.body.lower_multiplier,
+      heigher_multiplier: req.body.heigher_multiplier
+    })
+
+    const query = util.format(
+      '%s ON DUPLICATE KEY UPDATE %s',
+      insert.toString(),
+      update.toString().replace(/^update\s.*\sset\s/i, '')
+    )
+
+    knex.raw(query).then(function(results) {
       var response = {
         result: results,
         status: 200

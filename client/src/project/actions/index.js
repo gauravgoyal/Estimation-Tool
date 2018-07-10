@@ -333,7 +333,7 @@ export const updateProjectUfactors = (uFactor, uFactors) => (dispatch) => {
 
 export const addProjectUFactors = (uFactor, uFactors) => (dispatch) => {
   dispatch(sendProjectUfactorRequest());
-  return apiProjectUFactorsCreate(uFactor)
+  return apiProjectUFactorsUpdate(uFactor)
   .then(res => res.json())
   .then(json => dispatch(projectUfactorSuccess(uFactors)))
 }
