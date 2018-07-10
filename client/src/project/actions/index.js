@@ -371,14 +371,18 @@ export const fetchProjectTotal = (total) => (dispatch, getState) => {
 }
 
 export const createProjectTask = (task) => (dispatch, getState) => {
+  dispatch(sendProjectTaskCreateRequest())
   let tasks = getState().projectTasks.projectTasks
   let pid = getState().projectOperations.currProject.pid
-  dispatch(sendProjectTaskCreateRequest())
   task.pid = pid
-  tasks.push(task)
   return apiProjectTaskCreate(task)
   .then(res => res.json())
-  .then(json => dispatch(projectTaskCreateSuccess(tasks)))
+  .then(json => {
+    task.tid = json.pop()
+    tasks.push(task)
+    dispatch(projectTaskCreateSuccess(tasks))
+    dispatch(fetchProjectTasks())
+  })
 }
 
 export const createProjectPlan = (defaultAllocation) => (dispatch, getState) => {

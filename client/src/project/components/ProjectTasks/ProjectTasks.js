@@ -44,7 +44,7 @@ class ProjectTasks extends Component {
                     </td>
                     <td className="conf-factor">
                     {
-                      (ufactors[task.ufid] !== undefined) ?
+                      (ufactors.length > 0) ?
                       <Input
                         required
                         type="select"
@@ -63,7 +63,7 @@ class ProjectTasks extends Component {
                     <td className="high-hours">{task.hours_high}</td>
                     <td className="ratecode">
                       {
-                        (rates[task.rid] !== undefined) ?
+                        (rates.length > 0) ?
                         <Input
                           required
                           type="select"
