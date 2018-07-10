@@ -18,10 +18,7 @@ class ResourcePlan extends Component {
     add: false,
   }
 
-  addNewResource = () => {
-    this.setState({
-      add: true
-    })
+  submitResourceForm = (weeks) => {
     const { dispatch, projectRates, isFetching} = this.props
     let rates = [];
     if (!isFetching) {
@@ -43,6 +40,12 @@ class ResourcePlan extends Component {
       })
       dispatch(createProjectPlan(rows))
     }
+  }
+
+  addNewResource = () => {
+    this.setState({
+      add: true
+    })
   }
 
   componentDidMount = () => {
@@ -173,6 +176,7 @@ class ResourcePlan extends Component {
             rows={rows}
             revenue = { revenue }
             totalRevenue = { revenueTotal }
+            onSubmitForm = { this.submitResourceForm.bind(this) }
           />
           :
           <div>

@@ -395,12 +395,12 @@ export const createProjectPlan = (defaultAllocation) => (dispatch, getState) => 
   .then(res => res.json())
   .then(json => {
     let resource_id = json.pop();
-    let allocations = [];
+    let projectAllocations = [];
     defaultAllocation.forEach((data, index) => {
-      allocations = prepareAllocationData(data, resource_id)
+      projectAllocations =  projectAllocations.concat(prepareAllocationData(data, resource_id))
       defaultAllocation[index].resId = resource_id
     })
-    apiProjectResoourcePlanAllocationAdd(allocations, resource_id)
+    apiProjectResoourcePlanAllocationAdd(projectAllocations, resource_id)
     .then(res => res.json())
     .then(json => dispatch(projectResourcePlanCreateSuccess(defaultAllocation, resource_id)))
   })

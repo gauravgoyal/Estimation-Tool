@@ -15,6 +15,7 @@ class AddResourcePlan extends Component {
     this.setState({
       weeks: this.numberOfWeeks.value
     })
+    this.props.onSubmitForm(this.numberOfWeeks.value)
   }
 
   render = () => {

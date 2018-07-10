@@ -4,6 +4,13 @@ import { Col, Card, Row, CardHeader, CardBody} from 'reactstrap';
 class ResourcePlanList extends Component {
   render = () => {
     const { plans } = this.props
+    if (plans.length <= 0) {
+      return (
+        <div className="animated fadeIn">
+          <h3>No resource plan found. Please add a resource plan.</h3>
+        </div>
+      )
+    }
     return (
       <div className="animated fadeIn">
         <Row>
@@ -16,7 +23,7 @@ class ResourcePlanList extends Component {
                 </CardHeader>
                 <CardBody>
                   <div className="card-actions">
-                    <a onClick = {this.props.onClick.bind(this, plan)} href={`#/project/${plan.pid}/resource/${plan.res_id}`}>
+                    <a onClick = {this.props.onClick.bind(this, plan)}>
                       <small className="text-muted">View</small>
                     </a>
                   </div>
