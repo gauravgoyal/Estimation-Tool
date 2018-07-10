@@ -303,15 +303,13 @@ export const addProject = (project, defaultRates, defaultUFactors) => (dispatch)
   .then(json => {
     let pid = json.result.pop()
     project.pid = pid;
-    defaultRates.map((defaultRate) => {
-      defaultRate.pid = pid
-      return apiProjectRateCreate(defaultRate)
+    apiProjectRateCreate(defaultRates, pid)
+    .then(res => res.json())
+    .then(json => {
+      apiProjectUFactorsCreate(defaultUFactors, pid)
+      .then(res => res.json())
+      .then(json => dispatch(projectCreateSuccess(project)))
     })
-    defaultUFactors.map((defaultUFactor) => {
-      defaultUFactor.pid = pid
-      return apiProjectUFactorsCreate(defaultUFactor)
-    })
-    dispatch(projectCreateSuccess(project))
   })
 }
 

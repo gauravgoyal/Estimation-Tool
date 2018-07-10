@@ -97,6 +97,7 @@ class ResourcePlan extends Component {
       Object.keys(allocation).forEach((key) => {
         let matches = key.match(/\(W(\d+)\)/)
         if (matches !== null && matches.length > 0) {
+          allocation[key] = (allocation[key] !== '') ? allocation[key] : 0
           temp.hours += parseInt(allocation[key])
         }
       })

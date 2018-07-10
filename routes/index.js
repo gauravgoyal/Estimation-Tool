@@ -149,12 +149,11 @@ module.exports = function (server, knex) {
    * Save rates for a project.
    */
   server.post('/rates', function (req, res) {
-    knex('rates').insert({
-      role: req.body.role,
-      rate: req.body.rate,
-      pid: req.body.pid,
-      cost: req.body.cost
-    }).then(function(results) {
+    let data = []
+    Object.keys(req.body).map((key) => {
+      data.push(qs.parse(req.body[key]))
+    })
+    knex('rates').insert(data).then(function(results) {
       res.end(JSON.stringify(results));
     })
     .catch(function(error) {
@@ -193,13 +192,11 @@ module.exports = function (server, knex) {
    * Save uncertainity factors for a project.
    */
   server.post('/factors', function (req, res) {
-    knex('uncertainity_factors').insert({
-      title: req.body.title || '',
-      points: req.body.points,
-      lower_multiplier: req.body.lower_multiplier,
-      pid: req.body.pid,
-      heigher_multiplier: req.body.heigher_multiplier,
-    }).then(function(results) {
+    let data = []
+    Object.keys(req.body).map((key) => {
+      data.push(qs.parse(req.body[key]))
+    })
+    knex('uncertainity_factors').insert(data).then(function(results) {
       res.end(JSON.stringify(results));
     })
     .catch(function(error) {

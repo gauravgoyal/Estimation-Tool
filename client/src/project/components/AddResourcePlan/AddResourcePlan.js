@@ -74,7 +74,7 @@ class AddResourcePlan extends Component {
               <h2 className="text-center">Cost & Rate (Role Wise)</h2>
               <BootstrapTable className="mt-2" data={revenue} striped hover >
                 <TableHeaderColumn isKey width="250" dataField = "role">Role</TableHeaderColumn>
-                <TableHeaderColumn dataField = "hours">Hours</TableHeaderColumn>
+                <TableHeaderColumn width="100" dataField = "hours">Hours</TableHeaderColumn>
                 <TableHeaderColumn width="190" dataField = "cost">Resource Cost <small>(Per Hour)</small></TableHeaderColumn>
                 <TableHeaderColumn width="170" dataField = "listedRate">Listed Rate <small>(Per Hour)</small></TableHeaderColumn>
                 <TableHeaderColumn width="80" dataField = "totalCost">Cost</TableHeaderColumn>

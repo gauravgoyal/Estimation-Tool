@@ -92,6 +92,7 @@ function projectOperations(state = {
     return {
       ...state,
       currProject: action.data,
+      isFetching: false,
       viewedProjects: [...state.viewedProjects, action.data],
       projectsList: [...state.projectsList, action.data]
     }

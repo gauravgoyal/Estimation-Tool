@@ -4,6 +4,7 @@ import NewProject from "../../components/NewProject/"
 import { addProject } from '../../actions'
 import defaultRates from './_initialRate.js';
 import defaultFactors from './_initialUFactors.js';
+import { Redirect } from 'react-router'
 
 class AddProject extends Component {
   state = {}
@@ -17,6 +18,8 @@ class AddProject extends Component {
   }
 
   submitForm = (e) => {
+    e.preventDefault();
+    e.stopPropagation();
     const { dispatch } = this.props
     let project = this.state;
     let rates = [];
@@ -38,17 +41,25 @@ class AddProject extends Component {
   }
 
   render = () => {
-    return (
-      <NewProject
-        onSubmitForm={this.submitForm.bind(this)}
-        updateValue={this.onUpdateValue.bind(this)}
-      />
-    )
+    const { isFetching } = this.props
+    if (isFetching) {
+      return (
+        <Redirect to="/dashboard" />
+      )
+    }
+    else {
+      return (
+        <NewProject
+          onSubmitForm={this.submitForm.bind(this)}
+          updateValue={this.onUpdateValue.bind(this)}
+        />
+      )
+    }
   }
 }
 
 const mapStateToProps = (state) => {
-  const { isFetching} = state.projectOperations
+  const { isFetching } = state.projectOperations
   return {
     isFetching
   }

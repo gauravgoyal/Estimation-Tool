@@ -86,16 +86,30 @@ export const apiProjectRatesUpdate = (rate) => {
   return sendPostRequest(endpoint, rate)
 }
 
-export const apiProjectRateCreate = (rate) => {
-  return sendPostRequest(ENDPOINT_PROJECT_RATE_CREATE, rate)
+export const apiProjectRateCreate = (rate, pid = null) => {
+  let rates = []
+  if (pid !== null) {
+    for (let key in rate) {
+      rate[key].pid = pid
+      rates[key] = createFormData(rate[key])
+    }
+  }
+  return sendPostRequest(ENDPOINT_PROJECT_RATE_CREATE, rates)
 }
 
 export const apiProjectCreate = (project) => {
   return sendPostRequest(ENDPOINT_PROJECT_CREATE, project)
 }
 
-export const apiProjectUFactorsCreate = (uFactor) => {
-  return sendPostRequest(ENDPOINT_PROJECT_UFACTORS_CREATE, uFactor)
+export const apiProjectUFactorsCreate = (uFactor, pid = null) => {
+  let uFactors = []
+  if (pid !== null) {
+    for (let key in uFactor) {
+      uFactor[key].pid = pid
+      uFactors[key] = createFormData(uFactor[key])
+    }
+  }
+  return sendPostRequest(ENDPOINT_PROJECT_UFACTORS_CREATE, uFactors)
 }
 
 export const apiProjectUFactors = (pid) => {
