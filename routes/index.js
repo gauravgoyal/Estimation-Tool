@@ -165,15 +165,27 @@ module.exports = function (server, knex) {
    * Updates rates for a project.
    */
   server.post('/rates/update/:rid', function (req, res, next) {
-    knex('rates').where({
-      rid: req.params.rid,
-      pid: req.body.pid
+    const insert = knex('rates').insert({
+      pid: req.body.pid,
+      role: req.body.role,
+      rate: req.body.rate,
+      cost: req.body.cost
     })
+
+    const update = knex('rates')
     .update({
       role: req.body.role,
       rate: req.body.rate,
       cost: req.body.cost
-    }).then(function(results) {
+    })
+
+    const query = util.format(
+      '%s ON DUPLICATE KEY UPDATE %s',
+      insert.toString(),
+      update.toString().replace(/^update\s.*\sset\s/i, '')
+    )
+
+    knex.raw(query).then(function(results) {
       var response = {
         result: results,
         status: 200

@@ -6,7 +6,6 @@ import { fetchProjectRates, updateProjectRates, addProjectRate } from '../../act
 class Rates extends Component {
 
   state = {
-    category: '',
     role: '',
     rate: '',
   };

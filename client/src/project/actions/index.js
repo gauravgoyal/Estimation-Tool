@@ -291,7 +291,7 @@ export const updateProjectRates = (item, rates) => (dispatch) => {
 
 export const addProjectRate = (rate, rates) => (dispatch) => {
   dispatch(sendProjectRateCreateRequest());
-  return apiProjectRateCreate(rate)
+  return apiProjectRatesUpdate(rate)
   .then(res => res.json())
   .then(json => dispatch(sendProjectRateCreateSuccess(rates)))
 }
