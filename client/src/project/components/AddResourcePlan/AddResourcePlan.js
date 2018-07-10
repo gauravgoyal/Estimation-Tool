@@ -1,5 +1,5 @@
 import React, {Component} from 'react'
-import { Button, Row, Col, Form, FormGroup, Label, Input, Table } from 'reactstrap';
+import { Button, Row, Col, Form, FormGroup, Label, Input } from 'reactstrap';
 
 // Import React Bootstrap Table
 import {BootstrapTable, TableHeaderColumn} from 'react-bootstrap-table';
@@ -56,7 +56,7 @@ class AddResourcePlan extends Component {
             <BootstrapTable options = { options } data={rows} striped hover cellEdit={ cellEditProp } insertRow>
               {
                 header.map((data) => {
-                  if (data.accessor == 'role') {
+                  if (data.accessor === 'role') {
                     return (
                       <TableHeaderColumn isKey width='300' dataField = {data.accessor} editable={ { type: 'select', options: { values: rateOptions } } }>
                         {data.Header}

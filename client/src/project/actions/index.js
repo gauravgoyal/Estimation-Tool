@@ -438,7 +438,6 @@ export const fetchProjectResourceAllocations = (res_id) => (dispatch, getState) 
   .then(res => res.json())
   .then(result => {
     let projectRates = getState().projectRates.projectRates
-    const rateOptions = []
     let currPlan = []
     currPlan = prepareResourceAllocationRows(projectRates, result)
     // Resetting the array keys to default.

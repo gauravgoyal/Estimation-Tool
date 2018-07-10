@@ -10,8 +10,7 @@ import {
   fetchProjectResourcePlans,
   fetchProjectResourceAllocations,
   updateProjectResourceAllocations,
-  addProjectResourceAllocation,
-  addProjectResourceAllocationRevenue
+  addProjectResourceAllocation
 } from '../../actions'
 
 class ResourcePlan extends Component {
@@ -47,7 +46,7 @@ class ResourcePlan extends Component {
   }
 
   componentDidMount = () => {
-    const { dispatch, currPlan } = this.props
+    const { dispatch } = this.props
     dispatch(fetchProjectResourcePlans())
   }
 
@@ -83,8 +82,8 @@ class ResourcePlan extends Component {
     let rows = []
     let ratesData = []
     projectRates.forEach((rates) => {
-      let cost = parseInt(rates.cost)
-      let listedRate = parseInt(rates.rate)
+      let cost = parseInt(rates.cost, 10)
+      let listedRate = parseInt(rates.rate, 10)
       ratesData[rates.role] = {
         cost: cost,
         listedRate: listedRate
@@ -98,7 +97,7 @@ class ResourcePlan extends Component {
         let matches = key.match(/\(W(\d+)\)/)
         if (matches !== null && matches.length > 0) {
           allocation[key] = (allocation[key] !== '') ? allocation[key] : 0
-          temp.hours += parseInt(allocation[key])
+          temp.hours += parseInt(allocation[key], 10)
         }
       })
       temp.totalCost = temp.hours * ratesData[temp.role].cost
@@ -117,9 +116,9 @@ class ResourcePlan extends Component {
       revenue: 0
     }
     revenueTotal.forEach((revenue) => {
-      total.hours += parseInt(revenue.hours)
-      total.cost += parseInt(revenue.totalCost)
-      total.revenue += parseInt(revenue.listRev)
+      total.hours += parseInt(revenue.hours, 10)
+      total.cost += parseInt(revenue.totalCost, 10)
+      total.revenue += parseInt(revenue.listRev, 10)
     })
     return total
   }

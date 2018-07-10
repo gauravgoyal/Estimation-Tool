@@ -75,7 +75,7 @@ class Tasks extends Component {
   }
 
   submitForm = (newTask) => {
-    const { dispatch, projectTotal, projectTasks } = this.props
+    const { dispatch, projectTotal } = this.props
     projectTotal.estimated_hours += Number (newTask.estimated_hours)
     projectTotal.high_estimated_hours += newTask.hours_high
     projectTotal.low_estimated_hours += newTask.hours_low

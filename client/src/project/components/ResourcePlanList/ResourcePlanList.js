@@ -1,5 +1,5 @@
 import React, {Component} from 'react'
-import {CardText, CardLink, Col, Card, Row, CardHeader, CardBody} from 'reactstrap';
+import { Col, Card, Row, CardHeader, CardBody} from 'reactstrap';
 
 class ResourcePlanList extends Component {
   render = () => {
