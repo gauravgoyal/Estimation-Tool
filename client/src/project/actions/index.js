@@ -385,11 +385,12 @@ export const createProjectTask = (task) => (dispatch, getState) => {
   })
 }
 
-export const createProjectPlan = (defaultAllocation) => (dispatch, getState) => {
+export const createProjectPlan = (defaultAllocation, weeks) => (dispatch, getState) => {
   dispatch(projectResourcePlanCreateRequest())
   let pid = getState().projectOperations.currProject.pid
   let data = {
-    pid: pid
+    pid: pid,
+    weeks: weeks
   }
   apiProjectResourcePlanCreate(data)
   .then(res => res.json())
@@ -432,7 +433,7 @@ export const fetchProjectResourcePlans = () => (dispatch, getState) => {
   .then(json => dispatch(projectResourcePlanFetchSuccess(json)))
 }
 
-export const fetchProjectResourceAllocations = (res_id) => (dispatch, getState) => {
+export const fetchProjectResourceAllocations = (res_id, plan) => (dispatch, getState) => {
   dispatch(projectResourcePlanAllocationFetchRequest())
   apiProjectResourcePlanAllocationFetch(res_id)
   .then(res => res.json())
@@ -446,6 +447,8 @@ export const fetchProjectResourceAllocations = (res_id) => (dispatch, getState) 
       data.resId = res_id
       finalCurrPlan.push(data)
     })
+    finalCurrPlan.weeks = plan.weeks
+    finalCurrPlan.lock = plan.lock
     dispatch(projectResourcePlanAllocationFetchSuccess(finalCurrPlan, res_id))
   })
 }

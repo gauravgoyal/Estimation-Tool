@@ -39,7 +39,7 @@ class ResourcePlan extends Component {
         tempRow.id = index + 1
         rows.push(tempRow)
       })
-      // dispatch(createProjectPlan(rows))
+      dispatch(createProjectPlan(rows, weeks))
     }
   }
 
@@ -75,7 +75,7 @@ class ResourcePlan extends Component {
 
   showSelectedResourcePlan = (plan, e) => {
     const { dispatch } = this.props
-    dispatch(fetchProjectResourceAllocations(plan.res_id))
+    dispatch(fetchProjectResourceAllocations(plan.res_id, plan))
     this.setState({
       add: true
     })
@@ -221,6 +221,8 @@ class ResourcePlan extends Component {
       afterInsertRow: this.onAfterInsertRow,
     }
 
+    const noOfWeeks = currPlan.weeks;
+
     return (
       <div>
         {
@@ -233,6 +235,7 @@ class ResourcePlan extends Component {
             header={column}
             rows={rows}
             revenue = { revenue }
+            noOfWeeks = { noOfWeeks }
             totalRevenue = { revenueTotal }
             onSubmitForm = { this.submitResourceForm.bind(this) }
             onDiscount = { this.onDiscountChange.bind(this) }

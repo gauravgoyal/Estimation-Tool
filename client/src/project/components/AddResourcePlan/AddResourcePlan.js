@@ -8,7 +8,8 @@ import '../../../../node_modules/react-bootstrap-table/dist/react-bootstrap-tabl
 
 
 class AddResourcePlan extends Component {
-  state = {};
+  state = {
+  };
 
   onSubmitForm = (e, form) => {
     e.preventDefault()
@@ -19,9 +20,14 @@ class AddResourcePlan extends Component {
   }
 
   render = () => {
-    const { weeks } = this.state
-    const { header, rows, rateOptions, cellEditProp, options, revenue, totalRevenue } = this.props
+    var weeks = this.state.weeks
+    const { header, rows, rateOptions, cellEditProp, options, revenue, totalRevenue, noOfWeeks } = this.props
     let total = totalRevenue
+    
+    if (noOfWeeks > 5) {
+      weeks = noOfWeeks;
+    }
+
     if (weeks) {
       let lastWeek = header.slice(-1).pop();
       let weekNumber = lastWeek.weekNumber;

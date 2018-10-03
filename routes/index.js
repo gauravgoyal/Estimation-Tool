@@ -342,6 +342,7 @@ module.exports = function (server, knex) {
   server.post('resource-plan/create', function(req, res) {
     knex('resource_plans').insert({
       pid: req.body.pid,
+      weeks: req.body.weeks
     }).then(function(results) {
       res.end(JSON.stringify(results));
     })
