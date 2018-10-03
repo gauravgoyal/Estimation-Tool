@@ -133,7 +133,47 @@ class ResourcePlan extends Component {
       total.actual += parseInt(revenue.totalRev, 10)
       total.blendedMargin = Math.round(((total.actual - total.revenue) / total.revenue) * 100) / 100 + '%';
     })
-    return total
+
+    let rev = ((total.revenue - total.cost) / total.revenue) * 100
+    let listRev = ((total.actual - total.cost) / total.revenue) * 100
+
+    rev = (Math.round(rev * 100) / 100);
+    listRev = (Math.round(listRev * 100) / 100);
+
+    let rows = [
+      // Acquia Resource Hours
+      {
+        title: "Acquia Hours (billable)",
+        listRates: total.hours,
+        actuals: total.hours,
+        diffList: 0
+      },
+      {
+        title: "Acquia Cost (not incl. travel)",
+        listRates: total.cost,
+        actuals: total.cost,
+        diffList: 0
+      },
+      {
+        title: "Acquia Revenue",
+        listRates: total.revenue,
+        actuals: total.actual,
+        diffList: total.actual - total.revenue
+      },
+      {
+        title: "Acquia Margin",
+        listRates: rev + "%",
+        actuals: listRev + "%",
+        diffList: Math.round((listRev - rev) * 100) / 100 + "%"
+      },
+      {
+        title: "Blended Margin",
+        listRates: rev + "%",
+        actuals: listRev + "%",
+        diffList: Math.round((listRev - rev) * 100) / 100 + "%"
+      }
+    ];
+    return rows
   }
 
   onDiscountChange = (e) => {

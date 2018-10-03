@@ -21,7 +21,7 @@ class AddResourcePlan extends Component {
   render = () => {
     const { weeks } = this.state
     const { header, rows, rateOptions, cellEditProp, options, revenue, totalRevenue } = this.props
-    let total = [totalRevenue]
+    let total = totalRevenue
     if (weeks) {
       let lastWeek = header.slice(-1).pop();
       let weekNumber = lastWeek.weekNumber;
@@ -81,23 +81,23 @@ class AddResourcePlan extends Component {
               <h2 className="text-center">Cost & Rate (Role Wise)</h2>
               <BootstrapTable className="mt-2" data={revenue} striped hover >
                 <TableHeaderColumn isKey width="250" dataField = "role">Role</TableHeaderColumn>
-                <TableHeaderColumn width="100" dataField = "hours">Hours</TableHeaderColumn>
-                <TableHeaderColumn width="120" dataField = "cost">Resource Cost <small>(Per Hour)</small></TableHeaderColumn>
-                <TableHeaderColumn width="140" dataField = "listedRate">Listed Rate <small>(Per Hour)</small></TableHeaderColumn>
-                <TableHeaderColumn width="140" dataField = "sellRate">Sell Rate <small>(Per Hour)</small></TableHeaderColumn>
-                <TableHeaderColumn width="80" dataField = "totalCost">Cost</TableHeaderColumn>
-                <TableHeaderColumn width="120" dataField = "listRev">List Revenue</TableHeaderColumn>
-                <TableHeaderColumn width="150" dataField = "totalRev">Total Revenue</TableHeaderColumn>
+                <TableHeaderColumn dataField = "hours">Hours</TableHeaderColumn>
+                <TableHeaderColumn dataField = "cost">Resource Cost</TableHeaderColumn>
+                <TableHeaderColumn dataField = "listedRate">Listed Rate</TableHeaderColumn>
+                <TableHeaderColumn dataField = "sellRate">Sell Rate</TableHeaderColumn>
+                <TableHeaderColumn dataField = "totalCost">Cost</TableHeaderColumn>
+                <TableHeaderColumn dataField = "listRev">List Revenue</TableHeaderColumn>
+                <TableHeaderColumn dataField = "totalRev">Total Revenue</TableHeaderColumn>
               </BootstrapTable>
             </Col>
             <Col xs="12" sm="12" md="12" className="mt-3">
-              <h2 className="text-center">Totals</h2>
+              <h2 className="text-center">Project Investment (DRB Format)</h2>
               <BootstrapTable className="mt-2" data={ total } striped hover >
-                <TableHeaderColumn width="150" isKey dataField = "hours">Total Hours</TableHeaderColumn>
-                <TableHeaderColumn width="150" dataField="cost">Total Cost</TableHeaderColumn>
-                <TableHeaderColumn width="150" dataField="revenue">Total Revenue</TableHeaderColumn>
-                <TableHeaderColumn width="150" dataField="actual">Actual Revenue</TableHeaderColumn>
-                <TableHeaderColumn width="150" dataField="blendedMargin">Blended Margin</TableHeaderColumn>
+                <TableHeaderColumn dataField='id' isKey={ true } autoValue={ true } hidden >Job ID</TableHeaderColumn>
+                <TableHeaderColumn dataField="title">(EAC)</TableHeaderColumn>
+                <TableHeaderColumn dataField="listRates">List Rates</TableHeaderColumn>
+                <TableHeaderColumn dataField="actuals">Actuals</TableHeaderColumn>
+                <TableHeaderColumn dataField="diffList">Differnece From List</TableHeaderColumn>
               </BootstrapTable>
             </Col>
             </Row>
