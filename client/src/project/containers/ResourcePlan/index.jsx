@@ -16,6 +16,7 @@ import {
 class ResourcePlan extends Component {
   state = {
     add: false,
+    discount: 0
   }
 
   submitResourceForm = (weeks) => {
@@ -38,7 +39,7 @@ class ResourcePlan extends Component {
         tempRow.id = index + 1
         rows.push(tempRow)
       })
-      dispatch(createProjectPlan(rows))
+      // dispatch(createProjectPlan(rows))
     }
   }
 
@@ -80,16 +81,19 @@ class ResourcePlan extends Component {
     })
   }
 
-  calculateRevenue = (currPlan) => {
+  calculateRevenue = (currPlan, discount) => {
     const { projectRates } = this.props
     let rows = []
     let ratesData = []
     projectRates.forEach((rates) => {
       let cost = parseInt(rates.cost, 10)
       let listedRate = parseInt(rates.rate, 10)
+      let calculatedDiscount = (listedRate * discount) / 100;
+      let sellRate = listedRate - Math.floor(calculatedDiscount);
       ratesData[rates.role] = {
         cost: cost,
-        listedRate: listedRate
+        listedRate: listedRate,
+        sellRate: sellRate
       }
     })
     currPlan.forEach((allocation) => {
@@ -105,8 +109,10 @@ class ResourcePlan extends Component {
       })
       temp.totalCost = temp.hours * ratesData[temp.role].cost
       temp.listRev = temp.hours * ratesData[temp.role].listedRate
+      temp.totalRev = temp.hours * ratesData[temp.role].sellRate
       temp.cost = ratesData[temp.role].cost
       temp.listedRate = ratesData[temp.role].listedRate
+      temp.sellRate = ratesData[temp.role].sellRate
       rows.push(temp)
     })
     return rows
@@ -116,18 +122,30 @@ class ResourcePlan extends Component {
     let total = {
       hours: 0,
       cost: 0,
-      revenue: 0
+      revenue: 0,
+      actual: 0,
+      blendedMargin: 0,
     }
     revenueTotal.forEach((revenue) => {
       total.hours += parseInt(revenue.hours, 10)
       total.cost += parseInt(revenue.totalCost, 10)
       total.revenue += parseInt(revenue.listRev, 10)
+      total.actual += parseInt(revenue.totalRev, 10)
+      total.blendedMargin = Math.round(((total.actual - total.revenue) / total.revenue) * 100) / 100 + '%';
     })
     return total
   }
 
+  onDiscountChange = (e) => {
+    let val = e.target.value;
+    this.setState({
+      discount: val
+    })
+  }
+
+
   render = () => {
-    const { add } = this.state
+    const { add, discount } = this.state
     const { projectRates, resourcePlans, currPlan } = this.props
     const rateOptions = []
 
@@ -135,7 +153,7 @@ class ResourcePlan extends Component {
       rateOptions[rate.rid] = rate.role
     })
 
-    let revenue = this.calculateRevenue(currPlan)
+    let revenue = this.calculateRevenue(currPlan, discount);
     let revenueTotal = this.calculateTotal(revenue)
 
     const column = [{
@@ -177,6 +195,7 @@ class ResourcePlan extends Component {
             revenue = { revenue }
             totalRevenue = { revenueTotal }
             onSubmitForm = { this.submitResourceForm.bind(this) }
+            onDiscount = { this.onDiscountChange.bind(this) }
           />
           :
           <div>

@@ -51,9 +51,15 @@ class AddResourcePlan extends Component {
           </Form>
           :
           <div>
+          <h2 className="text-center">Resource Plan</h2>
+          <Row>
+            <Col md="6">
+              <label>Discount</label>
+              <Input type="text" name="discount" id="discount"  onBlur= { this.props.onDiscount.bind(this) }></Input>
+          </Col>
+          </Row>
           <Row>
           <Col md="12">
-            <h2 className="text-center">Resource Plan</h2>
             <BootstrapTable options = { options } data={rows} striped hover cellEdit={ cellEditProp } insertRow>
               {
                 header.map((data) => {
@@ -71,23 +77,27 @@ class AddResourcePlan extends Component {
               }
             </BootstrapTable>
             </Col>
-            <Col xs="12" sm="8" md="8" className="mt-3">
+            <Col xs="12" sm="12" md="12" className="mt-3">
               <h2 className="text-center">Cost & Rate (Role Wise)</h2>
               <BootstrapTable className="mt-2" data={revenue} striped hover >
                 <TableHeaderColumn isKey width="250" dataField = "role">Role</TableHeaderColumn>
                 <TableHeaderColumn width="100" dataField = "hours">Hours</TableHeaderColumn>
-                <TableHeaderColumn width="190" dataField = "cost">Resource Cost <small>(Per Hour)</small></TableHeaderColumn>
-                <TableHeaderColumn width="170" dataField = "listedRate">Listed Rate <small>(Per Hour)</small></TableHeaderColumn>
+                <TableHeaderColumn width="120" dataField = "cost">Resource Cost <small>(Per Hour)</small></TableHeaderColumn>
+                <TableHeaderColumn width="140" dataField = "listedRate">Listed Rate <small>(Per Hour)</small></TableHeaderColumn>
+                <TableHeaderColumn width="140" dataField = "sellRate">Sell Rate <small>(Per Hour)</small></TableHeaderColumn>
                 <TableHeaderColumn width="80" dataField = "totalCost">Cost</TableHeaderColumn>
                 <TableHeaderColumn width="120" dataField = "listRev">List Revenue</TableHeaderColumn>
+                <TableHeaderColumn width="150" dataField = "totalRev">Total Revenue</TableHeaderColumn>
               </BootstrapTable>
             </Col>
-            <Col xs="12" sm="4" md="4" className="mt-3">
+            <Col xs="12" sm="12" md="12" className="mt-3">
               <h2 className="text-center">Totals</h2>
               <BootstrapTable className="mt-2" data={ total } striped hover >
                 <TableHeaderColumn width="150" isKey dataField = "hours">Total Hours</TableHeaderColumn>
                 <TableHeaderColumn width="150" dataField="cost">Total Cost</TableHeaderColumn>
                 <TableHeaderColumn width="150" dataField="revenue">Total Revenue</TableHeaderColumn>
+                <TableHeaderColumn width="150" dataField="actual">Actual Revenue</TableHeaderColumn>
+                <TableHeaderColumn width="150" dataField="blendedMargin">Blended Margin</TableHeaderColumn>
               </BootstrapTable>
             </Col>
             </Row>
