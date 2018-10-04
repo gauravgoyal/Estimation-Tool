@@ -58,14 +58,14 @@ class AddResourcePlan extends Component {
           :
           <div>
           <h2 className="text-center">Resource Plan</h2>
+          <FormGroup row>
+            <Label for="discount" sm={1}>Discount</Label>
+            <Col sm={3}>
+              <Input type="text" name="discount" id="discount" placeholder="Enter discount"  onBlur= { this.props.onDiscount.bind(this) } />
+            </Col>
+          </FormGroup>
           <Row>
-            <Col md="6">
-              <label>Discount</label>
-              <Input type="text" name="discount" id="discount"  onBlur= { this.props.onDiscount.bind(this) }></Input>
-          </Col>
-          </Row>
-          <Row>
-          <Col md="12">
+            <Col>
             <BootstrapTable options = { options } data={rows} striped hover cellEdit={ cellEditProp } insertRow>
               {
                 header.map((data) => {
@@ -77,36 +77,40 @@ class AddResourcePlan extends Component {
                       )
                   }
                   else {
-                    return <TableHeaderColumn dataField = {data.accessor}>{data.Header}</TableHeaderColumn>
+                    return <TableHeaderColumn width="150" dataField = {data.accessor}>{data.Header}</TableHeaderColumn>
                   }
                 })
               }
             </BootstrapTable>
             </Col>
-            <Col xs="12" sm="12" md="12" className="mt-3">
-              <h2 className="text-center">Cost & Rate (Role Wise)</h2>
-              <BootstrapTable className="mt-2" data={revenue} striped hover >
-                <TableHeaderColumn isKey width="250" dataField = "role">Role</TableHeaderColumn>
-                <TableHeaderColumn dataField = "hours">Hours</TableHeaderColumn>
-                <TableHeaderColumn dataField = "cost">Resource Cost</TableHeaderColumn>
-                <TableHeaderColumn dataField = "listedRate">Listed Rate</TableHeaderColumn>
-                <TableHeaderColumn dataField = "sellRate">Sell Rate</TableHeaderColumn>
-                <TableHeaderColumn dataField = "totalCost">Cost</TableHeaderColumn>
-                <TableHeaderColumn dataField = "listRev">List Revenue</TableHeaderColumn>
-                <TableHeaderColumn dataField = "totalRev">Total Revenue</TableHeaderColumn>
-              </BootstrapTable>
+          </Row>
+          <Row>
+          <Col>
+            <h2 className="text-center mt-2">Cost & Rate (Role Wise)</h2>
+            <BootstrapTable className="mt-2" data={revenue} striped hover >
+              <TableHeaderColumn isKey width="250" dataField = "role">Role</TableHeaderColumn>
+              <TableHeaderColumn width="150" dataField = "hours">Hours</TableHeaderColumn>
+              <TableHeaderColumn width="150" dataField = "cost">Resource Cost</TableHeaderColumn>
+              <TableHeaderColumn width="150" dataField = "listedRate">Listed Rate</TableHeaderColumn>
+              <TableHeaderColumn width="150" dataField = "sellRate">Sell Rate</TableHeaderColumn>
+              <TableHeaderColumn width="150" dataField = "totalCost">Cost</TableHeaderColumn>
+              <TableHeaderColumn width="150" dataField = "listRev">List Revenue</TableHeaderColumn>
+              <TableHeaderColumn width="150" dataField = "totalRev">Total Revenue</TableHeaderColumn>
+            </BootstrapTable>
             </Col>
-            <Col xs="12" sm="12" md="12" className="mt-3">
-              <h2 className="text-center">Project Investment (DRB Format)</h2>
-              <BootstrapTable className="mt-2" data={ total } striped hover >
-                <TableHeaderColumn dataField='id' isKey={ true } autoValue={ true } hidden >Job ID</TableHeaderColumn>
-                <TableHeaderColumn dataField="title">(EAC)</TableHeaderColumn>
-                <TableHeaderColumn dataField="listRates">List Rates</TableHeaderColumn>
-                <TableHeaderColumn dataField="actuals">Actuals</TableHeaderColumn>
-                <TableHeaderColumn dataField="diffList">Differnece From List</TableHeaderColumn>
-              </BootstrapTable>
+          </Row>
+          <Row>
+          <Col>
+            <h2 className="text-center mt-2">Project Investment (DRB Format)</h2>
+            <BootstrapTable className="mt-2" data={ total } striped hover >
+              <TableHeaderColumn dataField='id' isKey={ true } autoValue={ true } hidden >Job ID</TableHeaderColumn>
+              <TableHeaderColumn dataField="title">(EAC)</TableHeaderColumn>
+              <TableHeaderColumn dataField="listRates">List Rates</TableHeaderColumn>
+              <TableHeaderColumn dataField="actuals">Actuals</TableHeaderColumn>
+              <TableHeaderColumn dataField="diffList">Differnece From List</TableHeaderColumn>
+            </BootstrapTable>
             </Col>
-            </Row>
+          </Row>
           </div>
         }
       </div>
