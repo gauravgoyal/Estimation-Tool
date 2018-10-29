@@ -25,6 +25,8 @@ class ProjectRates extends Component {
                   <tr>
                     <th scope="row">#</th>
                     <th scope="row">Role</th>
+                    <th scope="row">Resource Type</th>
+                    <th scope="row">Role Type</th>
                     <th scope="row">Standard Rate</th>
                     <th scope="row">Cost</th>
                   </tr>
@@ -45,7 +47,23 @@ class ProjectRates extends Component {
                             >
                             </RIEInput>
                           </td>
-                          <td key={unique_key + 2}>$
+                          <td key={unique_key + 2}>
+                            <RIEInput
+                                value={rate.resource_type}
+                                change={this.props.handleChange.bind(this, index, 'resource_type')}
+                                propName='resource_type'
+                              >
+                            </RIEInput>
+                          </td>
+                          <td key={unique_key + 3}>
+                            <RIEInput
+                                value={rate.role_type}
+                                change={this.props.handleChange.bind(this, index, 'role_type')}
+                                propName='role_type'
+                              >
+                            </RIEInput>
+                          </td>
+                          <td key={unique_key + 4}>$
                             <RIEInput
                                 value={rate.rate}
                                 change={this.props.handleChange.bind(this, index, 'rate')}
@@ -53,7 +71,7 @@ class ProjectRates extends Component {
                               >
                             </RIEInput>
                           </td>
-                          <td key={unique_key + 3}>$
+                          <td key={unique_key + 5}>$
                             <RIEInput
                               value={rate.cost}
                               change={this.props.handleChange.bind(this, index, 'cost')}

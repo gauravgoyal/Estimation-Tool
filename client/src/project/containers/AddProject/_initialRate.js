@@ -62,6 +62,7 @@ module.exports = {
     },
     {
       role: 'Technical Program Lead - Required',
+      role_type: 2,
       rate: [
         {
           currency: 'USD',
@@ -92,6 +93,7 @@ module.exports = {
     },
     {
       role: 'Technical Architect - Required',
+      role_type: 2,
       rate: [
         {
           currency: 'USD',
@@ -122,6 +124,7 @@ module.exports = {
     },
     {
       role: 'Front End Architect',
+      role_type: 1,
       rate: [
         {
           currency: 'USD',
@@ -242,6 +245,7 @@ module.exports = {
     },
     {
       role: 'Sr. Front End Developer',
+      role_type: 1,
       rate: [
         {
           currency: 'USD',
@@ -272,6 +276,7 @@ module.exports = {
     },
     {
       role: 'Sr. Developer',
+      role_type: 2,
       rate: [
         {
           currency: 'USD',
@@ -332,6 +337,7 @@ module.exports = {
     },
     {
       role: 'Front End Developer',
+      role_type: 1,
       rate: [
         {
           currency: 'USD',
@@ -362,6 +368,7 @@ module.exports = {
     },
     {
       role: 'Developer',
+      role_type: 2,
       rate: [
         {
           currency: 'USD',
@@ -452,6 +459,7 @@ module.exports = {
     },
     {
       role: 'Technical Architect - India',
+      role_type: 2,
       rate: [
         {
           currency: 'USD',
@@ -542,6 +550,7 @@ module.exports = {
     },
     {
       role: 'Front End Developer - India',
+      role_type: 1,
       rate: [
         {
           currency: 'USD',
@@ -572,6 +581,7 @@ module.exports = {
     },
     {
       role: 'Developer - India',
+      role_type: 2,
       rate: [
         {
           currency: 'USD',
