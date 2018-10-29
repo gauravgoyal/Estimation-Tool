@@ -22,7 +22,9 @@ import {
 
 import {
   identifyRoleType,
-  indentifyResourceType
+  indentifyResourceType,
+  getRoleType,
+  getResourceType
 } from '../functions';
 
 export const PROJECT_FETCH_REQUEST = 'PROJECT_FETCH_REQUEST'
@@ -304,6 +306,8 @@ export const updateProjectRates = (item, rates) => (dispatch) => {
 
 export const addProjectRate = (rate, rates) => (dispatch) => {
   dispatch(sendProjectRateCreateRequest());
+  rate.role_type = getRoleType(rate);
+  rate.resource_type = getResourceType(rate);
   return apiProjectRatesUpdate(rate)
   .then(res => res.json())
   .then(json => dispatch(sendProjectRateCreateSuccess(rates)))

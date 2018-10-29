@@ -49,6 +49,34 @@ class AddRate extends Component {
                 </Col>
                 <Col xs="6">
                   <FormGroup>
+                    <Label htmlFor="resource_type">Resource Type</Label>
+                    <Input
+                      required
+                      onChange={this.props.updateValue.bind(this, 'resource_type')}
+                      type="select"
+                      id="role"
+                      placeholder="Select Resource type i.e. Acquia or Partner">
+                      <option value="Acquia">Acquia</option>
+                      <option value="Partner">Partner</option>
+                  </Input>
+                  </FormGroup>
+                </Col>
+                <Col xs="6">
+                  <FormGroup>
+                    <Label htmlFor="role_type">Role Type: </Label>
+                    <Input
+                      required
+                      onChange={this.props.updateValue.bind(this, 'role_type')}
+                      type="select"
+                      id="role_type"
+                      placeholder="Select Role type i.e. Backend or Frontend">
+                      <option value="Frontend">Frontend</option>
+                      <option value="Backend">Backend</option>
+                    </Input>
+                  </FormGroup>
+                </Col>
+                <Col xs="6">
+                  <FormGroup>
                     <Label htmlFor="rate">Standard Rate: </Label>
                     <Input
                       required
