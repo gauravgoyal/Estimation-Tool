@@ -289,7 +289,6 @@ export const fetchProjectRates = (pid) => (dispatch) => {
       rate.resource_type = indentifyResourceType(rate);
       json[index] = rate;
     })
-    console.log(json);
     dispatch(projectRateSuccess(json))
   })
 }

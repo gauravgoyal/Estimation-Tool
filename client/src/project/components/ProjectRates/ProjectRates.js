@@ -4,6 +4,7 @@ import {
   Col,
   Card,
   CardHeader,
+  Input,
   Table } from 'reactstrap';
 import {RIEInput} from 'riek';
 import AddRate from '../Modals/AddRate/';
@@ -48,20 +49,29 @@ class ProjectRates extends Component {
                             </RIEInput>
                           </td>
                           <td key={unique_key + 2}>
-                            <RIEInput
-                                value={rate.resource_type}
-                                change={this.props.handleChange.bind(this, index, 'resource_type')}
-                                propName='resource_type'
-                              >
-                            </RIEInput>
+                            <Input
+                              type="select"
+                              defaultValue={rate.resource_type}
+                              onChange={this.props.handleChange.bind(this, index, 'resource_type')}
+                              id='resource_type'
+                              name='resource_type'
+                            >
+                              <option value="Acquia">Acquia</option>
+                              <option value="Partner">Partner</option>
+                            </Input>
                           </td>
                           <td key={unique_key + 3}>
-                            <RIEInput
-                                value={rate.role_type}
-                                change={this.props.handleChange.bind(this, index, 'role_type')}
-                                propName='role_type'
+                            <Input
+                              type="select"
+                              defaultValue={rate.role_type}
+                              onChange={this.props.handleChange.bind(this, index, 'role_type')}
+                              id='role_type'
+                              name='role_type'
                               >
-                            </RIEInput>
+                              <option value="Frontend">Frontend</option>
+                              <option value="Backend">Backend</option>
+                              <option value="">Management</option>
+                            </Input>
                           </td>
                           <td key={unique_key + 4}>$
                             <RIEInput
