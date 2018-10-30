@@ -4,6 +4,7 @@ import {
   Col,
   Card,
   CardHeader,
+  Input,
   Table } from 'reactstrap';
 import {RIEInput} from 'riek';
 import AddRate from '../Modals/AddRate/';
@@ -25,6 +26,8 @@ class ProjectRates extends Component {
                   <tr>
                     <th scope="row">#</th>
                     <th scope="row">Role</th>
+                    <th scope="row">Resource Type</th>
+                    <th scope="row">Role Type</th>
                     <th scope="row">Standard Rate</th>
                     <th scope="row">Cost</th>
                   </tr>
@@ -45,7 +48,32 @@ class ProjectRates extends Component {
                             >
                             </RIEInput>
                           </td>
-                          <td key={unique_key + 2}>$
+                          <td key={unique_key + 2}>
+                            <Input
+                              type="select"
+                              defaultValue={rate.resource_type}
+                              onChange={this.props.handleChange.bind(this, index, 'resource_type')}
+                              id='resource_type'
+                              name='resource_type'
+                            >
+                              <option value="Acquia">Acquia</option>
+                              <option value="Partner">Partner</option>
+                            </Input>
+                          </td>
+                          <td key={unique_key + 3}>
+                            <Input
+                              type="select"
+                              defaultValue={rate.role_type}
+                              onChange={this.props.handleChange.bind(this, index, 'role_type')}
+                              id='role_type'
+                              name='role_type'
+                              >
+                              <option value="Frontend">Frontend</option>
+                              <option value="Backend">Backend</option>
+                              <option value="">Management</option>
+                            </Input>
+                          </td>
+                          <td key={unique_key + 4}>$
                             <RIEInput
                                 value={rate.rate}
                                 change={this.props.handleChange.bind(this, index, 'rate')}
@@ -53,7 +81,7 @@ class ProjectRates extends Component {
                               >
                             </RIEInput>
                           </td>
-                          <td key={unique_key + 3}>$
+                          <td key={unique_key + 5}>$
                             <RIEInput
                               value={rate.cost}
                               change={this.props.handleChange.bind(this, index, 'cost')}

@@ -26,6 +26,8 @@ class AddProject extends Component {
     defaultRates.rates.map((defaultRate) => {
       let tempRate = {}
       tempRate.role = defaultRate.role;
+      tempRate.resource_type = (defaultRate.resource_type) ? defaultRate.resource_type : 0;
+      tempRate.role_type = (defaultRate.role_type) ? defaultRate.role_type : 0;
       defaultRate.rate.map((rate) => {
         if (rate.currency === this.state.currency) {
           tempRate.rate = rate.standard_rate;

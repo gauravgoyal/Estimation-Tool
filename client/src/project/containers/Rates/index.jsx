@@ -18,7 +18,12 @@ class Rates extends Component {
   updateRates = (index, field, newState) => {
     const {projectRates, dispatch} = this.props
     let item = projectRates[index];
-    item[field] = newState[field];
+    if (field === 'resource_type' || field === 'role_type') {
+      item[field] = newState.target.value;
+    }
+    else {
+      item[field] = newState[field]
+    }
     projectRates[index] = item;
     dispatch(updateProjectRates(item, projectRates))
   }

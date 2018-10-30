@@ -20,6 +20,13 @@ import {
   apiProjectResourcePlanAllocationUpdate
 } from '../api';
 
+import {
+  identifyRoleType,
+  indentifyResourceType,
+  getRoleType,
+  getResourceType
+} from '../functions';
+
 export const PROJECT_FETCH_REQUEST = 'PROJECT_FETCH_REQUEST'
 export const PROJECT_FETCH_SUCCESS = 'PROJECT_FETCH_SUCCESS'
 export const PROJECT_UPDATE_REQUEST = 'PROJECT_UPDATE_REQUEST'
@@ -276,7 +283,14 @@ export const fetchProjectRates = (pid) => (dispatch) => {
   dispatch(sendProjectRateRequest())
   return apiProjectRates(pid)
   .then(res => res.json())
-  .then(json => dispatch(projectRateSuccess(json)))
+  .then((json) => {
+    json.forEach((rate, index) => {
+      rate.role_type = identifyRoleType(rate);
+      rate.resource_type = indentifyResourceType(rate);
+      json[index] = rate;
+    })
+    dispatch(projectRateSuccess(json))
+  })
 }
 
 export const updateProjectRates = (item, rates) => (dispatch) => {
@@ -291,6 +305,8 @@ export const updateProjectRates = (item, rates) => (dispatch) => {
 
 export const addProjectRate = (rate, rates) => (dispatch) => {
   dispatch(sendProjectRateCreateRequest());
+  rate.role_type = getRoleType(rate);
+  rate.resource_type = getResourceType(rate);
   return apiProjectRatesUpdate(rate)
   .then(res => res.json())
   .then(json => dispatch(sendProjectRateCreateSuccess(rates)))

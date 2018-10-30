@@ -169,14 +169,18 @@ module.exports = function (server, knex) {
       pid: req.body.pid,
       role: req.body.role,
       rate: req.body.rate,
-      cost: req.body.cost
+      cost: req.body.cost,
+      role_type: req.body.role_type,
+      resource_type: req.body.resource_type
     })
 
     const update = knex('rates')
     .update({
       role: req.body.role,
       rate: req.body.rate,
-      cost: req.body.cost
+      cost: req.body.cost,
+      role_type: req.body.role_type,
+      resource_type: req.body.resource_type
     })
 
     const query = util.format(
