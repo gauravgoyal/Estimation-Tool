@@ -4,6 +4,7 @@ const routes = {
   '/project/add': 'ProjectAdd',
   '/project/:pid': 'Project',
   '/rates': 'Rates',
-  '/uncertainity-factors': 'Uncertainity Factors'
+  '/uncertainity-factors': 'Uncertainity Factors',
+  '/global-rate': 'Global Rates'
 };
 export default routes;

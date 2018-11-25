@@ -17,7 +17,9 @@ import {
   apiProjectResoourcePlanAllocationAdd,
   apiProjectResourcePlansFetch,
   apiProjectResourcePlanAllocationFetch,
-  apiProjectResourcePlanAllocationUpdate
+  apiProjectResourcePlanAllocationUpdate,
+  apiFetchGlobalRates,
+  apiGlobalProjectRatesUpdate
 } from '../api';
 
 export const PROJECT_FETCH_REQUEST = 'PROJECT_FETCH_REQUEST'
@@ -61,6 +63,12 @@ export const PROJECT_RESOURCE_PLAN_ALLOCATION_UPDATE_REQUEST = 'PROJECT_RESOURCE
 export const PROJECT_RESOURCE_PLAN_ALLOCATION_UPDATE_SUCCESS = 'PROJECT_RESOURCE_PLAN_ALLOCATION_UPDATE_SUCCESS'
 export const PROJECT_RESOURCE_PLAN_ALLOCATION_ADD_REQUEST = 'PROJECT_RESOURCE_PLAN_ALLOCATION_ADD_REQUEST'
 export const PROJECT_RESOURCE_PLAN_ALLOCATION_ADD_SUCCESS = 'PROJECT_RESOURCE_PLAN_ALLOCATION_ADD_SUCCESS'
+export const FETCH_GLOBAL_RATES = 'FETCH_GLOBAL_RATES'
+export const GLOBAL_FETCH_RATES_SUCCESSFUL = 'GLOBAL_FETCH_RATES_SUCCESSFUL'
+export const GLOBAL_RATE_UPDATE_REQUEST = 'GLOBAL_RATE_UPDATE_REQUEST'
+export const GLOBAL_RATE_UPDATE_SUCCESS = 'GLOBAL_RATE_UPDATE_SUCCESS'
+export const GLOBAL_RATE_CREATE_SUCCESS = 'GLOBAL_RATE_CREATE_SUCCESS'
+export const GLOBAL_RATE_CREATE_REQUEST = 'GLOBAL_RATE_CREATE_REQUEST'
 
 const projectResourcePlanAllocationAddRoleRequest = () => ({
   type: PROJECT_RESOURCE_PLAN_ALLOCATION_ADD_REQUEST
@@ -115,6 +123,14 @@ const sendProjectFetchRequest = () => ({
   type: PROJECT_FETCH_REQUEST
 })
 
+const globalRates = () => ({
+  type: FETCH_GLOBAL_RATES
+})
+
+const globalRatesFetchSuccess = (rate) => ({
+  type: GLOBAL_FETCH_RATES_SUCCESSFUL,
+  data: rate
+})
 const projectFetchSuccess = (project) => ({
   type: PROJECT_FETCH_SUCCESS,
   data: project
@@ -205,9 +221,23 @@ const sendProjectRateUpdateRequest = () => ({
   type: PROJECT_RATE_UPDATE_REQUEST
 })
 
+const sendGlobalRateUpdateRequest = () => ({
+  type: GLOBAL_RATE_UPDATE_REQUEST
+})
+
+const globalRateUpdateSuccess = (rates) => ({
+  type: GLOBAL_RATE_UPDATE_SUCCESS,
+  data: rates
+})
+
 const projectRateUpdateSuccess = (rates) => ({
   type: PROJECT_RATE_UPDATE_SUCCESS,
   data: rates
+})
+
+const sendGlobalRateCreateSuccess = (rate) => ({
+  type: GLOBAL_RATE_CREATE_SUCCESS,
+  data: rate
 })
 
 const sendProjectTasksUpdateRequest = () => ({
@@ -232,6 +262,9 @@ const sendProjectRateCreateRequest = () => ({
   type: PROJECT_RATE_CREATE_REQUEST
 })
 
+const globalRateCreateRequest =() =>({
+  type: GLOBAL_RATE_CREATE_REQUEST
+})
 const sendProjectRateCreateSuccess = (rate) => ({
   type: PROJECT_RATE_CREATE_SUCCESS,
   data: rate
@@ -271,7 +304,12 @@ export const fetchProject = (pid) => (dispatch) => {
   .then(res => res.json())
   .then(json => dispatch(projectFetchSuccess(json.result.pop())))
 }
-
+export const fetchGlobalRates = () => (dispatch) => {
+  dispatch(globalRates())
+  return apiFetchGlobalRates()
+  .then(res => res.json())
+  .then(data => dispatch(globalRatesFetchSuccess(data)))
+}
 export const fetchProjectRates = (pid) => (dispatch) => {
   dispatch(sendProjectRateRequest())
   return apiProjectRates(pid)
@@ -287,6 +325,22 @@ export const updateProjectRates = (item, rates) => (dispatch) => {
     dispatch(projectRateUpdateSuccess(rates))
     dispatch(fetchProjectTasks())
   })
+}
+
+export const updateGlobalProjectRates = (item, rates) => (dispatch) => {
+  dispatch(sendGlobalRateUpdateRequest())
+  return apiGlobalProjectRatesUpdate(item)
+  .then(res => res.json())
+  .then(json => {
+    dispatch(globalRateUpdateSuccess(rates))
+  })
+}
+
+export const addGlobalProjectRate = (rate, rates) => (dispatch) => {
+  dispatch(globalRateCreateRequest());
+  return apiGlobalProjectRatesUpdate(rate)
+  .then((res) => { res.json() })
+  .then(json => dispatch(sendGlobalRateCreateSuccess(rates)))
 }
 
 export const addProjectRate = (rate, rates) => (dispatch) => {

@@ -15,6 +15,14 @@ export default {
       badge: {
         variant: 'info'
       }
+    },
+    {
+      name: 'Global Rates',
+      url: '/project/global-rates',
+      icon: 'icon-speedometer',
+      badge: {
+        variant: 'info'
+      }
     }
   ]
 };

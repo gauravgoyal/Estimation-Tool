@@ -23,6 +23,7 @@ import FullHeader from './FullHeader';
 
 import Dashboard from '../../project/containers/Dashboard/';
 import AddProject from '../../project/containers/AddProject/';
+import GlobalRate from '../../project/containers/GlobalRates/';
 import Tabs from '../../project/containers/Tabs/';
 
 class Full extends Component {
@@ -64,6 +65,7 @@ class Full extends Component {
               <Switch>
                 <Route path="/dashboard" name="Dashboard" component={Dashboard} />
                 <Route path="/project/add" name="AddProject" component={AddProject}/>
+                <Route path="/project/global-rates" name="GlobalRates" component={GlobalRate}/>
                 <Route path="/project/:pid" name="Project" component={Tabs}/>
                 <Redirect from="/" to="/dashboard"/>
               </Switch>
