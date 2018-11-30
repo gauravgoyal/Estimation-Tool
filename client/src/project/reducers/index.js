@@ -41,15 +41,22 @@ import {
   PROJECT_RESOURCE_PLAN_ALLOCATION_UPDATE_SUCCESS,
   PROJECT_RESOURCE_PLAN_ALLOCATION_ADD_REQUEST,
   PROJECT_RESOURCE_PLAN_ALLOCATION_ADD_SUCCESS,
+  FETCH_GLOBAL_RATES,
+  GLOBAL_FETCH_RATES_SUCCESSFUL,
+  GLOBAL_RATE_UPDATE_REQUEST,
+  GLOBAL_RATE_UPDATE_SUCCESS,
+  GLOBAL_RATE_CREATE_SUCCESS,
+  GLOBAL_RATE_CREATE_REQUEST
 } from '../actions'
 
 function projectOperations(state = {
   isFetching: true,
   projectsList: {},
   viewedProjects: [],
-  currProject: []
+  currProject: [],
+  fetchRates: []
 }, action) {
-  switch (action.type) {
+  switch (action.type) {    
     case PROJECT_FETCH_REQUEST:
     case PROJECT_CREATE_REQUEST:
     case PROJECT_UPDATE_REQUEST:
@@ -80,7 +87,6 @@ function projectOperations(state = {
       isFetching: false,
       projectsList: action.data,
     }
-
     case PROJECT_VIEWED:
     return {
       ...state,
@@ -104,11 +110,15 @@ function projectOperations(state = {
 function projectRates(state = {
   isFetching: true,
   projectRates: [],
+  globalRates: []
  }, action) {
   switch (action.type) {
     case PROJECT_RATE_REQUEST:
     case PROJECT_RATE_UPDATE_REQUEST:
     case PROJECT_RATE_CREATE_REQUEST:
+    case FETCH_GLOBAL_RATES:
+    case GLOBAL_RATE_CREATE_REQUEST:
+    case GLOBAL_RATE_UPDATE_REQUEST:
     return {
       ...state,
       isFetching: true
@@ -123,6 +133,14 @@ function projectRates(state = {
       projectRates: action.data
     }
 
+    case GLOBAL_FETCH_RATES_SUCCESSFUL:
+    case GLOBAL_RATE_UPDATE_SUCCESS:
+    case GLOBAL_RATE_CREATE_SUCCESS:
+    return {
+      ...state,
+      isFetching: false,
+      globalRates: action.data
+    }
     default:
     return state
   }

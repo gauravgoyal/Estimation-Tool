@@ -27,6 +27,15 @@ module.exports = function (server, knex) {
       throw error;
     })
   });
+  server.get('/global-rate', (req, res, next) => {
+  	knex.select().table('global_rate').then(function(results) {
+      res.end(JSON.stringify(results));
+  	  next();
+  	})
+  	.catch(function(error) {
+  	  throw error;
+  	})
+  });
 
   server.get('/projects/:id', function (req, res) {
     knex('projects').where('pid', req.params.id)
@@ -149,7 +158,7 @@ module.exports = function (server, knex) {
    * Save rates for a project.
    */
   server.post('/rates', function (req, res) {
-    let data = []
+    let data = [];
     Object.keys(req.body).map((key) => {
       data.push(qs.parse(req.body[key]))
     })
@@ -160,6 +169,67 @@ module.exports = function (server, knex) {
        throw error;
     })
   });
+
+    server.post('/global_rates_create', function (req, res) {
+      knex('global_rate').insert({
+        cost: req.body.cost || '',
+        role: req.body.role || '',
+        rate: req.body.rate || '',
+      }).then(function(results) {
+        var response = {
+          result: results,
+          status: 200
+        };
+        res.end(JSON.stringify(response));
+        })
+        .catch(function(error) {
+          var response = {
+            error: error,
+            status: 503
+          };
+          res.end(JSON.stringify(response));
+        })
+    });
+
+  /**
+   * Updates rates for rates globally.
+   */
+  server.post('/global-rate/update/:rid', function (req, res, next) {
+    const insert = knex('global_rate').insert({
+      rid: req.body.rid,
+      role: req.body.role,
+      rate: req.body.rate,
+      cost: req.body.cost
+    })
+
+    const update = knex('global_rate')
+    .update({
+      role: req.body.role,
+      rate: req.body.rate,
+      cost: req.body.cost
+    })
+
+    const query = util.format(
+      '%s ON DUPLICATE KEY UPDATE %s',
+      insert.toString(),
+      update.toString().replace(/^update\s.*\sset\s/i, '')
+    )
+
+    knex.raw(query).then(function(results) {
+      var response = {
+        result: results,
+        status: 200
+      };
+      res.end(JSON.stringify(response));
+    }).catch(function(error) {
+       var response = {
+        error: error,
+        status: 503
+      };
+      res.end(JSON.stringify(response));
+    })
+  });
+
 
   /**
    * Updates rates for a project.

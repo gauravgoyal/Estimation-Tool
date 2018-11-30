@@ -18,6 +18,9 @@ const ENDPOINT_PROJECT_RESOURCE_PLAN_CREATE = config.api_url + "resource-plan/cr
 const ENDPOINT_PROJECT_RESOURCE_PLAN_ADD_ALLOCATIONS = config.api_url + "resource-plan/allocation/add/"
 const ENDPOINT_PROJECT_RESOURCE_PLAN_FETCH_ALLOCATIONS = config.api_url + "resource-plan/allocation/fetch/"
 const ENDPOINT_PROJECT_RESOURCE_PLAN_UPDATE_ALLOCATION = config.api_url + "resource-plan/allocation/update"
+const ENDPOINT_GLOBAL_PROJECT_RATE_CREATE = config.api_url + "global_rates_create"
+const ENDPOINT_PROJECT_RATES_FETCH = config.api_url + 'global-rate';
+const ENDPOINT_GLOBAL_RATES_UPDATE = config.api_url + 'global-rate/update/'
 
 export const apiProjectResourcePlanAllocationUpdate = (allocation) => {
   let endpoint = ENDPOINT_PROJECT_RESOURCE_PLAN_UPDATE_ALLOCATION
@@ -32,6 +35,10 @@ export const apiProjectResourcePlanAllocationFetch = (resId) => {
 export const apiProjectResourcePlansFetch = (pid) => {
   let endpoint = ENDPOINT_PROJECT_RESOURCE_PLAN_FETCH + pid
   return fetch(endpoint)
+}
+
+export const apiFetchGlobalRates = () => {
+  return fetch(ENDPOINT_PROJECT_RATES_FETCH)
 }
 
 export const apiProjectUpdate = (project) => {
@@ -84,6 +91,16 @@ export const apiProjectTasks = (pid) => {
 export const apiProjectRatesUpdate = (rate) => {
   let endpoint = ENDPOINT_PROJECT_RATES_UPDATE + rate.rid
   return sendPostRequest(endpoint, rate)
+}
+
+export const apiGlobalProjectRatesUpdate = (rate) => {
+  if(rate.rid) {
+    let endpoint = ENDPOINT_GLOBAL_RATES_UPDATE + rate.rid
+    return sendPostRequest(endpoint, rate)
+  }
+  else {
+    return sendPostRequest(ENDPOINT_GLOBAL_PROJECT_RATE_CREATE, rate)
+  }
 }
 
 export const apiProjectRateCreate = (rate, pid = null) => {

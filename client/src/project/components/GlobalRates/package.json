@@ -1,0 +1,6 @@
+{
+  "name": "GlobalRates",
+  "version": "0.0.0",
+  "private": true,
+  "main": "./GlobalRates.js"
+}
