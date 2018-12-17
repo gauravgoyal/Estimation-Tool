@@ -115,11 +115,12 @@ class AddResourcePlan extends Component {
           <Col>
             <h2 className="text-center mt-2">Comparision with WBS</h2>
             <BootstrapTable className="mt-2" data={ syncData } striped hover >
-              <TableHeaderColumn dataField='id' isKey={ true } autoValue={ true } hidden >Job ID</TableHeaderColumn>
-              <TableHeaderColumn dataField="title">Role</TableHeaderColumn>
-              <TableHeaderColumn dataField="lowHours">WBS Low Hours</TableHeaderColumn>
-              <TableHeaderColumn dataField="highHours">WBS High Hours</TableHeaderColumn>
-              <TableHeaderColumn dataField="estimate">Estimate</TableHeaderColumn>
+              <TableHeaderColumn row="0" dataField='id' isKey={ true } autoValue={ true } hidden >Job ID</TableHeaderColumn>
+              <TableHeaderColumn row="0" rowSpan='2' dataField="title">Role</TableHeaderColumn>
+              <TableHeaderColumn row="0" colSpan="2" headerAlign='center'>Work Breakdown Structure</TableHeaderColumn>
+              <TableHeaderColumn row="1" dataField="lowHours">Low Hours</TableHeaderColumn>
+              <TableHeaderColumn row="1" dataField="highHours">High Hours</TableHeaderColumn>
+              <TableHeaderColumn row="0" rowSpan='2' dataField="estimate">Estimate</TableHeaderColumn>
             </BootstrapTable>
             </Col>
           </Row>
