@@ -333,6 +333,8 @@ export const fetchProjectRates = (pid) => (dispatch) => {
 
 export const updateProjectRates = (item, rates) => (dispatch) => {
   dispatch(sendProjectRateUpdateRequest())
+  item.role_type = getRoleType(item);
+  item.resource_type = getResourceType(item);
   return apiProjectRatesUpdate(item)
   .then(res => res.json())
   .then(json => {

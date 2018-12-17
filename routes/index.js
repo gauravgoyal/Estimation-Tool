@@ -237,6 +237,7 @@ module.exports = function (server, knex) {
   server.post('/rates/update/:rid', function (req, res, next) {
     const insert = knex('rates').insert({
       pid: req.body.pid,
+      rid: req.params.rid,
       role: req.body.role,
       rate: req.body.rate,
       cost: req.body.cost,
@@ -296,6 +297,7 @@ module.exports = function (server, knex) {
   server.post('/factors/update/:ufid', function (req, res, next) {
     const insert = knex('uncertainity_factors').insert({
       pid: req.body.pid,
+      ufid: req.params.ufid,
       title: req.body.title,
       points: req.body.points,
       lower_multiplier: req.body.lower_multiplier,
