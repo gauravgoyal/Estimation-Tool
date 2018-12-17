@@ -120,7 +120,7 @@ class AddResourcePlan extends Component {
               <TableHeaderColumn row="0" colSpan="2" headerAlign='center'>Work Breakdown Structure</TableHeaderColumn>
               <TableHeaderColumn row="1" dataField="lowHours">Low Hours</TableHeaderColumn>
               <TableHeaderColumn row="1" dataField="highHours">High Hours</TableHeaderColumn>
-              <TableHeaderColumn row="0" rowSpan='2' dataField="estimate">Estimate</TableHeaderColumn>
+              <TableHeaderColumn row="0" rowSpan='2' dataField="estimate">Estimate from Resource Plan</TableHeaderColumn>
             </BootstrapTable>
             </Col>
           </Row>
