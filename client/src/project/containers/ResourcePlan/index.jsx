@@ -94,7 +94,8 @@ class ResourcePlan extends Component {
         cost: cost,
         listedRate: listedRate,
         sellRate: sellRate,
-        resource_type: rates.resource_type
+        resource_type: rates.resource_type,
+        role_type: rates.role_type
       }
     })
     currPlan.forEach((allocation) => {
@@ -115,6 +116,7 @@ class ResourcePlan extends Component {
       temp.listedRate = ratesData[temp.role].listedRate
       temp.sellRate = ratesData[temp.role].sellRate
       temp.resource_type = ratesData[temp.role].resource_type
+      temp.role_type = ratesData[temp.role].role_type
       rows.push(temp)
     })
     return rows
@@ -283,6 +285,66 @@ class ResourcePlan extends Component {
     })
   }
 
+  syncEstimates = (revenueTotal) => {
+    const { projectTasks, projectRates } = this.props
+    let rows = [];
+    let beHours = 0;
+    let feHours = 0;
+
+    let ratesData = []
+    projectRates.forEach((rates) => {
+      ratesData[rates.rid] = {
+        role_type: rates.role_type
+      }
+    })
+
+    let tempBEHoursLow = 0
+    let tempBEHoursHigh = 0
+    let tempFEHoursLow = 0
+    let tempFEHoursHigh = 0
+    projectTasks.forEach((task) => {
+      if (ratesData[task.rid].role_type == 'Backend') {
+        tempBEHoursLow += parseInt(task.hours_low)
+        tempBEHoursHigh += parseInt(task.hours_high)
+      }
+      else if (ratesData[task.rid].role_type == 'Frontend') {
+        tempFEHoursLow += parseInt(task.hours_low)
+        tempFEHoursHigh += parseInt(task.hours_high)
+      }
+    })
+
+    revenueTotal.forEach((revenue) => {
+      if (revenue.role_type === 'Backend') {
+        beHours += parseInt(revenue.hours, 10)
+      }
+      else if (revenue.role_type === 'Frontend') {
+        feHours += parseInt(revenue.hours, 10)
+      }
+    })
+
+    rows = [
+      {
+        title: "Fronend Developer",
+        lowHours: tempFEHoursLow,
+        highHours: tempFEHoursHigh,
+        estimate: feHours
+      },
+      {
+        title: "Backend Developer",
+        lowHours: tempBEHoursLow,
+        highHours: tempBEHoursHigh,
+        estimate: beHours
+      },
+      {
+        title: "Total Dev",
+        lowHours: tempFEHoursLow + tempBEHoursLow,
+        highHours: tempFEHoursHigh + tempBEHoursHigh,
+        estimate: feHours + beHours
+      }
+    ]
+    return rows;
+  }
+
 
   render = () => {
     const { add, discount } = this.state
@@ -293,8 +355,9 @@ class ResourcePlan extends Component {
       rateOptions[rate.rid] = rate.role
     })
 
-    let revenue = this.calculateRevenue(currPlan, discount);
+    let revenue = this.calculateRevenue(currPlan, discount)
     let revenueTotal = this.calculateTotal(revenue)
+    let syncData = this.syncEstimates(revenue)
 
     const column = [{
       Header: 'Role',
@@ -339,6 +402,7 @@ class ResourcePlan extends Component {
             totalRevenue = { revenueTotal }
             onSubmitForm = { this.submitResourceForm.bind(this) }
             onDiscount = { this.onDiscountChange.bind(this) }
+            syncData = { syncData }
           />
           :
           <div>
@@ -358,13 +422,15 @@ class ResourcePlan extends Component {
 const mapStateToProps = (state) => {
   const { projectRates, isFetching } = state.projectRates
   const { isFetchingResources, resourcePlans, currPlan, currResId } = state.projectResourcePlans
+  const { projectTasks } = state.projectTasks
   return {
     projectRates,
     isFetching,
     isFetchingResources,
     resourcePlans,
     currPlan,
-    currResId
+    currResId,
+    projectTasks
   }
 }
 
