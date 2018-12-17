@@ -21,7 +21,7 @@ class AddResourcePlan extends Component {
 
   render = () => {
     var weeks = this.state.weeks
-    const { header, rows, rateOptions, cellEditProp, options, revenue, totalRevenue, noOfWeeks } = this.props
+    const { header, rows, rateOptions, cellEditProp, options, revenue, totalRevenue, noOfWeeks, syncData } = this.props
     let total = totalRevenue
     
     if (noOfWeeks > 5) {
@@ -108,6 +108,18 @@ class AddResourcePlan extends Component {
               <TableHeaderColumn dataField="listRates">List Rates</TableHeaderColumn>
               <TableHeaderColumn dataField="actuals">Actuals</TableHeaderColumn>
               <TableHeaderColumn dataField="diffList">Differnece From List</TableHeaderColumn>
+            </BootstrapTable>
+            </Col>
+          </Row>
+          <Row>
+          <Col>
+            <h2 className="text-center mt-2">Comparision with WBS</h2>
+            <BootstrapTable className="mt-2" data={ syncData } striped hover >
+              <TableHeaderColumn dataField='id' isKey={ true } autoValue={ true } hidden >Job ID</TableHeaderColumn>
+              <TableHeaderColumn dataField="title">Role</TableHeaderColumn>
+              <TableHeaderColumn dataField="lowHours">WBS Low Hours</TableHeaderColumn>
+              <TableHeaderColumn dataField="highHours">WBS High Hours</TableHeaderColumn>
+              <TableHeaderColumn dataField="estimate">Estimate</TableHeaderColumn>
             </BootstrapTable>
             </Col>
           </Row>
