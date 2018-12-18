@@ -27,7 +27,7 @@ class ProjectUncertainityFactors extends Component {
                     <th scope="row">Confidence Factor</th>
                     <th scope="row">Factor Points</th>
                     <th scope="row">Lower Multiplier</th>
-                    <th scope="row">Heigher Multiplier</th>
+                    <th scope="row">Higher Multiplier</th>
                   </tr>
                 </thead>
                 <tbody>
