@@ -1,5 +1,5 @@
 import React, {Component} from 'react'
-import { Button, Row, Col, Form, FormGroup, Label, Input } from 'reactstrap';
+import { Button, Row, Col, Form, FormGroup, Label, Input, InputGroup, InputGroupAddon } from 'reactstrap';
 
 // Import React Bootstrap Table
 import {BootstrapTable, TableHeaderColumn} from 'react-bootstrap-table';
@@ -21,7 +21,7 @@ class AddResourcePlan extends Component {
 
   render = () => {
     var weeks = this.state.weeks
-    const { header, rows, rateOptions, cellEditProp, options, revenue, totalRevenue, noOfWeeks, syncData } = this.props
+    const { header, rows, rateOptions, cellEditProp, options, revenue, totalRevenue, noOfWeeks, syncData, showWeeksInput } = this.props
     let total = totalRevenue
     
     if (noOfWeeks > 5) {
@@ -39,6 +39,11 @@ class AddResourcePlan extends Component {
         header.push(tempHeader)
       }
     }
+    
+    header.push({
+      Header: 'ID',
+      accessor: 'unique_id'
+    })
 
     return (
       <div>
@@ -60,8 +65,16 @@ class AddResourcePlan extends Component {
           <h2 className="text-center">Resource Plan</h2>
           <FormGroup row>
             <Label for="discount" sm={1}>Discount</Label>
-            <Col sm={3}>
-              <Input type="text" name="discount" id="discount" placeholder="Enter discount"  onBlur= { this.props.onDiscount.bind(this) } />
+            <Col sm = { 2 }>
+              <Input sm={1} type="text" name="discount" id="discount" placeholder="Enter discount"  onBlur= { this.props.onDiscount.bind(this) } />
+            </Col>
+            <Col sm={{ size: 'auto', offset: 5 }}>
+              <InputGroup className="float-right">
+                <Input placeholder="Enter number of weeks" inputRef={ (ref) => { this.input = ref; }} />
+                <InputGroupAddon addonType="append">
+                  <Button color="success" onClick= { this.props.onAddWeek.bind(this) }>Add Week</Button>
+                </InputGroupAddon>
+              </InputGroup>
             </Col>
           </FormGroup>
           <Row>
@@ -71,13 +84,20 @@ class AddResourcePlan extends Component {
                 header.map((data) => {
                   if (data.accessor === 'role') {
                     return (
-                      <TableHeaderColumn isKey width='300' dataField = {data.accessor} editable={ { type: 'select', options: { values: rateOptions } } }>
+                      <TableHeaderColumn width='300' dataField = {data.accessor} editable={ { type: 'select', options: { values: rateOptions } } }>
                         {data.Header}
                       </TableHeaderColumn>
                       )
                   }
                   else {
-                    return <TableHeaderColumn width="150" dataField = {data.accessor}>{data.Header}</TableHeaderColumn>
+                    if (data.accessor == 'unique_id') {
+                      return (
+                        <TableHeaderColumn isKey dataField = {data.accessor} autoValue={ true } hidden> {data.Header} </TableHeaderColumn>
+                      )
+                    }
+                    else {
+                      return <TableHeaderColumn width="150" dataField = {data.accessor}>{data.Header}</TableHeaderColumn>
+                    }
                   }
                 })
               }
