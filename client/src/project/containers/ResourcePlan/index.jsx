@@ -16,7 +16,8 @@ import {
 class ResourcePlan extends Component {
   state = {
     add: false,
-    discount: 0
+    discount: 0,
+    showWeeks: false,
   }
 
   submitResourceForm = (weeks) => {
@@ -79,6 +80,11 @@ class ResourcePlan extends Component {
     this.setState({
       add: true
     })
+  }
+
+  addMoreWeeks = (e) => {
+    console.log(this.input);
+    console.log(e)
   }
 
   calculateRevenue = (currPlan, discount) => {
@@ -347,7 +353,7 @@ class ResourcePlan extends Component {
 
 
   render = () => {
-    const { add, discount } = this.state
+    const { add, discount, showWeeks } = this.state
     const { projectRates, resourcePlans, currPlan } = this.props
     const rateOptions = []
 
@@ -364,6 +370,10 @@ class ResourcePlan extends Component {
       accessor: "role"
     }]
     const rows = currPlan
+
+    rows.forEach((data) => {
+      data.unique_id = Math.floor(Date.now())
+    })
 
     weeks.forEach((data) => {
       let temp = {
@@ -403,6 +413,8 @@ class ResourcePlan extends Component {
             onSubmitForm = { this.submitResourceForm.bind(this) }
             onDiscount = { this.onDiscountChange.bind(this) }
             syncData = { syncData }
+            onAddWeek = { this.addMoreWeeks.bind(this) }
+            showWeeksInput = { showWeeks }
           />
           :
           <div>
