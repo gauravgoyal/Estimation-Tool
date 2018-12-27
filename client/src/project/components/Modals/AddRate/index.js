@@ -72,6 +72,7 @@ class AddRate extends Component {
                       placeholder="Select Role type i.e. Backend or Frontend">
                       <option value="Frontend">Frontend</option>
                       <option value="Backend">Backend</option>
+                      <option value="Management">Management</option>
                     </Input>
                   </FormGroup>
                 </Col>
