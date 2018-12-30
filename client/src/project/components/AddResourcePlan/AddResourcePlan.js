@@ -86,7 +86,7 @@ class AddResourcePlan extends Component {
             <Col>
             <BootstrapTable options = { options } data={rows} striped hover cellEdit={ cellEditProp } insertRow>
               {
-                header.map((data, index) => {
+                header.map((data) => {
                   if (data.accessor === 'role') {
                     return (
                       <TableHeaderColumn width='300' dataField = {data.accessor} editable={ { type: 'select', options: { values: rateOptions } } }>
@@ -102,7 +102,7 @@ class AddResourcePlan extends Component {
                     }
                     else {
                       return (
-                        <TableHeaderColumn width="180" dataField = {data.accessor}>
+                        <TableHeaderColumn width="180" dataField = {data.accessor} headerText={ data.Header }>
                           {data.Header}
                           <Button onClick= {() => this.removeColumn(data.accessor)} outline color="danger" size= "sm" className="float-right">X</Button>
                         </TableHeaderColumn>
