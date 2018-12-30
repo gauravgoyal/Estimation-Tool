@@ -42,7 +42,7 @@ class AddResourcePlan extends Component {
       for (let i=1; i <= weeks - weekNumber; i++ ) {
         let tempHeader = {
           Header: "(W" + (weekNumber + i) + ")",
-          accessor: "(W" + (weekNumber + i) + ")",
+          accessor: "(W" + (weekNumber + i) + ")"
         }
         header.push(tempHeader)
       }

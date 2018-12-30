@@ -42,6 +42,7 @@ class ResourcePlan extends Component {
         tempRow.row = index
         rows.push(tempRow)
       })
+      rows.weeks = weeks;
       dispatch(createProjectPlan(rows, weeks))
     }
   }
