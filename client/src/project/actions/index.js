@@ -12,6 +12,7 @@ import {
   apiProjectTasks,
   apiProjectTasksUpdate,
   apiProjectTotalUpdate,
+  apiProjectResourcePlanUpdate,
   apiProjectTaskCreate,
   apiProjectResourcePlanCreate,
   apiProjectResoourcePlanAllocationAdd,
@@ -62,6 +63,8 @@ export const PROJECT_TASKS_CREATE_REQUEST = 'PROJECT_TASKS_CREATE_REQUEST'
 export const PROJECT_TASKS_CREATE_SUCCESS = 'PROJECT_TASKS_CREATE_SUCCESS'
 export const PROJECT_RESOURCE_PLAN_CREATE_REQUEST = 'PROJECT_RESOURCE_PLAN_CREATE_REQUEST'
 export const PROJECT_RESOURCE_PLAN_CREATE_SUCCESS = 'PROJECT_RESOURCE_PLAN_CREATE_SUCCESS'
+export const PROJECT_RESOURCE_PLAN_UPDATE_REQUEST = 'PROJECT_RESOURCE_PLAN_UPDATE_REQUEST'
+export const PROJECT_RESOURCE_PLAN_UPDATE_SUCCESS = 'PROJECT_RESOURCE_PLAN_UPDATE_SUCCESS'
 export const PROJECT_RESOURCE_PLAN_FETCH_REQUEST = 'PROJECT_RESOURCE_PLAN_FETCH_REQUEST'
 export const PROJECT_RESOURCE_PLAN_FETCH_SUCCESS = 'PROJECT_RESOURCE_PLAN_FETCH_SUCCESS'
 export const PROJECT_RESOURCE_PLAN_ALLOCATION_FETCH_REQUEST = 'PROJECT_RESOURCE_PLAN_ALLOCATION_FETCH_REQUEST'
@@ -76,6 +79,16 @@ export const GLOBAL_RATE_UPDATE_REQUEST = 'GLOBAL_RATE_UPDATE_REQUEST'
 export const GLOBAL_RATE_UPDATE_SUCCESS = 'GLOBAL_RATE_UPDATE_SUCCESS'
 export const GLOBAL_RATE_CREATE_SUCCESS = 'GLOBAL_RATE_CREATE_SUCCESS'
 export const GLOBAL_RATE_CREATE_REQUEST = 'GLOBAL_RATE_CREATE_REQUEST'
+
+const projectResourcePlanUpdateRequest = () => ({
+  type: PROJECT_RESOURCE_PLAN_UPDATE_REQUEST
+})
+
+const projectResourcePlanUpdateSuccess = (resourcePlan, resID) => ({
+  type: PROJECT_RESOURCE_PLAN_UPDATE_SUCCESS,
+  data: resourcePlan,
+  resId: resID
+})
 
 const projectResourcePlanAllocationAddRoleRequest = () => ({
   type: PROJECT_RESOURCE_PLAN_ALLOCATION_ADD_REQUEST
@@ -479,6 +492,13 @@ export const createProjectPlan = (defaultAllocation, weeks) => (dispatch, getSta
   })
 }
 
+export const updateProjectPlan = (resourcePlan, resID) => (dispatch) => {
+  dispatch(projectResourcePlanUpdateRequest())
+  apiProjectResourcePlanUpdate(resourcePlan, resID)
+  .then(res => res.json())
+  .then(json => dispatch(projectResourcePlanUpdateSuccess(resourcePlan, resID)))
+}
+
 const prepareAllocationData = (data, resource_id) => {
   let allocations = [];
   Object.keys(data).forEach((key) => {
@@ -489,6 +509,7 @@ const prepareAllocationData = (data, resource_id) => {
         rid: data.rid,
         week: matches[1],
         week_name: key,
+        row: data.row,
         hours: (data[key] === '') ? 0 : data[key]
       }
       allocations.push(allocation)
@@ -521,6 +542,7 @@ export const fetchProjectResourceAllocations = (res_id, plan) => (dispatch, getS
     })
     finalCurrPlan.weeks = plan.weeks
     finalCurrPlan.lock = plan.lock
+    finalCurrPlan.maxRow = currPlan.maxRow
     dispatch(projectResourcePlanAllocationFetchSuccess(finalCurrPlan, res_id))
   })
 }
@@ -528,23 +550,29 @@ export const fetchProjectResourceAllocations = (res_id, plan) => (dispatch, getS
 const prepareResourceAllocationRows = (projectRates, allocations) => {
   let rateOptions = []
   let currPlan = []
+  let maxRow = 0;
   projectRates.forEach((rate) => {
     rateOptions[rate.rid] = rate.role
   })
 
   allocations.forEach((data, key) => {
-    if (currPlan[data.rid] !== undefined) {
-      currPlan[data.rid][data.week_name] = data.hours
+    if (currPlan[data.row] !== undefined) {
+      currPlan[data.row][data.week_name] = data.hours
+      currPlan[data.row].row = data.row
     }
     else {
-      currPlan[data.rid] = {}
-      currPlan[data.rid][data.week_name] = data.hours
+      currPlan[data.row] = {}
+      currPlan[data.row][data.week_name] = data.hours
+      currPlan[data.row].row = data.row
     }
-    if (currPlan[data.rid].role === undefined) {
-      currPlan[data.rid].role = rateOptions[data.rid]
-      currPlan[data.rid].rid = data.rid
+    if (currPlan[data.row].role === undefined) {
+      currPlan[data.row].role = rateOptions[data.rid]
+      currPlan[data.row].rid = data.rid
+      currPlan[data.row].row = data.row
     }
+    maxRow = (maxRow >= data.row) ? maxRow : data.row
   })
+  currPlan.maxRow = maxRow
   return currPlan
 }
 

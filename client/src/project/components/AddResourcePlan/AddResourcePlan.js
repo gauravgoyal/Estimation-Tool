@@ -8,15 +8,19 @@ import '../../../../node_modules/react-bootstrap-table/dist/react-bootstrap-tabl
 
 
 class AddResourcePlan extends Component {
+
   state = {
   };
 
   onSubmitForm = (e, form) => {
     e.preventDefault()
-    this.setState({
-      weeks: this.numberOfWeeks.value
-    })
     this.props.onSubmitForm(this.numberOfWeeks.value)
+  }
+
+  addWeek = (e, form) => {
+    e.preventDefault()
+    this.props.onAddWeek(this.addWeeks.value)
+
   }
 
   render = () => {
@@ -39,11 +43,6 @@ class AddResourcePlan extends Component {
         header.push(tempHeader)
       }
     }
-    
-    header.push({
-      Header: 'ID',
-      accessor: 'unique_id'
-    })
 
     return (
       <div>
@@ -69,12 +68,14 @@ class AddResourcePlan extends Component {
               <Input sm={1} type="text" name="discount" id="discount" placeholder="Enter discount"  onBlur= { this.props.onDiscount.bind(this) } />
             </Col>
             <Col sm={{ size: 'auto', offset: 5 }}>
-              <InputGroup className="float-right">
-                <Input placeholder="Enter number of weeks" inputRef={ (ref) => { this.input = ref; }} />
-                <InputGroupAddon addonType="append">
-                  <Button color="success" onClick= { this.props.onAddWeek.bind(this) }>Add Week</Button>
-                </InputGroupAddon>
-              </InputGroup>
+              <Form onSubmit={ this.addWeek.bind(this) }>
+                <InputGroup className="float-right">
+                  <Input placeholder="Enter number of weeks" innerRef={(input) => (this.addWeeks = input)}  type="addWeeks" name="addWeeks" id="addWeeks" />
+                  <InputGroupAddon addonType="append">
+                    <Button color="success" type="submit">Add Week</Button>
+                  </InputGroupAddon>
+                </InputGroup>
+              </Form>
             </Col>
           </FormGroup>
           <Row>
@@ -90,7 +91,7 @@ class AddResourcePlan extends Component {
                       )
                   }
                   else {
-                    if (data.accessor == 'unique_id') {
+                    if (data.accessor == 'row') {
                       return (
                         <TableHeaderColumn isKey dataField = {data.accessor} autoValue={ true } hidden> {data.Header} </TableHeaderColumn>
                       )

@@ -15,12 +15,18 @@ const ENDPOINT_PROJECT_TOTAL_UPDATE = config.api_url + 'project-total/update/'
 const ENDPOINT_PROJECT_TASKS_CREATE = config.api_url + "tasks"
 const ENDPOINT_PROJECT_RESOURCE_PLAN_FETCH = config.api_url + "resource-plans/"
 const ENDPOINT_PROJECT_RESOURCE_PLAN_CREATE = config.api_url + "resource-plan/create"
+const ENDPOINT_PROJECT_RESOURCE_PLAN_UPDATE = config.api_url + "resource-plan/update/"
 const ENDPOINT_PROJECT_RESOURCE_PLAN_ADD_ALLOCATIONS = config.api_url + "resource-plan/allocation/add/"
 const ENDPOINT_PROJECT_RESOURCE_PLAN_FETCH_ALLOCATIONS = config.api_url + "resource-plan/allocation/fetch/"
 const ENDPOINT_PROJECT_RESOURCE_PLAN_UPDATE_ALLOCATION = config.api_url + "resource-plan/allocation/update"
 const ENDPOINT_GLOBAL_PROJECT_RATE_CREATE = config.api_url + "global_rates_create"
 const ENDPOINT_PROJECT_RATES_FETCH = config.api_url + 'global-rate';
 const ENDPOINT_GLOBAL_RATES_UPDATE = config.api_url + 'global-rate/update/'
+
+export const apiProjectResourcePlanUpdate = (resourcePlan, resID) => {
+  let endpoint = ENDPOINT_PROJECT_RESOURCE_PLAN_UPDATE + resID
+  return sendPostRequest(endpoint, resourcePlan);
+}
 
 export const apiProjectResourcePlanAllocationUpdate = (allocation) => {
   let endpoint = ENDPOINT_PROJECT_RESOURCE_PLAN_UPDATE_ALLOCATION

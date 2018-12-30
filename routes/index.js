@@ -415,7 +415,7 @@ module.exports = function (server, knex) {
     })
   });
 
-  server.post('resource-plan/create', function(req, res) {
+  server.post('/resource-plan/create', function(req, res) {
     knex('resource_plans').insert({
       pid: req.body.pid,
       weeks: req.body.weeks
@@ -426,6 +426,44 @@ module.exports = function (server, knex) {
        throw error;
     })
   })
+
+  /**
+   * Updates resource plan for a project.
+   */
+  server.post('/resource-plan/update/:res_id', function (req, res, next) {
+    const insert = knex('resource_plans').insert({
+      res_id: req.params.res_id,
+      pid: req.body.pid,
+      weeks: req.body.weeks,
+      lock: req.body.lock
+    })
+
+    const update = knex('resource_plans')
+    .update({
+      weeks: req.body.weeks,
+      lock: req.body.lock
+    })
+
+    const query = util.format(
+      '%s ON DUPLICATE KEY UPDATE %s',
+      insert.toString(),
+      update.toString().replace(/^update\s.*\sset\s/i, '')
+    )
+
+    knex.raw(query).then(function(results) {
+      var response = {
+        result: results,
+        status: 200
+      };
+      res.end(JSON.stringify(response));
+    }).catch(function(error) {
+       var response = {
+        error: error,
+        status: 503
+      };
+      res.end(JSON.stringify(response));
+    })
+  });
 
   server.post('resource-plan/allocation/add/:resid', function(req, res) {
     let data = []
@@ -470,7 +508,8 @@ module.exports = function (server, knex) {
       rid: req.body.rid,
       week: req.body.week,
       week_name: req.body.weekName,
-      hours: req.body.hours
+      hours: req.body.hours,
+      row: req.body.row
     })
 
     const update = knex('resource_allocations')
