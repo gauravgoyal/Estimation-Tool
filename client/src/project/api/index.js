@@ -19,9 +19,15 @@ const ENDPOINT_PROJECT_RESOURCE_PLAN_UPDATE = config.api_url + "resource-plan/up
 const ENDPOINT_PROJECT_RESOURCE_PLAN_ADD_ALLOCATIONS = config.api_url + "resource-plan/allocation/add/"
 const ENDPOINT_PROJECT_RESOURCE_PLAN_FETCH_ALLOCATIONS = config.api_url + "resource-plan/allocation/fetch/"
 const ENDPOINT_PROJECT_RESOURCE_PLAN_UPDATE_ALLOCATION = config.api_url + "resource-plan/allocation/update"
+const ENDPOINT_PROJECT_RESOURCE_PLAN_REMOVE_WEEK_ALLOCATION = config.api_url + "resource-plan/allocation/remove/"
 const ENDPOINT_GLOBAL_PROJECT_RATE_CREATE = config.api_url + "global_rates_create"
 const ENDPOINT_PROJECT_RATES_FETCH = config.api_url + 'global-rate';
 const ENDPOINT_GLOBAL_RATES_UPDATE = config.api_url + 'global-rate/update/'
+
+export const apiProjectResourcePlanRemoveWeek = (resID, week) => {
+  let endpoint = ENDPOINT_PROJECT_RESOURCE_PLAN_REMOVE_WEEK_ALLOCATION + resID + '/' + week
+  return sendPostRequest(endpoint);
+}
 
 export const apiProjectResourcePlanUpdate = (resourcePlan, resID) => {
   let endpoint = ENDPOINT_PROJECT_RESOURCE_PLAN_UPDATE + resID
@@ -157,8 +163,10 @@ const sendPostRequest = (endpoint, data) => {
 
 const createFormData = (data) => {
   var formData = new URLSearchParams();
-  for (let key in data) {
-    formData.append(key, data[key]);
+  if (data !== undefined) { 
+    for (let key in data) {
+      formData.append(key, data[key]);
+    }
   }
   return formData;
 }

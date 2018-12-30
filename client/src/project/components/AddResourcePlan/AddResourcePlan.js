@@ -23,9 +23,13 @@ class AddResourcePlan extends Component {
 
   }
 
+  removeColumn = (week) => {
+    this.props.onRemoveWeek(week)
+  }
+
   render = () => {
     var weeks = this.state.weeks
-    const { header, rows, rateOptions, cellEditProp, options, revenue, totalRevenue, noOfWeeks, syncData, showWeeksInput } = this.props
+    const { header, rows, rateOptions, cellEditProp, options, revenue, totalRevenue, noOfWeeks, syncData } = this.props
     let total = totalRevenue
     
     if (noOfWeeks > 5) {
@@ -82,7 +86,7 @@ class AddResourcePlan extends Component {
             <Col>
             <BootstrapTable options = { options } data={rows} striped hover cellEdit={ cellEditProp } insertRow>
               {
-                header.map((data) => {
+                header.map((data, index) => {
                   if (data.accessor === 'role') {
                     return (
                       <TableHeaderColumn width='300' dataField = {data.accessor} editable={ { type: 'select', options: { values: rateOptions } } }>
@@ -97,7 +101,12 @@ class AddResourcePlan extends Component {
                       )
                     }
                     else {
-                      return <TableHeaderColumn width="150" dataField = {data.accessor}>{data.Header}</TableHeaderColumn>
+                      return (
+                        <TableHeaderColumn width="180" dataField = {data.accessor}>
+                          {data.Header}
+                          <Button onClick= {() => this.removeColumn(data.accessor)} outline color="danger" size= "sm" className="float-right">X</Button>
+                        </TableHeaderColumn>
+                      )
                     }
                   }
                 })

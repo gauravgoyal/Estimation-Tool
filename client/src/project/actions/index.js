@@ -15,6 +15,7 @@ import {
   apiProjectResourcePlanUpdate,
   apiProjectTaskCreate,
   apiProjectResourcePlanCreate,
+  apiProjectResourcePlanRemoveWeek,
   apiProjectResoourcePlanAllocationAdd,
   apiProjectResourcePlansFetch,
   apiProjectResourcePlanAllocationFetch,
@@ -574,6 +575,14 @@ const prepareResourceAllocationRows = (projectRates, allocations) => {
   })
   currPlan.maxRow = maxRow
   return currPlan
+}
+
+export const removeResourcePlanWeek = (week, res_id, currPlan) => (dispatch) => {
+  dispatch(projectResourcePlanUpdateRequest())
+  apiProjectResourcePlanRemoveWeek(res_id, week)
+  apiProjectResourcePlanUpdate(currPlan, res_id)
+  .then(res => res.json())
+  .then(json => dispatch(projectResourcePlanUpdateSuccess(currPlan, res_id)))
 }
 
 export const updateProjectResourceAllocations = (allocation) => (dispatch, getState) => {

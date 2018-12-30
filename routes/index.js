@@ -502,6 +502,21 @@ module.exports = function (server, knex) {
     })
   });
 
+  server.post('/resource-plan/allocation/remove/:resid/:week', function(req, res) {
+    knex('resource_allocations')
+    .where({
+      res_id: req.params.resid,
+      week: req.params.week
+    })
+    .del()
+    .then(function(results) {
+      res.end(JSON.stringify(results));
+    })
+    .catch(function(error) {
+      throw error;
+    })
+  })
+
   server.post('resource-plan/allocation/update', function(req, res) {
     const insert = knex('resource_allocations').insert({
       res_id: req.body.resId,

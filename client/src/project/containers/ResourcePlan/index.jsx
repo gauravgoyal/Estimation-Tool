@@ -11,6 +11,7 @@ import {
   fetchProjectResourcePlans,
   fetchProjectResourceAllocations,
   updateProjectResourceAllocations,
+  removeResourcePlanWeek,
   addProjectResourceAllocation
 } from '../../actions'
 
@@ -18,7 +19,6 @@ class ResourcePlan extends Component {
   state = {
     add: false,
     discount: 0,
-    showWeeks: false,
   }
 
   submitResourceForm = (weeks) => {
@@ -39,8 +39,10 @@ class ResourcePlan extends Component {
           tempRow.weekNumber = hours.week
         })
         tempRow.id = index + 1
+        tempRow.row = index
         rows.push(tempRow)
       })
+      rows.weeks = weeks;
       dispatch(createProjectPlan(rows, weeks))
     }
   }
@@ -91,6 +93,22 @@ class ResourcePlan extends Component {
     currPlan.pid = currProject.pid
     currPlan.resId = currResId
     dispatch(updateProjectPlan(currPlan, currResId))
+  }
+
+  removeWeek = (week) => {
+    const { dispatch, currResId, currPlan, currProject } = this.props
+    let matches = week.match(/\(W(\d+)\)/)
+    currPlan.weeks = currPlan.weeks - 1;
+    currPlan.pid = currProject.pid
+    currPlan.resId = currResId
+    currPlan.forEach((allocation) => {
+      Object.keys(allocation).forEach((key) => {
+        if (key == week) {
+          delete allocation[key]
+        }
+      })
+    })
+    dispatch(removeResourcePlanWeek(matches[1], currResId, currPlan))
   }
 
   calculateRevenue = (currPlan, discount) => {
@@ -359,7 +377,7 @@ class ResourcePlan extends Component {
 
 
   render = () => {
-    const { add, discount, showWeeks } = this.state
+    const { add, discount } = this.state
     const { projectRates, resourcePlans, currPlan } = this.props
     const rateOptions = []
 
@@ -422,7 +440,7 @@ class ResourcePlan extends Component {
             onDiscount = { this.onDiscountChange.bind(this) }
             syncData = { syncData }
             onAddWeek = { this.addMoreWeeks.bind(this) }
-            showWeeksInput = { showWeeks }
+            onRemoveWeek = { this.removeWeek.bind(this) }
           />
           :
           <div>
