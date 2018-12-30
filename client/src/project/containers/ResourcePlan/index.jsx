@@ -7,6 +7,7 @@ import { resourceAllocations } from './_defaultAllocations.js'
 import { connect } from 'react-redux'
 import {
   createProjectPlan,
+  updateProjectPlan,
   fetchProjectResourcePlans,
   fetchProjectResourceAllocations,
   updateProjectResourceAllocations,
@@ -82,9 +83,12 @@ class ResourcePlan extends Component {
     })
   }
 
-  addMoreWeeks = (e) => {
-    console.log(this.input);
-    console.log(e)
+  addMoreWeeks = (value) => {
+    const { dispatch, currPlan, currResId, currProject} = this.props
+    currPlan.weeks = currPlan.weeks + parseInt(value)
+    currPlan.pid = currProject.pid
+    currPlan.resId = currResId
+    dispatch(updateProjectPlan(currPlan, currResId))
   }
 
   calculateRevenue = (currPlan, discount) => {
@@ -435,6 +439,7 @@ const mapStateToProps = (state) => {
   const { projectRates, isFetching } = state.projectRates
   const { isFetchingResources, resourcePlans, currPlan, currResId } = state.projectResourcePlans
   const { projectTasks } = state.projectTasks
+  const { currProject } = state.projectOperations
   return {
     projectRates,
     isFetching,
@@ -442,7 +447,8 @@ const mapStateToProps = (state) => {
     resourcePlans,
     currPlan,
     currResId,
-    projectTasks
+    projectTasks,
+    currProject
   }
 }
 

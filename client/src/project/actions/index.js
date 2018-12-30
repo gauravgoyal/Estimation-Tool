@@ -12,6 +12,7 @@ import {
   apiProjectTasks,
   apiProjectTasksUpdate,
   apiProjectTotalUpdate,
+  apiProjectResourcePlanUpdate,
   apiProjectTaskCreate,
   apiProjectResourcePlanCreate,
   apiProjectResoourcePlanAllocationAdd,
@@ -62,6 +63,8 @@ export const PROJECT_TASKS_CREATE_REQUEST = 'PROJECT_TASKS_CREATE_REQUEST'
 export const PROJECT_TASKS_CREATE_SUCCESS = 'PROJECT_TASKS_CREATE_SUCCESS'
 export const PROJECT_RESOURCE_PLAN_CREATE_REQUEST = 'PROJECT_RESOURCE_PLAN_CREATE_REQUEST'
 export const PROJECT_RESOURCE_PLAN_CREATE_SUCCESS = 'PROJECT_RESOURCE_PLAN_CREATE_SUCCESS'
+export const PROJECT_RESOURCE_PLAN_UPDATE_REQUEST = 'PROJECT_RESOURCE_PLAN_UPDATE_REQUEST'
+export const PROJECT_RESOURCE_PLAN_UPDATE_SUCCESS = 'PROJECT_RESOURCE_PLAN_UPDATE_SUCCESS'
 export const PROJECT_RESOURCE_PLAN_FETCH_REQUEST = 'PROJECT_RESOURCE_PLAN_FETCH_REQUEST'
 export const PROJECT_RESOURCE_PLAN_FETCH_SUCCESS = 'PROJECT_RESOURCE_PLAN_FETCH_SUCCESS'
 export const PROJECT_RESOURCE_PLAN_ALLOCATION_FETCH_REQUEST = 'PROJECT_RESOURCE_PLAN_ALLOCATION_FETCH_REQUEST'
@@ -76,6 +79,16 @@ export const GLOBAL_RATE_UPDATE_REQUEST = 'GLOBAL_RATE_UPDATE_REQUEST'
 export const GLOBAL_RATE_UPDATE_SUCCESS = 'GLOBAL_RATE_UPDATE_SUCCESS'
 export const GLOBAL_RATE_CREATE_SUCCESS = 'GLOBAL_RATE_CREATE_SUCCESS'
 export const GLOBAL_RATE_CREATE_REQUEST = 'GLOBAL_RATE_CREATE_REQUEST'
+
+const projectResourcePlanUpdateRequest = () => ({
+  type: PROJECT_RESOURCE_PLAN_UPDATE_REQUEST
+})
+
+const projectResourcePlanUpdateSuccess = (resourcePlan, resID) => ({
+  type: PROJECT_RESOURCE_PLAN_UPDATE_SUCCESS,
+  data: resourcePlan,
+  resId: resID
+})
 
 const projectResourcePlanAllocationAddRoleRequest = () => ({
   type: PROJECT_RESOURCE_PLAN_ALLOCATION_ADD_REQUEST
@@ -477,6 +490,13 @@ export const createProjectPlan = (defaultAllocation, weeks) => (dispatch, getSta
     .then(res => res.json())
     .then(json => dispatch(projectResourcePlanCreateSuccess(defaultAllocation, resource_id)))
   })
+}
+
+export const updateProjectPlan = (resourcePlan, resID) => (dispatch) => {
+  dispatch(projectResourcePlanUpdateRequest())
+  apiProjectResourcePlanUpdate(resourcePlan, resID)
+  .then(res => res.json())
+  .then(json => dispatch(projectResourcePlanUpdateSuccess(resourcePlan, resID)))
 }
 
 const prepareAllocationData = (data, resource_id) => {
