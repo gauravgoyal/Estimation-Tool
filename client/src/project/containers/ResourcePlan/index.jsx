@@ -56,21 +56,23 @@ class ResourcePlan extends Component {
     dispatch(fetchProjectResourcePlans())
   }
 
-  onAfterInsertRow = (row) => {
-    const {dispatch, currResId} = this.props
-    dispatch(addProjectResourceAllocation(row, currResId));
+  onAfterInsertRow = (rowData) => {
+    const {dispatch, currResId, currPlan} = this.props
+    rowData.row = currPlan.maxRow + 1;
+    dispatch(addProjectResourceAllocation(rowData, currResId));
   }
 
-  onAfterSaveCell = (row, cellName, cellValue) => {
+  onAfterSaveCell = (rowData, cellName, cellValue) => {
     const { dispatch } = this.props
     let matches = cellName.match(/\(W(\d+)\)/)
     let week = matches[1]
     let data = {
-      resId: row.resId,
-      rid: row.rid,
+      resId: rowData.resId,
+      rid: rowData.rid,
       weekName: cellName,
       hours: cellValue,
-      week: week
+      week: week,
+      row: rowData.row
     }
     dispatch(updateProjectResourceAllocations(data))
   }
@@ -369,15 +371,17 @@ class ResourcePlan extends Component {
     let revenueTotal = this.calculateTotal(revenue)
     let syncData = this.syncEstimates(revenue)
 
-    const column = [{
-      Header: 'Role',
-      accessor: "role"
-    }]
+    const column = [
+      {
+        Header: 'Role',
+        accessor: "role"
+      },
+      {
+        Header: 'Row',
+        accessor: 'row'
+      }
+  ]
     const rows = currPlan
-
-    rows.forEach((data) => {
-      data.unique_id = Math.floor(Date.now())
-    })
 
     weeks.forEach((data) => {
       let temp = {

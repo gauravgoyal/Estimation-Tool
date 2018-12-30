@@ -508,7 +508,8 @@ module.exports = function (server, knex) {
       rid: req.body.rid,
       week: req.body.week,
       week_name: req.body.weekName,
-      hours: req.body.hours
+      hours: req.body.hours,
+      row: req.body.row
     })
 
     const update = knex('resource_allocations')

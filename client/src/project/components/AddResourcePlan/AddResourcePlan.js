@@ -43,11 +43,6 @@ class AddResourcePlan extends Component {
         header.push(tempHeader)
       }
     }
-    
-    header.push({
-      Header: 'ID',
-      accessor: 'unique_id'
-    })
 
     return (
       <div>
@@ -96,7 +91,7 @@ class AddResourcePlan extends Component {
                       )
                   }
                   else {
-                    if (data.accessor == 'unique_id') {
+                    if (data.accessor == 'row') {
                       return (
                         <TableHeaderColumn isKey dataField = {data.accessor} autoValue={ true } hidden> {data.Header} </TableHeaderColumn>
                       )

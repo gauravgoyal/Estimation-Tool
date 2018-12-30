@@ -509,6 +509,7 @@ const prepareAllocationData = (data, resource_id) => {
         rid: data.rid,
         week: matches[1],
         week_name: key,
+        row: data.row,
         hours: (data[key] === '') ? 0 : data[key]
       }
       allocations.push(allocation)
@@ -541,6 +542,7 @@ export const fetchProjectResourceAllocations = (res_id, plan) => (dispatch, getS
     })
     finalCurrPlan.weeks = plan.weeks
     finalCurrPlan.lock = plan.lock
+    finalCurrPlan.maxRow = currPlan.maxRow
     dispatch(projectResourcePlanAllocationFetchSuccess(finalCurrPlan, res_id))
   })
 }
@@ -548,23 +550,29 @@ export const fetchProjectResourceAllocations = (res_id, plan) => (dispatch, getS
 const prepareResourceAllocationRows = (projectRates, allocations) => {
   let rateOptions = []
   let currPlan = []
+  let maxRow = 0;
   projectRates.forEach((rate) => {
     rateOptions[rate.rid] = rate.role
   })
 
   allocations.forEach((data, key) => {
-    if (currPlan[data.rid] !== undefined) {
-      currPlan[data.rid][data.week_name] = data.hours
+    if (currPlan[data.row] !== undefined) {
+      currPlan[data.row][data.week_name] = data.hours
+      currPlan[data.row].row = data.row
     }
     else {
-      currPlan[data.rid] = {}
-      currPlan[data.rid][data.week_name] = data.hours
+      currPlan[data.row] = {}
+      currPlan[data.row][data.week_name] = data.hours
+      currPlan[data.row].row = data.row
     }
-    if (currPlan[data.rid].role === undefined) {
-      currPlan[data.rid].role = rateOptions[data.rid]
-      currPlan[data.rid].rid = data.rid
+    if (currPlan[data.row].role === undefined) {
+      currPlan[data.row].role = rateOptions[data.rid]
+      currPlan[data.row].rid = data.rid
+      currPlan[data.row].row = data.row
     }
+    maxRow = (maxRow >= data.row) ? maxRow : data.row
   })
+  currPlan.maxRow = maxRow
   return currPlan
 }
 
