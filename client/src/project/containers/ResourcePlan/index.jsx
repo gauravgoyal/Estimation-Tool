@@ -89,7 +89,7 @@ class ResourcePlan extends Component {
 
   addMoreWeeks = (value) => {
     const { dispatch, currPlan, currResId, currProject} = this.props
-    currPlan.weeks = currPlan.weeks + parseInt(value)
+    currPlan.weeks = parseInt(currPlan.weeks) + parseInt(value)
     currPlan.pid = currProject.pid
     currPlan.resId = currResId
     dispatch(updateProjectPlan(currPlan, currResId))
