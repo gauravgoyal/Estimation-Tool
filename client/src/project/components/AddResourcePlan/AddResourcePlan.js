@@ -144,7 +144,7 @@ class AddResourcePlan extends Component {
             </Row>
             <Row>
             <Col>
-              <h2 className="text-center mt-2">Project Investment (DRB Format)</h2>
+              <h2 className="text-center mt-2">Projected Investment (DRB Format)</h2>
               <BootstrapTable className="mt-2" data={ total } striped hover >
                 <TableHeaderColumn dataField='id' isKey={ true } autoValue={ true } hidden >Job ID</TableHeaderColumn>
                 <TableHeaderColumn dataField="title">(EAC)</TableHeaderColumn>

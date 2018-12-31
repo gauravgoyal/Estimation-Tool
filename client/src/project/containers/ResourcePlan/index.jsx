@@ -213,18 +213,23 @@ class ResourcePlan extends Component {
     let acqRev = ((acquia.revenue - acquia.cost) / acquia.revenue) * 100
     let acqListRev = ((acquia.actual - acquia.cost) / acquia.revenue) * 100
 
+    
     // Partner Margin
-    let partnerRev = ((partners.revenue - partners.cost) / partners.revenue) * 100
-    let partnerListRev = ((partners.actual - partners.cost) / partners.revenue) * 100
+    let partnerRev = 0;
+    let partnerListRev = 0;
+    if (partners.revenue !== 0) {
+      let partnerRev = ((partners.revenue - partners.cost) / partners.revenue) * 100
+      let partnerListRev = ((partners.actual - partners.cost) / partners.revenue) * 100
+
+      partnerRev = (Math.round(partnerRev * 100) / 100);
+      partnerListRev = (Math.round(partnerListRev * 100) / 100);
+    }
 
     rev = (Math.round(rev * 100) / 100);
     listRev = (Math.round(listRev * 100) / 100);
 
     acqRev = (Math.round(acqRev * 100) / 100);
     acqListRev = (Math.round(acqListRev * 100) / 100);
-
-    partnerRev = (Math.round(partnerRev * 100) / 100);
-    partnerListRev = (Math.round(partnerListRev * 100) / 100);
     
 
     let rows = [
@@ -251,7 +256,7 @@ class ResourcePlan extends Component {
         title: "Partner Margin",
         listRates: partnerRev + "%",
         actuals: partnerListRev + "%",
-        diffList: Math.round((partnerListRev - partnerRev) * 100) / 100 + "%"
+        diffList: (partnerListRev - partnerRev === 0) ? "0%" : Math.round((partnerListRev - partnerRev) * 100) / 100 + "%"
       },
       // Acquia Resource Hours
       {
