@@ -95,6 +95,16 @@ class ResourcePlan extends Component {
     dispatch(updateProjectPlan(currPlan, currResId))
   }
 
+  onApproveResourcePlan = (lock) => {
+    const { dispatch, currPlan, currResId, currProject} = this.props
+    if (lock !== undefined && lock == 1) {
+      currPlan.pid = currProject.pid
+      currPlan.resId = currResId
+      currPlan.lock = lock;
+      dispatch(updateProjectPlan(currPlan, currResId))
+    }
+  }
+
   removeWeek = (week) => {
     const { dispatch, currResId, currPlan, currProject } = this.props
     let matches = week.match(/\(W(\d+)\)/)
@@ -441,6 +451,7 @@ class ResourcePlan extends Component {
             syncData = { syncData }
             onAddWeek = { this.addMoreWeeks.bind(this) }
             onRemoveWeek = { this.removeWeek.bind(this) }
+            approveResourcePlan = { this.onApproveResourcePlan.bind(this) }
           />
           :
           <div>

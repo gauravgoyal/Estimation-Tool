@@ -28,6 +28,7 @@ class ResourcePlanList extends Component {
                     </a>
                   </div>
                 </CardBody>
+                <div className={plan.lock === 1 ? "approved-plan plan" : "closed-plan plan" }></div>
               </Card>
             </Col>
           );
