@@ -1,7 +1,7 @@
 
-exports.up = function(knex, Promise) {
+exports.up = function (knex, Promise) {
   return Promise.all([
-    knex.schema.table('projects', function(table) {
+    knex.schema.table('projects', (table) => {
       table.string('creator');
       table.string('owner');
       table.string('reviewer');
@@ -11,12 +11,15 @@ exports.up = function(knex, Promise) {
       table.integer('complete');
       table.integer('completed');
     }),
-    knex.schema.table('rates', function(table) {
-      table.integer('pid').unsigned().notNullable().references('pid').inTable('projects').onDelete('CASCADE').index();
-    })
+    knex.schema.table('rates', (table) => {
+      table.integer('pid').unsigned().notNullable().references('pid')
+        .inTable('projects')
+        .onDelete('CASCADE')
+        .index();
+    }),
   ]);
 };
 
-exports.down = function(knex, Promise) {
+exports.down = function (knex, Promise) {
 
 };

@@ -1,10 +1,10 @@
 import React, {Component} from 'react'
-import { connect } from 'react-redux'
+import {connect} from 'react-redux'
 import NewProject from "../../components/NewProject/"
-import { addProject } from '../../actions'
+import {addProject} from '../../actions'
 import defaultRates from './_initialRate.js';
 import defaultFactors from './_initialUFactors.js';
-import { Redirect } from 'react-router'
+import {Redirect} from 'react-router'
 
 class AddProject extends Component {
   state = {}
@@ -20,7 +20,7 @@ class AddProject extends Component {
   submitForm = (e) => {
     e.preventDefault();
     e.stopPropagation();
-    const { dispatch } = this.props
+    const {dispatch} = this.props
     let project = this.state;
     let rates = [];
     defaultRates.rates.map((defaultRate) => {
@@ -43,10 +43,10 @@ class AddProject extends Component {
   }
 
   render = () => {
-    const { isFetching } = this.props
+    const {isFetching} = this.props
     if (isFetching) {
       return (
-        <Redirect to="/dashboard" />
+        <Redirect to="/dashboard"/>
       )
     }
     else {
@@ -61,7 +61,7 @@ class AddProject extends Component {
 }
 
 const mapStateToProps = (state) => {
-  const { isFetching } = state.projectOperations
+  const {isFetching} = state.projectOperations
   return {
     isFetching
   }
