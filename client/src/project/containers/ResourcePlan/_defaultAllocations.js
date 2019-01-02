@@ -6,12 +6,12 @@ module.exports = {
         {
           week: 1,
           week_name: "Discovery",
-          hours: 17
+          hours: 19
         },
         {
           week: 2,
           week_name: "Discovery",
-          hours: 17
+          hours: 19
         },
         {
           week: 3,
@@ -36,12 +36,12 @@ module.exports = {
         {
           week: 1,
           week_name: "Discovery",
-          hours: 17
+          hours: 19
         },
         {
           week: 2,
           week_name: "Discovery",
-          hours: 17,
+          hours: 19,
         },
         {
           week: 3,
@@ -66,27 +66,27 @@ module.exports = {
         {
           week: 1,
           week_name: "Discovery",
-          hours: 34
+          hours: 37
         },
         {
           week: 2,
           week_name: "Discovery",
-          hours: 34
+          hours: 37
         },
         {
           week: 3,
           week_name: "Planning",
-          hours: 17
+          hours: 19
         },
         {
           week: 4,
           week_name: "Sprint 0",
-          hours: 17
+          hours: 19
         },
         {
           week: 5,
           week_name: "Sprint 0",
-          hours: 17
+          hours: 19
         }
       ]
     },
@@ -96,27 +96,27 @@ module.exports = {
         {
           week: 1,
           week_name: "Discovery",
-          hours: 34
+          hours: 19
         },
         {
           week: 2,
           week_name: "Discovery",
-          hours: 34
+          hours: 19
         },
         {
           week: 3,
           week_name: "Planning",
-          hours: 17
+          hours: 19
         },
         {
           week: 4,
           week_name: "Sprint 0",
-          hours: 17
+          hours: 19
         },
         {
           week: 5,
           week_name: "Sprint 0",
-          hours: 17
+          hours: 19
         }
       ]
     },
@@ -126,7 +126,7 @@ module.exports = {
         {
           week: 3,
           week_name: "Planning",
-          hours: 17
+          hours: 19
         }
       ]
     }
