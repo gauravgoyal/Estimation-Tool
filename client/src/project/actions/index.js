@@ -1,3 +1,7 @@
+import config from '../../config';
+import Cookies from "universal-cookie";
+import CryptoJS from 'crypto-js';
+
 import {
   apiListProjects,
   apiFetchProject,
@@ -31,6 +35,7 @@ import {
   getResourceType,
 } from '../functions';
 
+export const USER_CHECK = 'USER_CHECK';
 export const PROJECT_FETCH_REQUEST = 'PROJECT_FETCH_REQUEST';
 export const PROJECT_FETCH_SUCCESS = 'PROJECT_FETCH_SUCCESS';
 export const PROJECT_UPDATE_REQUEST = 'PROJECT_UPDATE_REQUEST';
@@ -80,6 +85,11 @@ export const GLOBAL_RATE_UPDATE_REQUEST = 'GLOBAL_RATE_UPDATE_REQUEST';
 export const GLOBAL_RATE_UPDATE_SUCCESS = 'GLOBAL_RATE_UPDATE_SUCCESS';
 export const GLOBAL_RATE_CREATE_SUCCESS = 'GLOBAL_RATE_CREATE_SUCCESS';
 export const GLOBAL_RATE_CREATE_REQUEST = 'GLOBAL_RATE_CREATE_REQUEST';
+
+export const authenticateUser = (isLoggedIn) => ({
+  type: USER_CHECK,
+  data: isLoggedIn
+});
 
 const projectResourcePlanUpdateRequest = () => ({
   type: PROJECT_RESOURCE_PLAN_UPDATE_REQUEST,
@@ -456,6 +466,16 @@ export const fetchProjectTotal = total => (dispatch, getState) => {
   dispatch(sendProjectTotalFetchRequest());
   const project = getState().projectOperations.currProject;
   dispatch(projectTotalFetchSuccess(project));
+};
+
+export const userAuthenticationCheck = (name, pass) => (dispatch, getState) => {
+  if (config.username === name && config.password === pass) {
+    const cookies = new Cookies();
+    // Encrypt
+    var ciphertext = CryptoJS.AES.encrypt('true', config.encryptText);
+    cookies.set('isLoggedIn', ciphertext.toString(), {path:'/'});
+    dispatch(authenticateUser(true));
+  }
 };
 
 export const createProjectTask = task => (dispatch, getState) => {

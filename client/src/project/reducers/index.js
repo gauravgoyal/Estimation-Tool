@@ -1,5 +1,6 @@
 import { combineReducers } from 'redux';
 import {
+  USER_CHECK,
   PROJECT_FETCH_REQUEST,
   PROJECT_FETCH_SUCCESS,
   PROJECT_LIST_REQUEST,
@@ -51,14 +52,22 @@ import {
   GLOBAL_RATE_CREATE_REQUEST,
 } from '../actions';
 
+
 function projectOperations(state = {
   isFetching: true,
   projectsList: {},
   viewedProjects: [],
   currProject: [],
   fetchRates: [],
+  isLoggedIn: false
 }, action) {
   switch (action.type) {
+    case USER_CHECK:
+    return {
+      ...state,
+      isLoggedIn: action.data
+    };
+
     case PROJECT_FETCH_REQUEST:
     case PROJECT_CREATE_REQUEST:
     case PROJECT_UPDATE_REQUEST:
@@ -284,7 +293,7 @@ const rootReducer = combineReducers({
   projectRates,
   projectUFactors,
   projectTasks,
-  projectResourcePlans,
+  projectResourcePlans
 });
 
 export default rootReducer;
