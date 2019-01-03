@@ -119,12 +119,6 @@ class Full extends Component {
             <FullHeader />
           </AppHeader>
           <div className="app-body">
-            <AppSidebar fixed display="lg">
-              <AppSidebarHeader />
-              <AppSidebarNav navConfig={navigation} />
-              <AppSidebarFooter />
-              <AppSidebarMinimizer />
-            </AppSidebar>
             <main className="main">
               <AppBreadcrumb />
               <Container fluid>
