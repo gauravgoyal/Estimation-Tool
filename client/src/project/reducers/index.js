@@ -1,4 +1,4 @@
-import { combineReducers } from 'redux'
+import { combineReducers } from 'redux';
 import {
   PROJECT_FETCH_REQUEST,
   PROJECT_FETCH_SUCCESS,
@@ -48,72 +48,72 @@ import {
   GLOBAL_RATE_UPDATE_REQUEST,
   GLOBAL_RATE_UPDATE_SUCCESS,
   GLOBAL_RATE_CREATE_SUCCESS,
-  GLOBAL_RATE_CREATE_REQUEST
-} from '../actions'
+  GLOBAL_RATE_CREATE_REQUEST,
+} from '../actions';
 
 function projectOperations(state = {
   isFetching: true,
   projectsList: {},
   viewedProjects: [],
   currProject: [],
-  fetchRates: []
+  fetchRates: [],
 }, action) {
-  switch (action.type) {    
+  switch (action.type) {
     case PROJECT_FETCH_REQUEST:
     case PROJECT_CREATE_REQUEST:
     case PROJECT_UPDATE_REQUEST:
     case PROJECT_LIST_REQUEST:
-    return {
-      ...state,
-      isFetching: true
-    }
+      return {
+        ...state,
+        isFetching: true,
+      };
 
     case PROJECT_FETCH_SUCCESS:
-    return {
-      ...state,
-      isFetching: false,
-      viewedProjects: [...state.viewedProjects, action.data],
-      currProject: action.data
-    }
+      return {
+        ...state,
+        isFetching: false,
+        viewedProjects: [...state.viewedProjects, action.data],
+        currProject: action.data,
+      };
 
     case PROJECT_UPDATE_SUCCESS:
-    return {
-      ...state,
-      isFetching: false,
-      currProject: action.data
-    }
+      return {
+        ...state,
+        isFetching: false,
+        currProject: action.data,
+      };
 
     case PROJECT_LIST_SUCCESS:
-    return {
-      ...state,
-      isFetching: false,
-      projectsList: action.data,
-    }
+      return {
+        ...state,
+        isFetching: false,
+        projectsList: action.data,
+      };
     case PROJECT_VIEWED:
-    return {
-      ...state,
-      viewedProjects: [...state.viewedProjects, action.data],
-      currProject: action.data
-    }
+      return {
+        ...state,
+        viewedProjects: [...state.viewedProjects, action.data],
+        currProject: action.data,
+      };
 
     case PROJECT_CREATE_SUCCESS:
-    return {
-      ...state,
-      currProject: action.data,
-      isFetching: false,
-      viewedProjects: [...state.viewedProjects, action.data],
-      projectsList: [...state.projectsList, action.data]
-    }
+      return {
+        ...state,
+        currProject: action.data,
+        isFetching: false,
+        viewedProjects: [...state.viewedProjects, action.data],
+        projectsList: [...state.projectsList, action.data],
+      };
     default:
-    return state
+      return state;
   }
 }
 
 function projectRates(state = {
   isFetching: true,
   projectRates: [],
-  globalRates: []
- }, action) {
+  globalRates: [],
+}, action) {
   switch (action.type) {
     case PROJECT_RATE_REQUEST:
     case PROJECT_RATE_UPDATE_REQUEST:
@@ -121,60 +121,58 @@ function projectRates(state = {
     case FETCH_GLOBAL_RATES:
     case GLOBAL_RATE_CREATE_REQUEST:
     case GLOBAL_RATE_UPDATE_REQUEST:
-    return {
-      ...state,
-      isFetching: true
-    }
+      return {
+        ...state,
+        isFetching: true,
+      };
 
     case PROJECT_RATE_SUCCESS:
     case PROJECT_RATE_CREATE_SUCCESS:
     case PROJECT_RATE_UPDATE_SUCCESS:
-    return {
-      ...state,
-      isFetching: false,
-      projectRates: action.data
-    }
+      return {
+        ...state,
+        isFetching: false,
+        projectRates: action.data,
+      };
 
     case GLOBAL_FETCH_RATES_SUCCESSFUL:
     case GLOBAL_RATE_UPDATE_SUCCESS:
     case GLOBAL_RATE_CREATE_SUCCESS:
-    return {
-      ...state,
-      isFetching: false,
-      globalRates: action.data
-    }
+      return {
+        ...state,
+        isFetching: false,
+        globalRates: action.data,
+      };
     default:
-    return state
+      return state;
   }
-
 }
 
 function projectUFactors(state = {
   isFetching: true,
   projectUFactors: [],
- }, action) {
+}, action) {
   switch (action.type) {
     case PROJECT_UFACTOR_REQUEST:
     case PROJECT_UFACTOR_UPDATE_REQUEST:
     case PROJECT_UFACTOR_CREATE_REQUEST:
-    return {
-      ...state,
-      isFetching: true
-    }
+      return {
+        ...state,
+        isFetching: true,
+      };
 
     case PROJECT_UFACTOR_SUCCESS:
     case PROJECT_UFACTOR_CREATE_SUCCESS:
     case PROJECT_UFACTOR_UPDATE_SUCCESS:
-    return {
-      ...state,
-      isFetching: false,
-      projectUFactors: action.data
-    }
+      return {
+        ...state,
+        isFetching: false,
+        projectUFactors: action.data,
+      };
 
     default:
-    return state
+      return state;
   }
-
 }
 
 function projectTasks(state = {
@@ -189,40 +187,40 @@ function projectTasks(state = {
     case PROJECT_TOTAL_UPDATE_REQUEST:
     case PROJECT_TOTAL_FETCH_REQUEST:
     case PROJECT_TASKS_CREATE_REQUEST:
-    return {
-      ...state,
-      isFetching: true,
-      inValidate: false,
-    }
+      return {
+        ...state,
+        isFetching: true,
+        inValidate: false,
+      };
 
     case PROJECT_TASKS_FETCH_SUCCESS:
     case PROJECT_TASKS_CREATE_SUCCESS:
-    return {
-      ...state,
-      isFetching: false,
-      inValidate: true,
-      projectTasks: action.data
-    }
+      return {
+        ...state,
+        isFetching: false,
+        inValidate: true,
+        projectTasks: action.data,
+      };
 
     case PROJECT_TASKS_UPDATE_SUCCESS:
-    return {
-      ...state,
-      isFetching: false,
-      inValidate: true,
-      projectTasks: action.data
-    }
+      return {
+        ...state,
+        isFetching: false,
+        inValidate: true,
+        projectTasks: action.data,
+      };
 
     case PROJECT_TOTAL_UPDATE_SUCCESS:
     case PROJECT_TOTAL_FETCH_SUCCESS:
-    return {
-      ...state,
-      isFetching: false,
-      inValidate: true,
-      projectTotal: action.data
-    }
+      return {
+        ...state,
+        isFetching: false,
+        inValidate: true,
+        projectTotal: action.data,
+      };
 
     default:
-    return state
+      return state;
   }
 }
 
@@ -232,52 +230,52 @@ function projectResourcePlans(state = {
   resourcePlans: [],
   currResId: '',
 }, action) {
-  switch(action.type) {
+  switch (action.type) {
     case PROJECT_RESOURCE_PLAN_CREATE_REQUEST:
     case PROJECT_RESOURCE_PLAN_FETCH_REQUEST:
     case PROJECT_RESOURCE_PLAN_UPDATE_REQUEST:
     case PROJECT_RESOURCE_PLAN_ALLOCATION_FETCH_REQUEST:
     case PROJECT_RESOURCE_PLAN_ALLOCATION_UPDATE_REQUEST:
     case PROJECT_RESOURCE_PLAN_ALLOCATION_ADD_REQUEST:
-    return {
-      ...state,
-      isFetchingResources: true
-    }
+      return {
+        ...state,
+        isFetchingResources: true,
+      };
 
     case PROJECT_RESOURCE_PLAN_CREATE_SUCCESS:
     case PROJECT_RESOURCE_PLAN_UPDATE_SUCCESS:
     case PROJECT_RESOURCE_PLAN_ALLOCATION_FETCH_SUCCESS:
-    return {
-      ...state,
-      isFetchingResources: false,
-      currPlan: action.data,
-      currResId: action.resId
-    }
+      return {
+        ...state,
+        isFetchingResources: false,
+        currPlan: action.data,
+        currResId: action.resId,
+      };
 
     case PROJECT_RESOURCE_PLAN_ALLOCATION_ADD_SUCCESS:
-    return {
-      ...state,
-      isFetchingResources: false,
-      currResId: action.resId,
-      currPlan: [...state.currPlan, action.data]
-    }
+      return {
+        ...state,
+        isFetchingResources: false,
+        currResId: action.resId,
+        currPlan: [...state.currPlan, action.data],
+      };
 
     case PROJECT_RESOURCE_PLAN_ALLOCATION_UPDATE_SUCCESS:
-    return {
-      ...state,
-      isFetchingResources: false,
-      currResId: action.resId
-    }
+      return {
+        ...state,
+        isFetchingResources: false,
+        currResId: action.resId,
+      };
 
     case PROJECT_RESOURCE_PLAN_FETCH_SUCCESS:
-    return {
-      ...state,
-      isFetchingResources: false,
-      resourcePlans: action.data,
-    }
+      return {
+        ...state,
+        isFetchingResources: false,
+        resourcePlans: action.data,
+      };
 
     default:
-    return state
+      return state;
   }
 }
 
@@ -286,7 +284,7 @@ const rootReducer = combineReducers({
   projectRates,
   projectUFactors,
   projectTasks,
-  projectResourcePlans
-})
+  projectResourcePlans,
+});
 
-export default rootReducer
+export default rootReducer;

@@ -1,7 +1,7 @@
 import React, { Component } from 'react';
 import { Redirect, Route, Switch } from 'react-router-dom';
 import { Container } from 'reactstrap';
-import { connect } from 'react-redux'
+import { connect } from 'react-redux';
 
 import {
   AppAside,
@@ -21,23 +21,22 @@ import FullAside from './FullAside';
 import FullFooter from './FullFooter';
 import FullHeader from './FullHeader';
 
-import Dashboard from '../../project/containers/Dashboard/';
-import AddProject from '../../project/containers/AddProject/';
-import GlobalRate from '../../project/containers/GlobalRates/';
-import Tabs from '../../project/containers/Tabs/';
+import Dashboard from '../../project/containers/Dashboard';
+import AddProject from '../../project/containers/AddProject';
+import GlobalRate from '../../project/containers/GlobalRates';
+import Tabs from '../../project/containers/Tabs';
 
 class Full extends Component {
-
   render() {
     const createProjectItems = (projects) => {
-      let project = projects[projects.length - 1];
+      const project = projects[projects.length - 1];
       if (project !== undefined) {
-        let item = {
+        const item = {
           name: project.title,
-          url: '/project/' + project.pid,
-          icon: 'icon-speedometer'
+          url: `/project/${project.pid}`,
+          icon: 'icon-speedometer',
         };
-        let oldItem = navigation.items[navigation.items.length - 1];
+        const oldItem = navigation.items[navigation.items.length - 1];
         if (oldItem.url !== item.url) {
           navigation.items.push(item);
         }
@@ -64,10 +63,10 @@ class Full extends Component {
             <Container fluid>
               <Switch>
                 <Route path="/dashboard" name="Dashboard" component={Dashboard} />
-                <Route path="/project/add" name="AddProject" component={AddProject}/>
-                <Route path="/project/global-rates" name="GlobalRates" component={GlobalRate}/>
-                <Route path="/project/:pid" name="Project" component={Tabs}/>
-                <Redirect from="/" to="/dashboard"/>
+                <Route path="/project/add" name="AddProject" component={AddProject} />
+                <Route path="/project/global-rates" name="GlobalRates" component={GlobalRate} />
+                <Route path="/project/:pid" name="Project" component={Tabs} />
+                <Redirect from="/" to="/dashboard" />
               </Switch>
             </Container>
           </main>
@@ -83,11 +82,11 @@ class Full extends Component {
   }
 }
 
-const mapStateToProps = state => {
-  const { viewedProjects} = state.projectOperations
+const mapStateToProps = (state) => {
+  const { viewedProjects } = state.projectOperations;
   return {
-    viewedProjects
-  }
-}
+    viewedProjects,
+  };
+};
 
-export default connect(mapStateToProps)(Full)
+export default connect(mapStateToProps)(Full);

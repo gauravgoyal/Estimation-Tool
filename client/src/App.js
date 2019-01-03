@@ -9,7 +9,7 @@ import 'font-awesome/css/font-awesome.min.css';
 // Import Simple Line Icons Set
 import 'simple-line-icons/css/simple-line-icons.css';
 // Import Main styles for this application
-import './scss/style.css'
+import './scss/style.css';
 // import '../node_modules/@coreui/styles/scss/_dropdown-menu-right.scss';
 
 // Containers
@@ -20,7 +20,6 @@ import { Page404, Page500 } from './views/Pages';
 // import { renderRoutes } from 'react-router-config';
 
 class App extends Component {
-
   render() {
     return (
       <HashRouter>
@@ -34,4 +33,4 @@ class App extends Component {
   }
 }
 
-export default App
+export default App;

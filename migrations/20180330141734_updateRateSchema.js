@@ -1,12 +1,12 @@
 
-exports.up = function(knex, Promise) {
+exports.up = function (knex, Promise) {
   return Promise.all([
-    knex.schema.table('rates', function(table) {
+    knex.schema.table('rates', (table) => {
       table.string('code');
-    })
+    }),
   ]);
 };
 
-exports.down = function(knex, Promise) {
+exports.down = function (knex, Promise) {
 
 };

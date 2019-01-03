@@ -6,29 +6,29 @@ module.exports = {
         {
           currency: 'USD',
           standard_rate: 340,
-          cost: 110
+          cost: 110,
         },
         {
           currency: 'Public Sector',
           standard_rate: 245,
-          cost: 110
+          cost: 110,
         },
         {
           currency: 'GBP',
           standard_rate: 190,
-          cost: 90
+          cost: 90,
         },
         {
           currency: 'EUR',
           standard_rate: 230,
-          cost: 105
+          cost: 105,
         },
         {
           currency: 'AUD',
           standard_rate: 295,
-          cost: 145
+          cost: 145,
         },
-      ]
+      ],
     },
     {
       role: 'Program Lead - Required',
@@ -36,29 +36,29 @@ module.exports = {
         {
           currency: 'USD',
           standard_rate: 315,
-          cost: 86
+          cost: 86,
         },
         {
           currency: 'Public Sector',
           standard_rate: 225,
-          cost: 86
+          cost: 86,
         },
         {
           currency: 'GBP',
           standard_rate: 175,
-          cost: 60
+          cost: 60,
         },
         {
           currency: 'EUR',
           standard_rate: 215,
-          cost: 70
+          cost: 70,
         },
         {
           currency: 'AUD',
           standard_rate: 275,
-          cost: 114
+          cost: 114,
         },
-      ]
+      ],
     },
     {
       role: 'Technical Program Lead - Required',
@@ -67,29 +67,29 @@ module.exports = {
         {
           currency: 'USD',
           standard_rate: 315,
-          cost: 88
+          cost: 88,
         },
         {
           currency: 'Public Sector',
           standard_rate: 225,
-          cost: 88
+          cost: 88,
         },
         {
           currency: 'GBP',
           standard_rate: 175,
-          cost: 56
+          cost: 56,
         },
         {
           currency: 'EUR',
           standard_rate: 215,
-          cost: 65
+          cost: 65,
         },
         {
           currency: 'AUD',
           standard_rate: 275,
-          cost: 116
+          cost: 116,
         },
-      ]
+      ],
     },
     {
       role: 'Technical Architect - Required',
@@ -98,29 +98,29 @@ module.exports = {
         {
           currency: 'USD',
           standard_rate: 285,
-          cost: 73
+          cost: 73,
         },
         {
           currency: 'Public Sector',
           standard_rate: 215,
-          cost: 73
+          cost: 73,
         },
         {
           currency: 'GBP',
           standard_rate: 150,
-          cost: 56
+          cost: 56,
         },
         {
           currency: 'EUR',
           standard_rate: 175,
-          cost: 65
+          cost: 65,
         },
         {
           currency: 'AUD',
           standard_rate: 250,
-          cost: 95
+          cost: 95,
         },
-      ]
+      ],
     },
     {
       role: 'Front End Architect',
@@ -129,29 +129,29 @@ module.exports = {
         {
           currency: 'USD',
           standard_rate: 285,
-          cost: 56
+          cost: 56,
         },
         {
           currency: 'Public Sector',
           standard_rate: 215,
-          cost: 56
+          cost: 56,
         },
         {
           currency: 'GBP',
           standard_rate: 150,
-          cost: 56
+          cost: 56,
         },
         {
           currency: 'EUR',
           standard_rate: 175,
-          cost: 65
+          cost: 65,
         },
         {
           currency: 'AUD',
           standard_rate: 250,
-          cost: 95
+          cost: 95,
         },
-      ]
+      ],
     },
     {
       role: 'Contingency',
@@ -159,29 +159,29 @@ module.exports = {
         {
           currency: 'USD',
           standard_rate: 285,
-          cost: 73
+          cost: 73,
         },
         {
           currency: 'Public Sector',
           standard_rate: 215,
-          cost: 73
+          cost: 73,
         },
         {
           currency: 'GBP',
           standard_rate: 150,
-          cost: 56
+          cost: 56,
         },
         {
           currency: 'EUR',
           standard_rate: 175,
-          cost: 65
+          cost: 65,
         },
         {
           currency: 'AUD',
           standard_rate: 250,
-          cost: 95
+          cost: 95,
         },
-      ]
+      ],
     },
     {
       role: 'Program Manager - Required',
@@ -189,29 +189,29 @@ module.exports = {
         {
           currency: 'USD',
           standard_rate: 260,
-          cost: 78
+          cost: 78,
         },
         {
           currency: 'Public Sector',
           standard_rate: 195,
-          cost: 78
+          cost: 78,
         },
         {
           currency: 'GBP',
           standard_rate: 150,
-          cost: 56
+          cost: 56,
         },
         {
           currency: 'EUR',
           standard_rate: 175,
-          cost: 65
+          cost: 65,
         },
         {
           currency: 'AUD',
           standard_rate: 225,
-          cost: 98
+          cost: 98,
         },
-      ]
+      ],
     },
     {
       role: 'Sr. Project Manager',
@@ -219,29 +219,29 @@ module.exports = {
         {
           currency: 'USD',
           standard_rate: 215,
-          cost: 67
+          cost: 67,
         },
         {
           currency: 'Public Sector',
           standard_rate: 150,
-          cost: 67
+          cost: 67,
         },
         {
           currency: 'GBP',
           standard_rate: 125,
-          cost: 41
+          cost: 41,
         },
         {
           currency: 'EUR',
           standard_rate: 155,
-          cost: 58
+          cost: 58,
         },
         {
           currency: 'AUD',
           standard_rate: 205,
-          cost: 88
+          cost: 88,
         },
-      ]
+      ],
     },
     {
       role: 'Sr. Front End Developer',
@@ -250,29 +250,29 @@ module.exports = {
         {
           currency: 'USD',
           standard_rate: 215,
-          cost: 67
+          cost: 67,
         },
         {
           currency: 'Public Sector',
           standard_rate: 140,
-          cost: 67
+          cost: 67,
         },
         {
           currency: 'GBP',
           standard_rate: 125,
-          cost: 52
+          cost: 52,
         },
         {
           currency: 'EUR',
           standard_rate: 165,
-          cost: 58
+          cost: 58,
         },
         {
           currency: 'AUD',
           standard_rate: 210,
-          cost: 88
+          cost: 88,
         },
-      ]
+      ],
     },
     {
       role: 'Sr. Developer',
@@ -281,29 +281,29 @@ module.exports = {
         {
           currency: 'USD',
           standard_rate: 215,
-          cost: 67
+          cost: 67,
         },
         {
           currency: 'Public Sector',
           standard_rate: 140,
-          cost: 67
+          cost: 67,
         },
         {
           currency: 'GBP',
           standard_rate: 125,
-          cost: 52
+          cost: 52,
         },
         {
           currency: 'EUR',
           standard_rate: 165,
-          cost: 58
+          cost: 58,
         },
         {
           currency: 'AUD',
           standard_rate: 210,
-          cost: 88
+          cost: 88,
         },
-      ]
+      ],
     },
     {
       role: 'Project Manager',
@@ -311,29 +311,29 @@ module.exports = {
         {
           currency: 'USD',
           standard_rate: 180,
-          cost: 60
+          cost: 60,
         },
         {
           currency: 'Public Sector',
           standard_rate: 140,
-          cost: 60
+          cost: 60,
         },
         {
           currency: 'GBP',
           standard_rate: 105,
-          cost: 47
+          cost: 47,
         },
         {
           currency: 'EUR',
           standard_rate: 130,
-          cost: 54
+          cost: 54,
         },
         {
           currency: 'AUD',
           standard_rate: 190,
-          cost: 80
+          cost: 80,
         },
-      ]
+      ],
     },
     {
       role: 'Front End Developer',
@@ -342,29 +342,29 @@ module.exports = {
         {
           currency: 'USD',
           standard_rate: 180,
-          cost: 56
+          cost: 56,
         },
         {
           currency: 'Public Sector',
           standard_rate: 120,
-          cost: 56
+          cost: 56,
         },
         {
           currency: 'GBP',
           standard_rate: 105,
-          cost: 41
+          cost: 41,
         },
         {
           currency: 'EUR',
           standard_rate: 130,
-          cost: 50
+          cost: 50,
         },
         {
           currency: 'AUD',
           standard_rate: 190,
-          cost: 74
+          cost: 74,
         },
-      ]
+      ],
     },
     {
       role: 'Developer',
@@ -373,29 +373,29 @@ module.exports = {
         {
           currency: 'USD',
           standard_rate: 180,
-          cost: 56
+          cost: 56,
         },
         {
           currency: 'Public Sector',
           standard_rate: 120,
-          cost: 56
+          cost: 56,
         },
         {
           currency: 'GBP',
           standard_rate: 105,
-          cost: 41
+          cost: 41,
         },
         {
           currency: 'EUR',
           standard_rate: 130,
-          cost: 50
+          cost: 50,
         },
         {
           currency: 'AUD',
           standard_rate: 190,
-          cost: 67
+          cost: 67,
         },
-      ]
+      ],
     },
     {
       role: 'Quality Assurance',
@@ -403,29 +403,29 @@ module.exports = {
         {
           currency: 'USD',
           standard_rate: 180,
-          cost: 53
+          cost: 53,
         },
         {
           currency: 'Public Sector',
           standard_rate: 120,
-          cost: 56
+          cost: 56,
         },
         {
           currency: 'GBP',
           standard_rate: 105,
-          cost: 41
+          cost: 41,
         },
         {
           currency: 'EUR',
           standard_rate: 130,
-          cost: 50
+          cost: 50,
         },
         {
           currency: 'AUD',
           standard_rate: 190,
-          cost: 67
+          cost: 67,
         },
-      ]
+      ],
     },
     {
       role: 'Technical Project Manager - India',
@@ -433,29 +433,29 @@ module.exports = {
         {
           currency: 'USD',
           standard_rate: 115,
-          cost: 31
+          cost: 31,
         },
         {
           currency: 'Public Sector',
           standard_rate: 100,
-          cost: 31
+          cost: 31,
         },
         {
           currency: 'GBP',
           standard_rate: 65,
-          cost: 23
+          cost: 23,
         },
         {
           currency: 'EUR',
           standard_rate: 85,
-          cost: 20
+          cost: 20,
         },
         {
           currency: 'AUD',
           standard_rate: 125,
-          cost: 24
+          cost: 24,
         },
-      ]
+      ],
     },
     {
       role: 'Technical Architect - India',
@@ -464,29 +464,29 @@ module.exports = {
         {
           currency: 'USD',
           standard_rate: 115,
-          cost: 31
+          cost: 31,
         },
         {
           currency: 'Public Sector',
           standard_rate: 100,
-          cost: 31
+          cost: 31,
         },
         {
           currency: 'GBP',
           standard_rate: 65,
-          cost: 23
+          cost: 23,
         },
         {
           currency: 'EUR',
           standard_rate: 85,
-          cost: 20
+          cost: 20,
         },
         {
           currency: 'AUD',
           standard_rate: 125,
-          cost: 24
+          cost: 24,
         },
-      ]
+      ],
     },
     {
       role: 'QA Lead - India',
@@ -494,29 +494,29 @@ module.exports = {
         {
           currency: 'USD',
           standard_rate: 85,
-          cost: 16
+          cost: 16,
         },
         {
           currency: 'Public Sector',
           standard_rate: 75,
-          cost: 16
+          cost: 16,
         },
         {
           currency: 'GBP',
           standard_rate: 50,
-          cost: 13
+          cost: 13,
         },
         {
           currency: 'EUR',
           standard_rate: 65,
-          cost: 15
+          cost: 15,
         },
         {
           currency: 'AUD',
           standard_rate: 90,
-          cost: 21
+          cost: 21,
         },
-      ]
+      ],
     },
     {
       role: 'Project Manager - India',
@@ -524,29 +524,29 @@ module.exports = {
         {
           currency: 'USD',
           standard_rate: 65,
-          cost: 31
+          cost: 31,
         },
         {
           currency: 'Public Sector',
           standard_rate: 45,
-          cost: 31
+          cost: 31,
         },
         {
           currency: 'GBP',
           standard_rate: 35,
-          cost: 23
+          cost: 23,
         },
         {
           currency: 'EUR',
           standard_rate: 45,
-          cost: 20
+          cost: 20,
         },
         {
           currency: 'AUD',
           standard_rate: 65,
-          cost: 24
+          cost: 24,
         },
-      ]
+      ],
     },
     {
       role: 'Front End Developer - India',
@@ -555,29 +555,29 @@ module.exports = {
         {
           currency: 'USD',
           standard_rate: 65,
-          cost: 12
+          cost: 12,
         },
         {
           currency: 'Public Sector',
           standard_rate: 45,
-          cost: 12
+          cost: 12,
         },
         {
           currency: 'GBP',
           standard_rate: 35,
-          cost: 9.50
+          cost: 9.50,
         },
         {
           currency: 'EUR',
           standard_rate: 45,
-          cost: 10
+          cost: 10,
         },
         {
           currency: 'AUD',
           standard_rate: 65,
-          cost: 15
+          cost: 15,
         },
-      ]
+      ],
     },
     {
       role: 'Developer - India',
@@ -586,29 +586,29 @@ module.exports = {
         {
           currency: 'USD',
           standard_rate: 65,
-          cost: 12
+          cost: 12,
         },
         {
           currency: 'Public Sector',
           standard_rate: 45,
-          cost: 12
+          cost: 12,
         },
         {
           currency: 'GBP',
           standard_rate: 35,
-          cost: 9.50
+          cost: 9.50,
         },
         {
           currency: 'EUR',
           standard_rate: 45,
-          cost: 10
+          cost: 10,
         },
         {
           currency: 'AUD',
           standard_rate: 65,
-          cost: 15
+          cost: 15,
         },
-      ]
+      ],
     },
     {
       role: 'QA - India',
@@ -616,29 +616,29 @@ module.exports = {
         {
           currency: 'USD',
           standard_rate: 65,
-          cost: 12
+          cost: 12,
         },
         {
           currency: 'Public Sector',
           standard_rate: 45,
-          cost: 12
+          cost: 12,
         },
         {
           currency: 'GBP',
           standard_rate: 35,
-          cost: 9.50
+          cost: 9.50,
         },
         {
           currency: 'EUR',
           standard_rate: 45,
-          cost: 10
+          cost: 10,
         },
         {
           currency: 'AUD',
           standard_rate: 65,
-          cost: 15
+          cost: 15,
         },
-      ]
+      ],
     },
-  ]
+  ],
 };
