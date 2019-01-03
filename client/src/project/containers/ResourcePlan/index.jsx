@@ -436,12 +436,21 @@ class ResourcePlan extends Component {
     }
 
     const noOfWeeks = currPlan.weeks;
+    
+    let lock = false;
+    resourcePlans.forEach(plan => {
+      if (plan.lock === 1) {
+        lock = true;
+        return;
+      }
+    })
 
     return (
       <div>
         {
           (add) ?
           <AddResourcePlan
+            lock = { lock }
             options = {options}
             rateOptions = { rateOptions }
             cellEditProp = { cellEditProp }

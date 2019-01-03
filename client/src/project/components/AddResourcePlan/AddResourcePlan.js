@@ -29,7 +29,7 @@ class AddResourcePlan extends Component {
 
   render = () => {
     var weeks = this.state.weeks
-    const { header, rows, rateOptions, cellEditProp, options, revenue, totalRevenue, noOfWeeks, syncData } = this.props
+    const { header, rows, rateOptions, cellEditProp, options, revenue, totalRevenue, noOfWeeks, syncData, lock } = this.props
     let total = totalRevenue
     
     if (noOfWeeks > 5) {
@@ -87,7 +87,7 @@ class AddResourcePlan extends Component {
                 </Form>
               </Col>
               {
-                (rows.lock !== 1) ?
+                (lock === false) ?
                 <Col sm={{ size: 'auto'}}>
                   <Button color="danger" active type="submit" onClick= {() => this.props.approveResourcePlan(1)}>Approve Plan</Button>
                 </Col>
