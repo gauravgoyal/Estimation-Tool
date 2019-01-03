@@ -15,13 +15,20 @@ class Dashboard extends Component {
 
   render() {
     const { isFetching, projectsList } = this.props
-    return (
-      <div className="animated fadeIn">
-        {
-          (isFetching) ? <h2>Loading...</h2> : <ProjectsDashboard projects={projectsList} addProject={this.pushProject.bind(this)} />
-        }
-      </div>
-    );
+    if (isFetching !== undefined && projectsList !== undefined) {
+      return (
+        <div className="animated fadeIn">
+          {
+            (isFetching) ? <h2>Loading...</h2> : <ProjectsDashboard projects={projectsList} addProject={this.pushProject.bind(this)} />
+          }
+        </div>
+      );
+    }
+    else {
+      return(
+        <div>Waiting for projects to load....</div>
+      );
+    }
   }
 }
 
